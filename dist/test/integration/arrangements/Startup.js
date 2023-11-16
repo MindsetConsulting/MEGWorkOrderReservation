@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/test/Opa5","meg/workorder/localService/mockserver"],function(t,e){"use strict";return t.extend("meg.workorder.test.integration.arrangements.Startup",{iStartMyApp:function(t){var r=t||{};r.delay=r.delay||50;var a=e.init(r);this.iWaitForPromise(a);this.iStartMyUIComponent({componentConfig:{name:"meg.workorder",async:true},hash:r.hash,autoWait:r.autoWait})}})});
+//# sourceMappingURL=Startup.js.map

@@ -1,0 +1,164 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+<edmx:DataServices m:DataServiceVersion="2.0">
+<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV" xml:lang="en" sap:schema-version="1">
+<EntityType Name="ZUSPPMEG01_WORK_ORDER_HEADER" sap:content-version="1">
+<Key>
+<PropertyRef Name="WorkOrder"/>
+</Key>
+<Property Name="WorkOrder" Type="Edm.String" Nullable="false" sap:label="Work Order" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+<Property Name="Plant" Type="Edm.String" Nullable="false" sap:label="Plant" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="OrderType" Type="Edm.String" Nullable="false" sap:label="Order Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Description" Type="Edm.String" Nullable="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="PlannerGroup" Type="Edm.String" Nullable="false" sap:label="Planner Group" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="WorkCenter" Type="Edm.String" Nullable="false" sap:label="Work Center" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="FunctLocation" Type="Edm.String" Nullable="false" sap:label="Functional Location" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Equipment" Type="Edm.String" Nullable="false" sap:label="Equipment" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<NavigationProperty Name="OrdOperationNav" Relationship="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_ORDER_OPERATION_ASSOC" FromRole="FromRole_ZUSPPMEG01_ORDER_OPERATION_ASSOC" ToRole="ToRole_ZUSPPMEG01_ORDER_OPERATION_ASSOC"/>
+<NavigationProperty Name="EquipBOMItemNav" Relationship="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_EQUIPMENT_BOM_ITEM_ASSOC" FromRole="FromRole_ZUSPPMEG01_EQUIPMENT_BOM_ITEM_ASSOC" ToRole="ToRole_ZUSPPMEG01_EQUIPMENT_BOM_ITEM_ASSOC"/>
+<NavigationProperty Name="AddPartItemNav" Relationship="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_ADD_PART_ITEM_ASSOC" FromRole="FromRole_ZUSPPMEG01_ADD_PART_ITEM_ASSOC" ToRole="ToRole_ZUSPPMEG01_ADD_PART_ITEM_ASSOC"/>
+</EntityType>
+<EntityType Name="ZUSPPMEG01_WORK_ORDER_OPERATION" sap:content-version="1">
+<Key>
+<PropertyRef Name="WorkOrder"/>
+</Key>
+<Property Name="WorkOrder" Type="Edm.String" Nullable="false" sap:label="Work Order" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="OperationNum" Type="Edm.String" Nullable="false" sap:label="Operation Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="OperationDesc" Type="Edm.String" Nullable="false" sap:label="Operation Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+</EntityType>
+<EntityType Name="ZUSPPMEG01_WORK_ORDER_EQUI_BOM_ITEM" sap:content-version="1">
+<Key>
+<PropertyRef Name="WorkOrder"/>
+</Key>
+<Property Name="WorkOrder" Type="Edm.String" Nullable="false" sap:label="Work Order" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Part" Type="Edm.String" Nullable="false" sap:label="Part" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="PartDesc" Type="Edm.String" Nullable="false" sap:label="Part Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="BOMQuan" Type="Edm.String" Nullable="false" sap:label="BOM Quantity" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="DesiredQuan" Type="Edm.String" Nullable="false" sap:label="Desired Quantity" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Operation" Type="Edm.String" Nullable="false" sap:label="Operation" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Select" Type="Edm.Boolean" Nullable="false" sap:label="Select" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+</EntityType>
+<EntityType Name="ZUSPPMEG01_WORK_ORDER_ADD_PART_ITEM" sap:content-version="1">
+<Key>
+<PropertyRef Name="WorkOrder"/>
+</Key>
+<Property Name="WorkOrder" Type="Edm.String" Nullable="false" sap:label="Work Order" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Part" Type="Edm.String" Nullable="false" sap:label="Part" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="PartDesc" Type="Edm.String" Nullable="false" sap:label="Part Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="DesiredQuan" Type="Edm.String" Nullable="false" sap:label="Desired Quantity" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Operation" Type="Edm.String" Nullable="false" sap:label="Operation" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+</EntityType>
+<EntityType Name="ZUSPPMEG01_WORK_ORDER_F4" sap:content-version="1">
+<Key>
+<PropertyRef Name="WorkOrder"/>
+</Key>
+<Property Name="WorkOrder" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+<Property Name="Description" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+</EntityType>
+<EntityType Name="ZUSPPMEG01_PLANT_F4" sap:content-version="1">
+<Key>
+<PropertyRef Name="Plant"/>
+</Key>
+<Property Name="Plant" Type="Edm.String" Nullable="false" sap:label="Plant" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+<Property Name="Description" Type="Edm.String" Nullable="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+</EntityType>
+<EntityType Name="ZUSPPMEG01_ORDER_TYPE_F4" sap:content-version="1">
+<Key>
+<PropertyRef Name="OrderType"/>
+</Key>
+<Property Name="OrderType" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Description" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+</EntityType>
+<EntityType Name="ZUSPPMEG01_PLANNER_GROUP_F4" sap:content-version="1">
+<Key>
+<PropertyRef Name="PlannerGroup"/>
+</Key>
+<Property Name="PlannerGroup" Type="Edm.String" Nullable="false" sap:label="Planner Group" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Description" Type="Edm.String" Nullable="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+</EntityType>
+<EntityType Name="ZUSPPMEG01_WORK_CENTER_F4" sap:content-version="1">
+<Key>
+<PropertyRef Name="WorkCenter"/>
+</Key>
+<Property Name="WorkCenter" Type="Edm.String" Nullable="false" sap:label="WorkCenter" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Description" Type="Edm.String" Nullable="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+</EntityType>
+<EntityType Name="ZUSPPMEG01_FUNCTION_LOCATION_F4" sap:content-version="1">
+<Key>
+<PropertyRef Name="FunctLocation"/>
+</Key>
+<Property Name="FunctLocation" Type="Edm.String" Nullable="false" sap:label="Function location" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Description" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+</EntityType>
+<EntityType Name="ZUSPPMEG01_EQUIPMENT_F4" sap:content-version="1">
+<Key>
+<PropertyRef Name="Equipment"/>
+</Key>
+<Property Name="Equipment" Type="Edm.String" Nullable="false" sap:label="Equipment" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Description" Type="Edm.String" Nullable="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+</EntityType>
+<Association Name="ZUSPPMEG01_EQUIPMENT_BOM_ITEM_ASSOC" sap:content-version="1">
+<End Type="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_WORK_ORDER_HEADER" Multiplicity="1" Role="FromRole_ZUSPPMEG01_EQUIPMENT_BOM_ITEM_ASSOC"/>
+<End Type="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_WORK_ORDER_EQUI_BOM_ITEM" Multiplicity="*" Role="ToRole_ZUSPPMEG01_EQUIPMENT_BOM_ITEM_ASSOC"/>
+<ReferentialConstraint>
+<Principal Role="FromRole_ZUSPPMEG01_EQUIPMENT_BOM_ITEM_ASSOC">
+<PropertyRef Name="WorkOrder"/>
+</Principal>
+<Dependent Role="ToRole_ZUSPPMEG01_EQUIPMENT_BOM_ITEM_ASSOC">
+<PropertyRef Name="WorkOrder"/>
+</Dependent>
+</ReferentialConstraint>
+</Association>
+<Association Name="ZUSPPMEG01_ADD_PART_ITEM_ASSOC" sap:content-version="1">
+<End Type="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_WORK_ORDER_HEADER" Multiplicity="1" Role="FromRole_ZUSPPMEG01_ADD_PART_ITEM_ASSOC"/>
+<End Type="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_WORK_ORDER_ADD_PART_ITEM" Multiplicity="*" Role="ToRole_ZUSPPMEG01_ADD_PART_ITEM_ASSOC"/>
+<ReferentialConstraint>
+<Principal Role="FromRole_ZUSPPMEG01_ADD_PART_ITEM_ASSOC">
+<PropertyRef Name="WorkOrder"/>
+</Principal>
+<Dependent Role="ToRole_ZUSPPMEG01_ADD_PART_ITEM_ASSOC">
+<PropertyRef Name="WorkOrder"/>
+</Dependent>
+</ReferentialConstraint>
+</Association>
+<Association Name="ZUSPPMEG01_ORDER_OPERATION_ASSOC" sap:content-version="1">
+<End Type="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_WORK_ORDER_HEADER" Multiplicity="1" Role="FromRole_ZUSPPMEG01_ORDER_OPERATION_ASSOC"/>
+<End Type="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_WORK_ORDER_OPERATION" Multiplicity="*" Role="ToRole_ZUSPPMEG01_ORDER_OPERATION_ASSOC"/>
+<ReferentialConstraint>
+<Principal Role="FromRole_ZUSPPMEG01_ORDER_OPERATION_ASSOC">
+<PropertyRef Name="WorkOrder"/>
+</Principal>
+<Dependent Role="ToRole_ZUSPPMEG01_ORDER_OPERATION_ASSOC">
+<PropertyRef Name="WorkOrder"/>
+</Dependent>
+</ReferentialConstraint>
+</Association>
+<EntityContainer Name="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+<EntitySet Name="ZUSPPMEG01_WORK_ORDER_HEADERSet" EntityType="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_WORK_ORDER_HEADER" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+<EntitySet Name="ZUSPPMEG01_WORK_ORDER_operationsSet" EntityType="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_WORK_ORDER_OPERATION" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+<EntitySet Name="ZUSPPMEG01_WORK_ORDER_EQUI_BOM_ITEMSet" EntityType="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_WORK_ORDER_EQUI_BOM_ITEM" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+<EntitySet Name="ZUSPPMEG01_WORK_ORDER_ADD_PART_ITEMSet" EntityType="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_WORK_ORDER_ADD_PART_ITEM" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+<EntitySet Name="ZUSPPMEG01_WORK_ORDER_F4Set" EntityType="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_WORK_ORDER_F4" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+<EntitySet Name="ZUSPPMEG01_PLANT_F4Set" EntityType="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_PLANT_F4" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+<EntitySet Name="ZUSPPMEG01_ORDER_TYPE_F4Set" EntityType="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_ORDER_TYPE_F4" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+<EntitySet Name="ZUSPPMEG01_PLANNER_GROUP_F4Set" EntityType="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_PLANNER_GROUP_F4" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+<EntitySet Name="ZUSPPMEG01_WORK_CENTER_F4Set" EntityType="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_WORK_CENTER_F4" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+<EntitySet Name="ZUSPPMEG01_FUNCTION_LOCATION_F4Set" EntityType="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_FUNCTION_LOCATION_F4" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+<EntitySet Name="ZUSPPMEG01_EQUIPMENT_F4Set" EntityType="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_EQUIPMENT_F4" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+<AssociationSet Name="ZUSPPMEG01_EQUIPMENT_BOM_ITEM_ASSOCSet" Association="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_EQUIPMENT_BOM_ITEM_ASSOC" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+<End EntitySet="ZUSPPMEG01_WORK_ORDER_HEADERSet" Role="FromRole_ZUSPPMEG01_EQUIPMENT_BOM_ITEM_ASSOC"/>
+<End EntitySet="ZUSPPMEG01_WORK_ORDER_EQUI_BOM_ITEMSet" Role="ToRole_ZUSPPMEG01_EQUIPMENT_BOM_ITEM_ASSOC"/>
+</AssociationSet>
+<AssociationSet Name="ZUSPPMEG01_ORDER_OPERATION_ASSOCSet" Association="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_ORDER_OPERATION_ASSOC" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+<End EntitySet="ZUSPPMEG01_WORK_ORDER_HEADERSet" Role="FromRole_ZUSPPMEG01_ORDER_OPERATION_ASSOC"/>
+<End EntitySet="ZUSPPMEG01_WORK_ORDER_operationsSet" Role="ToRole_ZUSPPMEG01_ORDER_OPERATION_ASSOC"/>
+</AssociationSet>
+<AssociationSet Name="ZUSPPMEG01_ADD_PART_ITEM_ASSOCSet" Association="ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV.ZUSPPMEG01_ADD_PART_ITEM_ASSOC" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+<End EntitySet="ZUSPPMEG01_WORK_ORDER_HEADERSet" Role="FromRole_ZUSPPMEG01_ADD_PART_ITEM_ASSOC"/>
+<End EntitySet="ZUSPPMEG01_WORK_ORDER_ADD_PART_ITEMSet" Role="ToRole_ZUSPPMEG01_ADD_PART_ITEM_ASSOC"/>
+</AssociationSet>
+</EntityContainer>
+<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="https://10.223.0.137:8443/sap/opu/odata/SAP/ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV/$metadata"/>
+<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="https://10.223.0.137:8443/sap/opu/odata/SAP/ZUSPPMEGI01_WORK_ORD_APPROVAL_SRV/$metadata"/>
+</Schema>
+</edmx:DataServices>
+</edmx:Edmx>

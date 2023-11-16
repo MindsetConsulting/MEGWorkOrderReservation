@@ -1,0 +1,12 @@
+{
+    "base": "./dist",
+    "conn_client" : "410",
+    "conn_usestrictssl" : false,
+    "conn_server": "https://10.223.0.137:8443",
+    "conn_user": "VELLURU",
+    "conn_password": "Bruno@1989",
+    "abap_package": "ZMEG_FIORI",
+    "abap_transport": "DESK9A0Z19",
+    "abap_bsp": "ZMEG_WO_RESERV",
+    "abap_bsp_text": "Work Order Material Reservation"
+}

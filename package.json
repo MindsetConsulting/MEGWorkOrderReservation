@@ -11,12 +11,13 @@
   "main": "webapp/index.html",
   "devDependencies": {
     "@sap/ux-ui5-tooling": "1",
-    "@ui5/cli": "^3.7.1"
+    "@ui5/cli": "^3.7.1",
+    "nwabap-ui5uploader": "^1.2.0"
   },
   "scripts": {
     "start": "fiori run --open 'test/flpSandbox.html#megworkorder-display'",
     "build": "ui5 build --config=ui5.yaml --clean-dest --dest dist",
-    "deploy": "fiori verify",
+    "deploy": "npx nwabap upload",
     "deploy-config": "fiori add deploy-config",
     "start-local": "fiori run --config ./ui5-local.yaml --open 'test/flpSandbox.html#megworkorder-display'",
     "start-noflp": "fiori run --open 'index.html'",
