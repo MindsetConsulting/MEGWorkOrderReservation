@@ -1,0 +1,133 @@
+<mvc:View controllerName="meg.workorder.controller.WorkOrder"
+	xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core"
+	xmlns:sapf="sap.f"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:sfb="sap.ui.comp.smartfilterbar"
+	xmlns:smartTable="sap.ui.comp.smarttable">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="{i18n>title}">
+					<content>
+						<!-- <VBox class="sapUiSmallMargin">
+							<f:SimpleForm id="SF" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+								<f:content>
+									<Label text="Work Order #" />
+									<ComboBox items="{path: 'localModel>/WorkOrderNo'}">
+										<core:Item key="{localModel>No}" text="{localModel>No}" />
+									</ComboBox>
+									<Button text="Enter" press="onOpen" width="5rem" type="Default"/>
+								</f:content>
+							</f:SimpleForm>
+						</VBox> -->
+
+						<fb:FilterBar id="FilterBar" clear="onResetFilters" reset="onReset" showRestoreButton="false" showClearButton="false" showClearOnFB="true" showGoOnFB="false" filterBarExpanded="true">
+							<fb:filterGroupItems>
+								<fb:FilterGroupItem groupName="G1" name="Work Order #" label="Work Order #" visibleInFilterBar="true">
+									<fb:control>
+										<MultiComboBox id="idWO" items="{path: ''}" selectedKeys="" selectionChange="">
+											<core:Item key="" text="" />
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+
+								<fb:FilterGroupItem groupName="G1" name="Plant" label="Plant" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idPlant" items="{path: ''}" selectedKeys="" selectionChange="">
+											<core:Item key="" text="" />
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+
+								<fb:FilterGroupItem groupName="G1" name="Order Type" label="Order Type" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idOrderType" items="{path: ''}" selectionChange="" selectedKeys="">
+											<core:Item key="" text="" />
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+
+								<fb:FilterGroupItem groupName="G1" name="Planner Group" label="Planner Group" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idPlannerGroup" items="{path: ''}" selectionChange="" selectedKeys="">
+											<core:Item key="" text="" />
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+
+								<fb:FilterGroupItem groupName="G1" name="Work Center" label="Work Center" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox items="{path: ''}" selectionChange="" selectedKeys="">
+											<core:Item key="" text="" />
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem groupName="G1" name="Func Loc" label="Func Loc" visibleInFilterBar="false" class="sapUiSizeCompact sapUiLargeMarginTop">
+									<fb:control>
+										<MultiComboBox items="{path: ''}" selectionChange="" selectedKeys="">
+											<core:Item key="" text="" />
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem groupName="G1" name="Equipment" label="Equipment" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox items="{path: ''}" selectionChange="" selectedKeys="">
+											<core:Item key="" text="" />
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+							</fb:filterGroupItems>
+						</fb:FilterBar>
+
+
+						<VBox>
+							<Table id="workOrderID" items="{localModel>/workOrder}" mode="Navigation">
+								<columns>
+									<Column width="11rem">
+										<Label text="Work Order"/>
+									</Column>
+									<Column width="11rem">
+										<Label text="Plant"/>
+									</Column>
+									<Column width="11rem">
+										<Label text="Order Type"/>
+									</Column>
+									<Column width="6rem" hAlign="End">
+										<Label text="Planner Group"/>
+									</Column>
+									<Column width="6rem" hAlign="End">
+										<Label text="Work Center"/>
+									</Column>
+									<Column width="6rem" hAlign="End">
+										<Label text="Func Loc"/>
+									</Column>
+									<Column width="6rem" hAlign="End">
+										<Label text="Equipment"/>
+									</Column>
+
+								</columns>
+								<items>
+									<ColumnListItem press="onTablePress" vAlign="Middle" type="Navigation">
+										<cells>
+											<Text text="{localModel>workOrder}" wrapping="false"/>
+											<Text text="{localModel>plant}" wrapping="false"/>
+											<Text text="{localModel>orderType}" wrapping="false"/>
+											<Text text="{localModel>plannerGroup}" wrapping="false"/>
+											<Text text="{localModel>workCenter}" wrapping="false"/>
+											<Text text="{localModel>funcLoc}" wrapping="false"/>
+											<Text text="{localModel>equipment}" wrapping="false"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</VBox>
+					</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

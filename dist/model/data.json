@@ -1,0 +1,155 @@
+{
+  "WorkOrderNo": [
+    { "No": 1 },
+    { "No": 2 },
+    { "No": 3 },
+    { "No": 4 },
+    { "No": 5 }
+  ],
+
+  "workOrder": [
+    {
+      "workOrder": "001",
+      "plant": "Plant 1",
+      "orderType": "Order Type 1",
+      "plannerGroup": "Planner Group 1",
+      "workCenter": "Work Center 1",
+      "funcLoc": "Func Loc 1",
+      "equipment": "Equipment 1"
+    },
+    {
+      "workOrder": "002",
+      "plant": "Plant 2",
+      "orderType": "Order Type 2",
+      "plannerGroup": "Planner Group 2",
+      "workCenter": "Work Center 2",
+      "funcLoc": "Func Loc 2",
+      "equipment": "Equipment 2"
+    },
+    {
+      "workOrder": "003",
+      "plant": "Plant 3",
+      "orderType": "Order Type 3",
+      "plannerGroup": "Planner Group 3",
+      "workCenter": "Work Center 3",
+      "funcLoc": "Func Loc 3",
+      "equipment": "Equipment 3"
+    },
+    {
+      "workOrder": "004",
+      "plant": "Plant 4",
+      "orderType": "Order Type 4",
+      "plannerGroup": "Planner Group 4",
+      "workCenter": "Work Center 4",
+      "funcLoc": "Func Loc 4",
+      "equipment": "Equipment 4"
+    },
+    {
+      "workOrder": "005",
+      "plant": "Plant 5",
+      "orderType": "Order Type 5",
+      "plannerGroup": "Planner Group 5",
+      "workCenter": "Work Center 5",
+      "funcLoc": "Func Loc 5",
+      "equipment": "Equipment 5"
+    }
+  ],
+
+  "orderOperations": [
+    {
+      "OPNo": "0010",
+      "OPDes": "M PIPING INSPECTION"
+    },
+    {
+      "OPNo": "0020",
+      "OPDes": "M STRUCTURAL"
+    },
+    {
+      "OPNo": "0030",
+      "OPDes": "M PIPING INSPECTION"
+    },
+    {
+      "OPNo": "0040",
+      "OPDes": "M STRUCTURAL"
+    },
+    {
+      "OPNo": "0050",
+      "OPDes": "M PIPING INSPECTION"
+    },
+    {
+      "OPNo": "0060",
+      "OPDes": "M STRUCTURAL"
+    }
+  ],
+
+  "equipBOMItems": [
+    {
+      "part": "Part 1",
+      "partDesc": "Part Description Type 1",
+      "BOMQty": "BOM Quantity 1",
+      "desiredQty": "Desired Quantity 1",
+      "operation": "Operation 1"
+    },
+    {
+      "part": "Part 2",
+      "partDesc": "Part Description Type 2",
+      "BOMQty": "BOM Quantity 2",
+      "desiredQty": "Desired Quantity 2",
+      "operation": "Operation 2"
+    },
+    {
+      "part": "Part 3",
+      "partDesc": "Part Description Type 3",
+      "BOMQty": "BOM Quantity 3",
+      "desiredQty": "Desired Quantity 3",
+      "operation": "Operation 3"
+    },
+    {
+      "part": "Part 4",
+      "partDesc": "Part Description Type 4",
+      "BOMQty": "BOM Quantity 4",
+      "desiredQty": "Desired Quantity 4",
+      "operation": "Operation 4"
+    },
+    {
+      "part": "Part 5",
+      "partDesc": "Part Description Type 5",
+      "BOMQty": "BOM Quantity 5",
+      "desiredQty": "Desired Quantity 5",
+      "operation": "Operation 5"
+    }
+  ],
+
+  "addPartsItems": [
+    {
+      "part": "Part 1",
+      "partDesc": "Part Description Type 1",
+      "desiredQty": "Desired Quantity 1",
+      "operation": "Operation 1"
+    },
+    {
+      "part": "Part 2",
+      "partDesc": "Part Description Type 2",
+      "desiredQty": "Desired Quantity 2",
+      "operation": "Operation 2"
+    },
+    {
+      "part": "Part 3",
+      "partDesc": "Part Description Type 3",
+      "desiredQty": "Desired Quantity 3",
+      "operation": "Operation 3"
+    },
+    {
+      "part": "Part 4",
+      "partDesc": "Part Description Type 4",
+      "desiredQty": "Desired Quantity 4",
+      "operation": "Operation 4"
+    },
+    {
+      "part": "Part 5",
+      "partDesc": "Part Description Type 5",
+      "desiredQty": "Desired Quantity 5",
+      "operation": "Operation 5"
+    }
+  ]
+}

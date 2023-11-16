@@ -1,0 +1,2 @@
+sap.ui.define(["meg/workorder/controller/WorkOrder.controller"],function(r){"use strict";QUnit.module("WorkOrder Controller");QUnit.test("I should test the WorkOrder controller",function(o){var e=new r;e.onInit();o.ok(e)})});
+//# sourceMappingURL=WorkOrder.controller.js.map
