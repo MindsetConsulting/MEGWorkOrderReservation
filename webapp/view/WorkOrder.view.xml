@@ -13,24 +13,12 @@
 			<pages>
 				<Page id="page" title="{i18n>title}">
 					<content>
-						<!-- <VBox class="sapUiSmallMargin">
-							<f:SimpleForm id="SF" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
-								<f:content>
-									<Label text="Work Order #" />
-									<ComboBox items="{path: 'localModel>/WorkOrderNo'}">
-										<core:Item key="{localModel>No}" text="{localModel>No}" />
-									</ComboBox>
-									<Button text="Enter" press="onOpen" width="5rem" type="Default"/>
-								</f:content>
-							</f:SimpleForm>
-						</VBox> -->
-
 						<fb:FilterBar id="FilterBar" clear="onResetFilters" reset="onReset" showRestoreButton="false" showClearButton="false" showClearOnFB="true" showGoOnFB="false" filterBarExpanded="true">
 							<fb:filterGroupItems>
 								<fb:FilterGroupItem groupName="G1" name="Work Order #" label="Work Order #" visibleInFilterBar="true">
 									<fb:control>
-										<MultiComboBox id="idWO" items="{path: ''}" selectedKeys="" selectionChange="">
-											<core:Item key="" text="" />
+										<MultiComboBox id="idWO" items="{WorkOrderModel>/ZUSPPMEG01_WORK_ORDER_F4Set}" selectedKeys="" selectionChange="">
+											<core:Item key="{WorkOrderModel>WorkOrder}" text="{WorkOrderModel>Description}" />
 										</MultiComboBox>
 									</fb:control>
 								</fb:FilterGroupItem>

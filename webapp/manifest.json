@@ -62,7 +62,7 @@
         "uri": "./model/data.json",
         "preload": true
       },
-      "": {
+      "WorkOrderModel": {
         "dataSource": "mainService",
         "preload": true,
         "settings": {
