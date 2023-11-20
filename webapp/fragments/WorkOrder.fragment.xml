@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="selectDialog"
+		title="Work Order"
+		items="{localModel>/workOrder}"
+		search=".onValueHelpSearch"
+		confirm="onSuggestionItemSelected"
+		cancel=".onValueHelpClose">
+		<StandardListItem
+			title="{localModel>workOrder}"
+			description="{localModel>plant}" />
+	</SelectDialog>
+</core:FragmentDefinition>
