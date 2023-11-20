@@ -17,55 +17,41 @@
 							<fb:filterGroupItems>
 								<fb:FilterGroupItem groupName="G1" name="Work Order #" label="Work Order #" visibleInFilterBar="true">
 									<fb:control>
-										<MultiComboBox id="idWO" items="{WorkOrderModel>/ZUSPPMEG01_WORK_ORDER_F4Set}" selectedKeys="" selectionChange="">
-											<core:Item key="{WorkOrderModel>WorkOrder}" text="{WorkOrderModel>Description}" />
-										</MultiComboBox>
+										<Input id="productInput" value="{localModel>/workOrderValueHelp}" showValueHelp="true" valueHelpRequest=".onWOValueHelp" />
 									</fb:control>
 								</fb:FilterGroupItem>
 
-								<fb:FilterGroupItem groupName="G1" name="Plant" label="Plant" visibleInFilterBar="false">
+								<fb:FilterGroupItem groupName="G1" name="Plant" label="Plant" visibleInFilterBar="true">
 									<fb:control>
-										<MultiComboBox id="idPlant" items="{path: ''}" selectedKeys="" selectionChange="">
-											<core:Item key="" text="" />
-										</MultiComboBox>
+										<Input id="idPlant" value="" showValueHelp="true" valueHelpRequest="" />
 									</fb:control>
 								</fb:FilterGroupItem>
 
-								<fb:FilterGroupItem groupName="G1" name="Order Type" label="Order Type" visibleInFilterBar="false">
+								<fb:FilterGroupItem groupName="G1" name="Order Type" label="Order Type" visibleInFilterBar="true">
 									<fb:control>
-										<MultiComboBox id="idOrderType" items="{path: ''}" selectionChange="" selectedKeys="">
-											<core:Item key="" text="" />
-										</MultiComboBox>
+										<Input id="idOrderType" value="" showValueHelp="true" valueHelpRequest="" />
 									</fb:control>
 								</fb:FilterGroupItem>
 
-								<fb:FilterGroupItem groupName="G1" name="Planner Group" label="Planner Group" visibleInFilterBar="false">
+								<fb:FilterGroupItem groupName="G1" name="Planner Group" label="Planner Group" visibleInFilterBar="true">
 									<fb:control>
-										<MultiComboBox id="idPlannerGroup" items="{path: ''}" selectionChange="" selectedKeys="">
-											<core:Item key="" text="" />
-										</MultiComboBox>
+										<Input id="idPlannerGroup" value="" showValueHelp="true" valueHelpRequest="" />
 									</fb:control>
 								</fb:FilterGroupItem>
 
-								<fb:FilterGroupItem groupName="G1" name="Work Center" label="Work Center" visibleInFilterBar="false">
+								<fb:FilterGroupItem groupName="G1" name="Work Center" label="Work Center" visibleInFilterBar="true">
 									<fb:control>
-										<MultiComboBox items="{path: ''}" selectionChange="" selectedKeys="">
-											<core:Item key="" text="" />
-										</MultiComboBox>
+										<Input value="" showValueHelp="true" valueHelpRequest="" />
 									</fb:control>
 								</fb:FilterGroupItem>
-								<fb:FilterGroupItem groupName="G1" name="Func Loc" label="Func Loc" visibleInFilterBar="false" class="sapUiSizeCompact sapUiLargeMarginTop">
+								<fb:FilterGroupItem groupName="G1" name="Func Loc" label="Func Loc" visibleInFilterBar="true">
 									<fb:control>
-										<MultiComboBox items="{path: ''}" selectionChange="" selectedKeys="">
-											<core:Item key="" text="" />
-										</MultiComboBox>
+										<Input value="" showValueHelp="true" valueHelpRequest="" />
 									</fb:control>
 								</fb:FilterGroupItem>
-								<fb:FilterGroupItem groupName="G1" name="Equipment" label="Equipment" visibleInFilterBar="false">
+								<fb:FilterGroupItem groupName="G1" name="Equipment" label="Equipment" visibleInFilterBar="true">
 									<fb:control>
-										<MultiComboBox items="{path: ''}" selectionChange="" selectedKeys="">
-											<core:Item key="" text="" />
-										</MultiComboBox>
+										<Input value="" showValueHelp="true" valueHelpRequest="" />
 									</fb:control>
 								</fb:FilterGroupItem>
 							</fb:filterGroupItems>
