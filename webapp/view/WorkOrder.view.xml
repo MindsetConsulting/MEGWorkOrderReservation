@@ -8,100 +8,98 @@
 	xmlns:fb="sap.ui.comp.filterbar"
 	xmlns:sfb="sap.ui.comp.smartfilterbar"
 	xmlns:smartTable="sap.ui.comp.smarttable">
-	<Shell id="shell">
-		<App id="app">
-			<pages>
-				<Page id="page" title="{i18n>title}">
-					<content>
-						<fb:FilterBar id="FilterBar" clear="onResetFilters" reset="onReset" showRestoreButton="false" showClearButton="false" showClearOnFB="true" showGoOnFB="false" filterBarExpanded="true">
-							<fb:filterGroupItems>
-								<fb:FilterGroupItem groupName="G1" name="Work Order #" label="Work Order #" visibleInFilterBar="true">
-									<fb:control>
-										<Input id="productInput" value="{localModel>/workOrderValueHelp}" showValueHelp="true" valueHelpRequest=".onWOValueHelp" />
-									</fb:control>
-								</fb:FilterGroupItem>
+	<Page id="page" title="{i18n>title}">
+		<content>
+			<fb:FilterBar id="FilterBar" clear="onResetFilters" reset="onReset" search="handleFilterChange" showRestoreButton="false" showClearButton="false" showClearOnFB="true" filterBarExpanded="true">
+				<fb:filterGroupItems>
+					<fb:FilterGroupItem groupName="G1" name="Work Order #" label="Work Order #" visibleInFilterBar="true">
+						<fb:control>
+							<!-- <Input id="woInput" value="{localModel>/valueHelp/workOrderValueHelp}" showValueHelp="true" valueHelpRequest=".onWOValueHelp" /> -->
+							<MultiInput id="woInput" showValueHelp="true" valueHelpRequest=".onWOValueHelp" valueHelpOnly="true" tokenUpdate="handleValueHelpClose">
+							</MultiInput>
+						</fb:control>
+					</fb:FilterGroupItem>
 
-								<fb:FilterGroupItem groupName="G1" name="Plant" label="Plant" visibleInFilterBar="true">
-									<fb:control>
-										<Input id="idPlant" value="" showValueHelp="true" valueHelpRequest="" />
-									</fb:control>
-								</fb:FilterGroupItem>
+					<fb:FilterGroupItem groupName="G1" name="Plant" label="Plant" visibleInFilterBar="true">
+						<fb:control>
+							<!-- <Input id="idPlant" value="{localModel>/valueHelp/plantValueHelp}" showValueHelp="true" valueHelpRequest=".onPlantValueHelp" /> -->
+							<MultiInput id="plantInput" showValueHelp="true" valueHelpRequest=".onPlantValueHelp" valueHelpOnly="true" tokenUpdate="handleValueHelpClose" />
+						</fb:control>
+					</fb:FilterGroupItem>
 
-								<fb:FilterGroupItem groupName="G1" name="Order Type" label="Order Type" visibleInFilterBar="true">
-									<fb:control>
-										<Input id="idOrderType" value="" showValueHelp="true" valueHelpRequest="" />
-									</fb:control>
-								</fb:FilterGroupItem>
+					<fb:FilterGroupItem groupName="G1" name="Order Type" label="Order Type" visibleInFilterBar="true">
+						<fb:control>
+							<!-- <Input id="orderTypeInput" value="{localModel>/valueHelp/orderTypeValueHelp}" showValueHelp="true" valueHelpRequest=".onOrderTypeValueHelp" /> -->
+							<MultiInput id="orderTypeInput" showValueHelp="true" valueHelpRequest=".onOrderTypeValueHelp" valueHelpOnly="true" />
+						</fb:control>
+					</fb:FilterGroupItem>
 
-								<fb:FilterGroupItem groupName="G1" name="Planner Group" label="Planner Group" visibleInFilterBar="true">
-									<fb:control>
-										<Input id="idPlannerGroup" value="" showValueHelp="true" valueHelpRequest="" />
-									</fb:control>
-								</fb:FilterGroupItem>
+					<fb:FilterGroupItem groupName="G1" name="Planner Group" label="Planner Group" visibleInFilterBar="true">
+						<fb:control>
+							<Input id="idPlannerGroup" value="{localModel>/valueHelp/plannerGroupValueHelp}" showValueHelp="true" valueHelpRequest=".onPlannerGroupValueHelp" />
+						</fb:control>
+					</fb:FilterGroupItem>
 
-								<fb:FilterGroupItem groupName="G1" name="Work Center" label="Work Center" visibleInFilterBar="true">
-									<fb:control>
-										<Input value="" showValueHelp="true" valueHelpRequest="" />
-									</fb:control>
-								</fb:FilterGroupItem>
-								<fb:FilterGroupItem groupName="G1" name="Func Loc" label="Func Loc" visibleInFilterBar="true">
-									<fb:control>
-										<Input value="" showValueHelp="true" valueHelpRequest="" />
-									</fb:control>
-								</fb:FilterGroupItem>
-								<fb:FilterGroupItem groupName="G1" name="Equipment" label="Equipment" visibleInFilterBar="true">
-									<fb:control>
-										<Input value="" showValueHelp="true" valueHelpRequest="" />
-									</fb:control>
-								</fb:FilterGroupItem>
-							</fb:filterGroupItems>
-						</fb:FilterBar>
+					<fb:FilterGroupItem groupName="G1" name="Work Center" label="Work Center" visibleInFilterBar="true">
+						<fb:control>
+							<Input value="{localModel>/valueHelp/workCenterValueHelp}" showValueHelp="true" valueHelpRequest=".onWorkCenterValueHelp" />
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem groupName="G1" name="Func Loc" label="Func Loc" visibleInFilterBar="true">
+						<fb:control>
+							<Input value="{localModel>/valueHelp/funcLocValueHelp}" showValueHelp="true" valueHelpRequest=".onFuncLocValueHelp" />
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem groupName="G1" name="Equipment" label="Equipment" visibleInFilterBar="true">
+						<fb:control>
+							<Input value="{localModel>/valueHelp/equipmentValueHelp}" showValueHelp="true" valueHelpRequest=".onEquipmentValueHelp" />
+						</fb:control>
+					</fb:FilterGroupItem>
+				</fb:filterGroupItems>
+			</fb:FilterBar>
 
 
-						<VBox>
-							<Table id="workOrderID" items="{localModel>/workOrder}" mode="Navigation">
-								<columns>
-									<Column width="11rem">
-										<Label text="Work Order"/>
-									</Column>
-									<Column width="11rem">
-										<Label text="Plant"/>
-									</Column>
-									<Column width="11rem">
-										<Label text="Order Type"/>
-									</Column>
-									<Column width="6rem" hAlign="End">
-										<Label text="Planner Group"/>
-									</Column>
-									<Column width="6rem" hAlign="End">
-										<Label text="Work Center"/>
-									</Column>
-									<Column width="6rem" hAlign="End">
-										<Label text="Func Loc"/>
-									</Column>
-									<Column width="6rem" hAlign="End">
-										<Label text="Equipment"/>
-									</Column>
+			<VBox>
+				<Table id="workOrderTable" items="{path: 'WorkOrderModel>/ZUSPPMEG01_WORK_ORDER_HEADERSet', parameters: {'expand': ''}}" mode="Navigation">
+					<columns>
+						<Column width="6rem">
+							<Label text="Work Order"/>
+						</Column>
+						<Column width="3rem">
+							<Label text="Plant"/>
+						</Column>
+						<Column width="5rem">
+							<Label text="Order Type"/>
+						</Column>
+						<Column width="6rem" hAlign="End">
+							<Label text="Planner Group"/>
+						</Column>
+						<Column width="6rem" hAlign="End">
+							<Label text="Work Center"/>
+						</Column>
+						<Column width="6rem" hAlign="End">
+							<Label text="Func Loc"/>
+						</Column>
+						<Column width="6rem" hAlign="End">
+							<Label text="Equipment"/>
+						</Column>
 
-								</columns>
-								<items>
-									<ColumnListItem press="onTablePress" vAlign="Middle" type="Navigation">
-										<cells>
-											<Text text="{localModel>workOrder}" wrapping="false"/>
-											<Text text="{localModel>plant}" wrapping="false"/>
-											<Text text="{localModel>orderType}" wrapping="false"/>
-											<Text text="{localModel>plannerGroup}" wrapping="false"/>
-											<Text text="{localModel>workCenter}" wrapping="false"/>
-											<Text text="{localModel>funcLoc}" wrapping="false"/>
-											<Text text="{localModel>equipment}" wrapping="false"/>
-										</cells>
-									</ColumnListItem>
-								</items>
-							</Table>
-						</VBox>
-					</content>
-				</Page>
-			</pages>
-		</App>
-	</Shell>
+					</columns>
+					<items>
+						<ColumnListItem press="onTableItemPress" vAlign="Middle" type="Navigation">
+							<cells>
+								<Text text="{WorkOrderModel>WorkOrder}" wrapping="false"/>
+								<Text text="{WorkOrderModel>Plant}" wrapping="false"/>
+								<Text text="{WorkOrderModel>OrderType}" wrapping="false"/>
+								<Text text="{WorkOrderModel>PlannerGroup}" wrapping="false"/>
+								<Text text="{WorkOrderModel>WorkCenter}" wrapping="false"/>
+								<Text text="{WorkOrderModel>FunctLocation}" wrapping="false"/>
+								<Text text="{WorkOrderModel>Equipment}" wrapping="false"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</VBox>
+		</content>
+	</Page>
 </mvc:View>

@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="equipmentVH"
+		title="Equipment"
+		items="{WorkOrderModel>/ZUSPPMEG01_EQUIPMENT_F4Set}"
+		search=".onValueHelpSearch"
+		confirm="onSuggestionItemSelected"
+		cancel=".onValueHelpClose">
+		<StandardListItem
+			title="{WorkOrderModel>Equipment}"
+			description="{WorkOrderModel>Description}" />
+	</SelectDialog>
+</core:FragmentDefinition>

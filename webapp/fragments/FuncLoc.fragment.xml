@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="funcLocVH"
+		title="Func Loc"
+		items="{WorkOrderModel>/ZUSPPMEG01_FUNCTION_LOCATION_F4Set}"
+		search=".onValueHelpSearch"
+		confirm="onSuggestionItemSelected"
+		cancel=".onValueHelpClose">
+		<StandardListItem
+			title="{WorkOrderModel>FunctLocation}"
+			description="{WorkOrderModel>Description}" />
+	</SelectDialog>
+</core:FragmentDefinition>
