@@ -94,12 +94,12 @@
       "routes": [
         {
           "name": "RouteWorkOrder",
-          "pattern": "RouteWorkOrder",
+          "pattern": ":?query:",
           "target": ["TargetWorkOrder"]
         },
         {
           "name": "RouteObjectPage",
-          "pattern": "RouteObjectPage/{id}",
+          "pattern": "RouteObjectPage",
           "target": ["TargetObjectPage"]
         }
       ],
@@ -121,10 +121,10 @@
       }
     },
     "rootView": {
-      "viewName": "meg.workorder.view.WorkOrder",
+      "viewName": "meg.workorder.view.App",
       "type": "XML",
       "async": true,
-      "id": "WorkOrder"
+      "id": "App"
     }
   }
 }

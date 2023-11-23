@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="plannerGroupVH"
+		title="Planner Group"
+		items="{WorkOrderModel>/ZUSPPMEG01_PLANNER_GROUP_F4Set}"
+		search=".onValueHelpSearch"
+		confirm="onSuggestionItemSelected"
+		cancel=".onValueHelpClose">
+		<StandardListItem
+			title="{WorkOrderModel>PlannerGroup}"
+			description="{WorkOrderModel>Description}" />
+	</SelectDialog>
+</core:FragmentDefinition>

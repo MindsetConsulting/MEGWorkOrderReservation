@@ -1,4 +1,5 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc"
+<mvc:View controllerName="meg.workorder.controller.ObjectPage"
+    xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:uxap="sap.uxap"
     xmlns:core="sap.ui.core"
@@ -21,20 +22,20 @@
                             <f:content>
                                 <core:Title text="" />
                                 <Label text="Work Order #" />
-                                <Text id="nameText" text="Work Order" />
+                                <Text text="{localModel>/selectedValues/WorkOrder}" />
                                 <Label text="Plant" />
-                                <Text id="countryText" text="Plant" />
+                                <Text text="{localModel>/selectedValues/Plant}" />
                                 <Label text="Order Type and Des." />
-                                <Text text="Order Type and Des." />
+                                <Text text="{localModel>/selectedValues/OrderType}" />
                                 <Label text="Planner Group" />
-                                <Text text="Planner Group" />
+                                <Text text="{localModel>/selectedValues/PlannerGroup}" />
                                 <core:Title text="" />
                                 <Label text="Work Center" />
-                                <Text text="Work Center" />
+                                <Text text="{localModel>/selectedValues/WorkCenter}" />
                                 <Label text="Func. Loc" />
-                                <Text text="Func. Loc" />
+                                <Text text="{localModel>/selectedValues/FunctLocation}" />
                                 <Label text="Equipment" />
-                                <Text text="Equipment" />
+                                <Text text="{localModel>/selectedValues/Equipment}" />
                             </f:content>
                         </f:SimpleForm>
                     </VBox>
@@ -46,7 +47,7 @@
                             <uxap:ObjectPageSubSection id="orderOpsID1" title="Order Operations" titleUppercase="false">
                                 <uxap:blocks>
                                     <VBox>
-                                        <Table id="orderOpID" items="{localModel>/orderOperations}" width="22rem">
+                                        <Table id="orderOpID" items="{path: 'WorkOrderModel>/ZUSPPMEG01_WORK_ORDER_HEADERSet'}" width="22rem">
                                             <columns>
                                                 <Column width="11rem">
                                                 </Column>
@@ -56,8 +57,8 @@
                                             <items>
                                                 <ColumnListItem press="onTablePress" vAlign="Middle">
                                                     <cells>
-                                                        <Text text="{localModel>OPNo}" wrapping="false"/>
-                                                        <Text text="{localModel>OPDes}" wrapping="false"/>
+                                                        <Text text="{WorkOrderModel>OperationNum}" wrapping="false"/>
+                                                        <Text text="{WorkOrderModel>OperationDesc}" wrapping="false"/>
                                                     </cells>
                                                 </ColumnListItem>
                                             </items>

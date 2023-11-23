@@ -7,51 +7,51 @@
     { "No": 5 }
   ],
 
-  "workOrder": [
+  "ZUSPPMEG01_WORK_ORDER_HEADERSet": [
     {
-      "workOrder": "001",
-      "plant": "Plant 1",
-      "orderType": "Order Type 1",
-      "plannerGroup": "Planner Group 1",
-      "workCenter": "Work Center 1",
-      "funcLoc": "Func Loc 1",
-      "equipment": "Equipment 1"
+      "WorkOrder": "001",
+      "Plant": "Plant 1",
+      "OrderType": "Order Type 1",
+      "PlannerGroup": "Planner Group 1",
+      "WorkCenter": "Work Center 1",
+      "FunctLocation": "Func Loc 1",
+      "Equipment": "Equipment 1"
     },
     {
-      "workOrder": "002",
-      "plant": "Plant 2",
-      "orderType": "Order Type 2",
-      "plannerGroup": "Planner Group 2",
-      "workCenter": "Work Center 2",
-      "funcLoc": "Func Loc 2",
-      "equipment": "Equipment 2"
+      "WorkOrder": "002",
+      "Plant": "Plant 2",
+      "OrderType": "Order Type 2",
+      "PlannerGroup": "Planner Group 2",
+      "WorkCenter": "Work Center 2",
+      "FunctLocation": "Func Loc 2",
+      "Equipment": "Equipment 2"
     },
     {
-      "workOrder": "003",
-      "plant": "Plant 3",
-      "orderType": "Order Type 3",
-      "plannerGroup": "Planner Group 3",
-      "workCenter": "Work Center 3",
-      "funcLoc": "Func Loc 3",
-      "equipment": "Equipment 3"
+      "WorkOrder": "003",
+      "Plant": "Plant 3",
+      "OrderType": "Order Type 3",
+      "PlannerGroup": "Planner Group 3",
+      "WorkCenter": "Work Center 3",
+      "FunctLocation": "Func Loc 3",
+      "Equipment": "Equipment 3"
     },
     {
-      "workOrder": "004",
-      "plant": "Plant 4",
-      "orderType": "Order Type 4",
-      "plannerGroup": "Planner Group 4",
-      "workCenter": "Work Center 4",
-      "funcLoc": "Func Loc 4",
-      "equipment": "Equipment 4"
+      "WorkOrder": "004",
+      "Plant": "Plant 4",
+      "OrderType": "Order Type 4",
+      "PlannerGroup": "Planner Group 4",
+      "WorkCenter": "Work Center 4",
+      "FunctLocation": "Func Loc 4",
+      "Equipment": "Equipment 4"
     },
     {
-      "workOrder": "005",
-      "plant": "Plant 5",
-      "orderType": "Order Type 5",
-      "plannerGroup": "Planner Group 5",
-      "workCenter": "Work Center 5",
-      "funcLoc": "Func Loc 5",
-      "equipment": "Equipment 5"
+      "WorkOrder": "005",
+      "Plant": "Plant 5",
+      "OrderType": "Order Type 5",
+      "PlannerGroup": "Planner Group 5",
+      "WorkCenter": "Work Center 5",
+      "FunctLocation": "Func Loc 5",
+      "Equipment": "Equipment 5"
     }
   ],
 
