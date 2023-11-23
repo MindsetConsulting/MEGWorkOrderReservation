@@ -1,4 +1,4 @@
-## Application Details
+## Application Details 1
 |               |
 | ------------- |
 |**Generation Date and Time**<br>Wed Nov 08 2023 16:33:56 GMT+0530 (India Standard Time)|
@@ -17,7 +17,7 @@
 |**Add Eslint configuration**<br>False|
 |**Enable Telemetry**<br>True|
 
-## workorder
+## workorder 1
 
 A Fiori application.
 
