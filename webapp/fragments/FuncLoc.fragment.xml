@@ -4,8 +4,9 @@
 		title="Func Loc"
 		items="{WorkOrderModel>/ZUSPPMEG01_FUNCTION_LOCATION_F4Set}"
 		search=".onValueHelpSearch"
-		confirm="onSuggestionItemSelected"
-		cancel=".onValueHelpClose">
+		confirm="handleValueHelpConfirm"
+		cancel=".onValueHelpClose"
+		multiSelect="true">
 		<StandardListItem
 			title="{WorkOrderModel>FunctLocation}"
 			description="{WorkOrderModel>Description}" />

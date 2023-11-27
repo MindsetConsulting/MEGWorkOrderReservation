@@ -10,49 +10,48 @@
 	xmlns:smartTable="sap.ui.comp.smarttable">
 	<Page id="page" title="{i18n>title}">
 		<content>
-			<fb:FilterBar id="FilterBar" clear="onResetFilters" reset="onReset" search="handleFilterChange" showRestoreButton="false" showClearButton="false" showClearOnFB="true" filterBarExpanded="true">
+			<fb:FilterBar id="FilterBar" clear="onResetFilters" reset="onReset" search="onFilterSearch" showRestoreButton="false" showClearButton="false" showClearOnFB="true" filterBarExpanded="true">
 				<fb:filterGroupItems>
-					<fb:FilterGroupItem groupName="G1" name="Work Order #" label="Work Order #" visibleInFilterBar="true">
+					<fb:FilterGroupItem groupName="G1" name="WorkOrder" label="Work Order #" visibleInFilterBar="true">
 						<fb:control>
-							<!-- <Input id="woInput" value="{localModel>/valueHelp/workOrderValueHelp}" showValueHelp="true" valueHelpRequest=".onWOValueHelp" /> -->
-							<MultiInput id="woInput" showValueHelp="true" valueHelpRequest=".onWOValueHelp" valueHelpOnly="true" tokenUpdate="handleValueHelpClose">
+							<!-- <Input id="woInput" value="{localModel>/valueHelp/workOrderValueHelp}" showValueHelp="true" valueHelpRequest=".onWOValueHelp" tokenUpdate="onSearch" /> -->
+							<MultiInput id="woInput" items="{localModel>/filterValues/wo}" showValueHelp="true" valueHelpRequest=".onWOValueHelp" valueHelpOnly="true">
+								<!-- <core:Item key="{WorkOrderModel>WorkOrder}" text="{WorkOrderModel>Description}" /> -->
 							</MultiInput>
 						</fb:control>
 					</fb:FilterGroupItem>
 
 					<fb:FilterGroupItem groupName="G1" name="Plant" label="Plant" visibleInFilterBar="true">
 						<fb:control>
-							<!-- <Input id="idPlant" value="{localModel>/valueHelp/plantValueHelp}" showValueHelp="true" valueHelpRequest=".onPlantValueHelp" /> -->
 							<MultiInput id="plantInput" showValueHelp="true" valueHelpRequest=".onPlantValueHelp" valueHelpOnly="true" tokenUpdate="handleValueHelpClose" />
 						</fb:control>
 					</fb:FilterGroupItem>
 
-					<fb:FilterGroupItem groupName="G1" name="Order Type" label="Order Type" visibleInFilterBar="true">
+					<fb:FilterGroupItem groupName="G1" name="OrderType" label="Order Type" visibleInFilterBar="true">
 						<fb:control>
-							<!-- <Input id="orderTypeInput" value="{localModel>/valueHelp/orderTypeValueHelp}" showValueHelp="true" valueHelpRequest=".onOrderTypeValueHelp" /> -->
 							<MultiInput id="orderTypeInput" showValueHelp="true" valueHelpRequest=".onOrderTypeValueHelp" valueHelpOnly="true" />
 						</fb:control>
 					</fb:FilterGroupItem>
 
-					<fb:FilterGroupItem groupName="G1" name="Planner Group" label="Planner Group" visibleInFilterBar="true">
+					<fb:FilterGroupItem groupName="G1" name="PlannerGroup" label="Planner Group" visibleInFilterBar="true">
 						<fb:control>
-							<Input id="idPlannerGroup" value="{localModel>/valueHelp/plannerGroupValueHelp}" showValueHelp="true" valueHelpRequest=".onPlannerGroupValueHelp" />
+							<MultiInput id="plannerGroupInput" showValueHelp="true" valueHelpRequest=".onPlannerGroupValueHelp" valueHelpOnly="true" />
 						</fb:control>
 					</fb:FilterGroupItem>
 
-					<fb:FilterGroupItem groupName="G1" name="Work Center" label="Work Center" visibleInFilterBar="true">
+					<fb:FilterGroupItem groupName="G1" name="WorkCenter" label="Work Center" visibleInFilterBar="true">
 						<fb:control>
-							<Input value="{localModel>/valueHelp/workCenterValueHelp}" showValueHelp="true" valueHelpRequest=".onWorkCenterValueHelp" />
+							<MultiInput id="workCenterInput" showValueHelp="true" valueHelpRequest=".onWorkCenterValueHelp" valueHelpOnly="true" />
 						</fb:control>
 					</fb:FilterGroupItem>
-					<fb:FilterGroupItem groupName="G1" name="Func Loc" label="Func Loc" visibleInFilterBar="true">
+					<fb:FilterGroupItem groupName="G1" name="FunctLocation" label="Func Loc" visibleInFilterBar="true">
 						<fb:control>
-							<Input value="{localModel>/valueHelp/funcLocValueHelp}" showValueHelp="true" valueHelpRequest=".onFuncLocValueHelp" />
+							<MultiInput id="funLocInput" showValueHelp="true" valueHelpRequest=".onFuncLocValueHelp" valueHelpOnly="true" />
 						</fb:control>
 					</fb:FilterGroupItem>
 					<fb:FilterGroupItem groupName="G1" name="Equipment" label="Equipment" visibleInFilterBar="true">
 						<fb:control>
-							<Input value="{localModel>/valueHelp/equipmentValueHelp}" showValueHelp="true" valueHelpRequest=".onEquipmentValueHelp" />
+							<MultiInput id="equipmentInput" showValueHelp="true" valueHelpRequest=".onEquipmentValueHelp" valueHelpOnly="true" />
 						</fb:control>
 					</fb:FilterGroupItem>
 				</fb:filterGroupItems>
@@ -60,7 +59,7 @@
 
 
 			<VBox>
-				<Table id="workOrderTable" items="{path: 'WorkOrderModel>/ZUSPPMEG01_WORK_ORDER_HEADERSet', parameters: {'expand': ''}}" mode="Navigation">
+				<Table id="workOrderTable" items="{localModel>/workOrderList}" mode="Navigation">
 					<columns>
 						<Column width="6rem">
 							<Label text="Work Order"/>
@@ -88,13 +87,13 @@
 					<items>
 						<ColumnListItem press="onTableItemPress" vAlign="Middle" type="Navigation">
 							<cells>
-								<Text text="{WorkOrderModel>WorkOrder}" wrapping="false"/>
-								<Text text="{WorkOrderModel>Plant}" wrapping="false"/>
-								<Text text="{WorkOrderModel>OrderType}" wrapping="false"/>
-								<Text text="{WorkOrderModel>PlannerGroup}" wrapping="false"/>
-								<Text text="{WorkOrderModel>WorkCenter}" wrapping="false"/>
-								<Text text="{WorkOrderModel>FunctLocation}" wrapping="false"/>
-								<Text text="{WorkOrderModel>Equipment}" wrapping="false"/>
+								<Text text="{localModel>WorkOrder}" wrapping="false"/>
+								<Text text="{localModel>Plant}" wrapping="false"/>
+								<Text text="{localModel>OrderType}" wrapping="false"/>
+								<Text text="{localModel>PlannerGroup}" wrapping="false"/>
+								<Text text="{localModel>WorkCenter}" wrapping="false"/>
+								<Text text="{localModel>FunctLocation}" wrapping="false"/>
+								<Text text="{localModel>Equipment}" wrapping="false"/>
 							</cells>
 						</ColumnListItem>
 					</items>
