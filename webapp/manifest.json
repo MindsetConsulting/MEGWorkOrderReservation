@@ -99,7 +99,7 @@
         },
         {
           "name": "RouteObjectPage",
-          "pattern": "RouteObjectPage",
+          "pattern": "RouteObjectPage/{id}",
           "target": ["TargetObjectPage"]
         }
       ],

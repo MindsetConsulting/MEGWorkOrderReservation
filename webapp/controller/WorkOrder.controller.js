@@ -7,6 +7,7 @@ sap.ui.define(
     "sap/ui/model/FilterOperator",
     "sap/m/Token",
     "meg/workorder/utils/FilterUtil",
+    "meg/workorder/utils/CallUtil",
     "sap/ui/model/FilterType",
   ],
   /**
@@ -20,20 +21,38 @@ sap.ui.define(
     FilterOperator,
     Token,
     FilterUtil,
+    CallUtil,
     FilterType
   ) {
     "use strict";
 
     return Controller.extend("meg.workorder.controller.WorkOrder", {
       onInit: async function () {
+        sap.ui.core.BusyIndicator.show();
+        var date = new Date();
+        var curDate =
+          date.getFullYear() + "" + (date.getMonth() + 1) + "" + date.getDate();
+        date.setDate(date.getDate() - 30);
+        var prevDate =
+          date.getFullYear() + "" + (date.getMonth() + 1) + "" + date.getDate();
+
+        this.dateFilter =
+          "(Date ge '" + prevDate + "' and Date le '" + curDate + "')";
+
+        this.serviceUrl =
+          this.getOwnerComponent().getModel("WorkOrderModel").sServiceUrl;
+        var data = await CallUtil.callGetData(
+          this.serviceUrl +
+            "/ZUSPPMEG01_WORK_ORDER_HEADERSet?$format=json&$filter=" +
+            this.dateFilter
+        );
+
+        data = data.d.results;
+
         this.localModel = this.getOwnerComponent().getModel("localModel");
+        this.localModel.setProperty("/workOrderList", data);
 
-        // this.localModel.setProperty("/selectedValues", {});
         this.localModel.setProperty("/filterValues", {});
-
-        // this.getView().getModel("localModel").setProperty("/valueHelp", {});
-        // this.getView().getModel("localModel").setProperty("/filterValues", {});
-
         this.oFilterBar = this.getView().byId("FilterBar");
         this.oTable = this.getView().byId("workOrderTable");
       },
@@ -41,71 +60,16 @@ sap.ui.define(
       onTableItemPress: function (oEvent) {
         var sPath = oEvent.getSource().getBindingContextPath();
         var value = sPath.split("/")[1];
-        // var index = sPath.split('/')[2];
+        var index = sPath.split("/")[2];
 
-        // var selectedValues = this.getView().getModel("localModel").getData()[value][index];
-        // this.localModel.setProperty("/selectedValues", selectedValues);
+        var selectedValues = this.getView().getModel("localModel").getData()[
+          value
+        ][index];
 
-        var selectedValues =
-          this.getView().getModel("WorkOrderModel").oData[value];
+        var WOID = selectedValues.WorkOrder;
         this.localModel.setProperty("/selectedValues", selectedValues);
-
         var oRouter = this.getOwnerComponent().getRouter();
-        oRouter.navTo("RouteObjectPage");
-      },
-
-      //   onSuggestionItemSelected: function (oEvent) {
-      //     var oItem = oEvent.getParameter("selectedItem");
-      //     var oText = oItem ? oItem.getProperty("description") : "";
-      //     var sID = oEvent.oSource.sId;
-
-      //     if (sID == "workOrderVH") {
-      //       this.getView()
-      //         .getModel("localModel")
-      //         .setProperty("/valueHelp/workOrderValueHelp", oText);
-      //     }
-      //     if (sID == "plantVH") {
-      //       this.getView()
-      //         .getModel("localModel")
-      //         .setProperty("/valueHelp/plantValueHelp", oText);
-      //     }
-      //     if (sID == "orderTypeVH") {
-      //       this.getView()
-      //         .getModel("localModel")
-      //         .setProperty("/valueHelp/orderTypeValueHelp", oText);
-      //     }
-      //     if (sID == "plannerGroupVH") {
-      //       this.getView()
-      //         .getModel("localModel")
-      //         .setProperty("/valueHelp/plannerGroupValueHelp", oText);
-      //     }
-      //     if (sID == "workCenterVH") {
-      //       this.getView()
-      //         .getModel("localModel")
-      //         .setProperty("/valueHelp/workCenterValueHelp", oText);
-      //     }
-      //     if (sID == "funcLocVH") {
-      //       this.getView()
-      //         .getModel("localModel")
-      //         .setProperty("/valueHelp/funcLocValueHelp", oText);
-      //     }
-      //     if (sID == "equipmentVH") {
-      //       this.getView()
-      //         .getModel("localModel")
-      //         .setProperty("/valueHelp/equipmentValueHelp", oText);
-      //     }
-      //   },
-
-      onWOValueHelp: function (oEvent) {
-        if (!this._oDialogWO) {
-          this._oDialogWO = sap.ui.xmlfragment(
-            "meg.workorder.fragments.WorkOrder",
-            this
-          );
-          this.getView().addDependent(this._oDialogWO);
-          this._oDialogWO.open();
-        }
-        this._oDialogWO.open();
+        oRouter.navTo("RouteObjectPage", { id: WOID });
       },
 
       handleValueHelpConfirm: function (oEvent) {
@@ -114,7 +78,6 @@ sap.ui.define(
 
         var aSelectedItems = oEvent.getParameter("selectedItems"),
           oMultiInput = this.byId(inputId);
-        var DataModel = this.getView().getModel("localModel");
 
         if (aSelectedItems && aSelectedItems.length > 0) {
           aSelectedItems.forEach(function (oItem) {
@@ -124,21 +87,6 @@ sap.ui.define(
               })
             );
           });
-        }
-
-        this.setModelFilters(valueHelpId, aSelectedItems);
-      },
-
-      setModelFilters: function (id, items) {
-        var DataModel = this.getView().getModel("localModel");
-        if (id == "workOrderVH") {
-          DataModel.setProperty("/filterValues/WorkOrder", items);
-        }
-        if (id == "plantVH") {
-          DataModel.setProperty("/filterValues/Plant", items);
-        }
-        if (id == "orderTypeVH") {
-          DataModel.setProperty("/filterValues/OrderType", items);
         }
       },
 
@@ -152,21 +100,57 @@ sap.ui.define(
         if (id == "orderTypeVH") {
           return "orderTypeInput";
         }
+        if (id == "plannerGroupVH") {
+          return "plannerGroupInput";
+        }
+        if (id == "workCenterVH") {
+          return "workCenterInput";
+        }
+        if (id == "funcLocVH") {
+          return "funLocInput";
+        }
+        if (id == "equipmentVH") {
+          return "equipmentInput";
+        }
       },
 
-      handleFilterChange: async function () {
-        var DataModel = this.getView().getModel("localModel");
-        var filterValues = DataModel.getData().filterValues;
+      //   handleFilterChange: async function () {
+      //     var DataModel = this.getView().getModel("localModel");
+      //     var filterValues = DataModel.getData().filterValues;
 
-        var filters = FilterUtil.prepareFilters({
-          WorkOrder: filterValues.WorkOrder,
-          Plant: filterValues.Plant,
-          OrderType: filterValues.OrderType,
-        });
-        this.getView()
-          .byId("workOrderTable")
-          .getBinding("items")
-          .filter(filters, FilterType.Application);
+      //     var filters = FilterUtil.prepareFilters({
+      //       WorkOrder: filterValues.WorkOrder,
+      //       Plant: filterValues.Plant,
+      //       OrderType: filterValues.OrderType,
+      //     });
+      //     this.getView()
+      //       .byId("workOrderTable")
+      //       .getBinding("items")
+      //       .filter(filters, FilterType.Application);
+      //   },
+
+      onResetFilters: function () {
+        this.byId("woInput").removeAllTokens();
+        this.byId("plantInput").removeAllTokens();
+        this.byId("orderTypeInput").removeAllTokens();
+        this.byId("plannerGroupInput").removeAllTokens();
+        this.byId("workCenterInput").removeAllTokens();
+        this.byId("funLocInput").removeAllTokens();
+        this.byId("equipmentInput").removeAllTokens();
+      },
+
+      onWOValueHelp: function (oEvent) {
+        if (!this._oDialogWO) {
+          this._oDialogWO = sap.ui.xmlfragment(
+            "meg.workorder.fragments.WorkOrder",
+            this
+          );
+          this.getView().addDependent(this._oDialogWO);
+          this.VHID = "WorkOrder";
+          this._oDialogWO.open();
+        }
+        this.VHID = "WorkOrder";
+        this._oDialogWO.open();
       },
 
       onPlantValueHelp: function (oEvent) {
@@ -176,8 +160,10 @@ sap.ui.define(
             this
           );
           this.getView().addDependent(this._oDialogPlant);
+          this.VHID = "Plant";
           this._oDialogPlant.open();
         }
+        this.VHID = "Plant";
         this._oDialogPlant.open();
       },
 
@@ -188,8 +174,10 @@ sap.ui.define(
             this
           );
           this.getView().addDependent(this._oDialogOrderType);
+          this.VHID = "OrderType";
           this._oDialogOrderType.open();
         }
+        this.VHID = "OrderType";
         this._oDialogOrderType.open();
       },
 
@@ -200,21 +188,25 @@ sap.ui.define(
             this
           );
           this.getView().addDependent(this._oDialogPlannerGroup);
+          this.VHID = "PlannerGroup";
           this._oDialogPlannerGroup.open();
         }
+        this.VHID = "PlannerGroup";
         this._oDialogPlannerGroup.open();
       },
 
       onWorkCenterValueHelp: function (oEvent) {
-        if (!this._oDialogPlannerGroup) {
-          this._oDialogPlannerGroup = sap.ui.xmlfragment(
+        if (!this._oDialogWorkCenter) {
+          this._oDialogWorkCenter = sap.ui.xmlfragment(
             "meg.workorder.fragments.WorkCenter",
             this
           );
-          this.getView().addDependent(this._oDialogPlannerGroup);
-          this._oDialogPlannerGroup.open();
+          this.getView().addDependent(this._oDialogWorkCenter);
+          this.VHID = "WorkCenter";
+          this._oDialogWorkCenter.open();
         }
-        this._oDialogPlannerGroup.open();
+        this.VHID = "WorkCenter";
+        this._oDialogWorkCenter.open();
       },
 
       onFuncLocValueHelp: function (oEvent) {
@@ -224,51 +216,81 @@ sap.ui.define(
             this
           );
           this.getView().addDependent(this._oDialogFuncLoc);
+          this.VHID = "FunctLocation";
           this._oDialogFuncLoc.open();
         }
+        this.VHID = "FunctLocation";
         this._oDialogFuncLoc.open();
       },
 
       onEquipmentValueHelp: function (oEvent) {
-        if (!this._oDialogFuncLoc) {
-          this._oDialogFuncLoc = sap.ui.xmlfragment(
+        if (!this._oDialogEquipment) {
+          this._oDialogEquipment = sap.ui.xmlfragment(
             "meg.workorder.fragments.Equipment",
             this
           );
-          this.getView().addDependent(this._oDialogFuncLoc);
-          this._oDialogFuncLoc.open();
+          this.getView().addDependent(this._oDialogEquipment);
+          this.VHID = "Equipment";
+          this._oDialogEquipment.open();
         }
-        this._oDialogFuncLoc.open();
+        this.VHID = "Equipment";
+        this._oDialogEquipment.open();
       },
 
-      onSearch: function () {
+      onFilterSearch: async function () {
+        // sap.ui.core.BusyIndicator.show();
+        this.oTable.setShowOverlay(true);
+
         var aTableFilters = this.oFilterBar
           .getFilterGroupItems()
           .reduce(function (aResult, oFilterGroupItem) {
             var oControl = oFilterGroupItem.getControl(),
-              aSelectedKeys = oControl.getSelectedKeys(),
-              aFilters = aSelectedKeys.map(function (sSelectedKey) {
-                return new Filter({
-                  path: oFilterGroupItem.getName(),
-                  operator: FilterOperator.Contains,
-                  value1: sSelectedKey,
-                });
-              });
+              aSelectedKeys = oControl._tokenizer.getAggregation("tokens"),
+              sFilterName = oFilterGroupItem.getName(),
+              sFilters = "";
 
-            if (aSelectedKeys.length > 0) {
-              aResult.push(
-                new Filter({
-                  filters: aFilters,
-                  and: false,
-                })
-              );
+            if (aSelectedKeys.length > 1) {
+              sFilters = "(";
+              aSelectedKeys.map(function (sSelectedKey) {
+                if (aSelectedKeys.length != aSelectedKeys.length > 1)
+                  sFilters +=
+                    sFilterName + " eq '" + sSelectedKey.getText() + "' or ";
+              });
+              sFilters = sFilters.slice(0, -4);
+              sFilters += ")";
+            } else if (aSelectedKeys.length == 1) {
+              sFilters =
+                sFilterName + " eq '" + aSelectedKeys[0].getText() + "'";
+            }
+
+            if (sFilters && sFilters !== "") {
+              aResult.push(sFilters);
             }
 
             return aResult;
           }, []);
 
-        this.oTable.getBinding("items").filter(aTableFilters);
+        var filter = FilterUtil.prepareFilters(aTableFilters);
+
+        var data = await CallUtil.callGetData(
+          this.serviceUrl +
+            "/ZUSPPMEG01_WORK_ORDER_HEADERSet?$format=json&$filter=" +
+            filter +
+            this.dateFilter
+        );
+
+        data = data.d.results;
+
+        this.localModel.setProperty("/workOrderList", data);
         this.oTable.setShowOverlay(false);
+      },
+
+      onValueHelpSearch: function (oEvent) {
+        var sValue = oEvent.getParameter("value");
+        var oFilter = new Filter(this.VHID, FilterOperator.Contains, sValue);
+        // var oFilter = new Filter("", FilterOperator.Contains, sValue);
+        var oBinding = oEvent.getParameter("itemsBinding");
+        oBinding.filter([oFilter]);
       },
     });
   }

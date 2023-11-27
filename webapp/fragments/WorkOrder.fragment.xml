@@ -1,29 +1,16 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<SelectDialog
-		id="workOrderVH"
-		title="Work Order"
-		items="{WorkOrderModel>/ZUSPPMEG01_WORK_ORDER_F4Set}"
-		search=".onValueHelpSearch"
-		confirm="handleValueHelpConfirm"
-		cancel=".onValueHelpClose"
-        multiSelect="true">
-		<StandardListItem
-			title="{WorkOrderModel>WorkOrder}"
-			description="{WorkOrderModel>Description}" />
-	</SelectDialog>
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <SelectDialog id="workOrderVH" title="Work Order" items="{WorkOrderModel>/ZUSPPMEG01_WORK_ORDER_F4Set}" search=".onValueHelpSearch" confirm="handleValueHelpConfirm" cancel=".onValueHelpClose" multiSelect="true">
+        <!-- <SelectDialog id="workOrderVH" title="Work Order" items="{
+			path: 'WorkOrderModel>/ZUSPPMEG01_WORK_ORDER_F4Set',
+			filters: [{path: 'WorkOrderModel>WorkOrder', '03'}]
+		}" search=".onValueHelpSearch" confirm="handleValueHelpConfirm" cancel=".onValueHelpClose" multiSelect="true"> -->
+        <StandardListItem title="{WorkOrderModel>WorkOrder}" description="{WorkOrderModel>Description}" />
+    </SelectDialog>
 </core:FragmentDefinition>
-<!-- 
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<SelectDialog
-		id="workOrderVH"
-		title="Work Order"
-		items="{localModel>/ZUSPPMEG01_WORK_ORDER_HEADERSet}"
-        confirm="handleValueHelpConfirm"
-		search=".onValueHelpSearch"
-		cancel=".onValueHelpClose"
-        multiSelect="true">
-		<StandardListItem
-			title="{localModel>WorkOrder}"
-			description="{localModel>WorkOrder}" />
-	</SelectDialog>
+
+<!-- <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <SelectDialog id="workOrderVH" title="Work Order" items="{localModel>/ZUSPPMEG01_WORK_ORDER_HEADERSet}" confirm="handleValueHelpConfirm" search=".onValueHelpSearch" cancel=".onValueHelpClose" multiSelect="true">
+        <StandardListItem title="{localModel>WorkOrder}" description="{localModel>WorkOrder}" />
+    </SelectDialog>
 </core:FragmentDefinition> -->

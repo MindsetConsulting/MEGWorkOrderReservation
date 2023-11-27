@@ -4,8 +4,9 @@
 		title="Planner Group"
 		items="{WorkOrderModel>/ZUSPPMEG01_PLANNER_GROUP_F4Set}"
 		search=".onValueHelpSearch"
-		confirm="onSuggestionItemSelected"
-		cancel=".onValueHelpClose">
+		confirm="handleValueHelpConfirm"
+		cancel=".onValueHelpClose"
+		multiSelect="true">
 		<StandardListItem
 			title="{WorkOrderModel>PlannerGroup}"
 			description="{WorkOrderModel>Description}" />
