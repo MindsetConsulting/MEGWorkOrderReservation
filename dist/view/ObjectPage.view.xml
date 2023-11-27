@@ -1,4 +1,5 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc"
+<mvc:View controllerName="meg.workorder.controller.ObjectPage"
+    xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:uxap="sap.uxap"
     xmlns:core="sap.ui.core"
@@ -21,20 +22,20 @@
                             <f:content>
                                 <core:Title text="" />
                                 <Label text="Work Order #" />
-                                <Text id="nameText" text="Work Order" />
+                                <Text text="{localModel>/workOrderHeader/WorkOrder}" />
                                 <Label text="Plant" />
-                                <Text id="countryText" text="Plant" />
+                                <Text text="{localModel>/workOrderHeader/Plant}" />
                                 <Label text="Order Type and Des." />
-                                <Text text="Order Type and Des." />
+                                <Text text="{localModel>/workOrderHeader/OrderType}" />
                                 <Label text="Planner Group" />
-                                <Text text="Planner Group" />
+                                <Text text="{localModel>/workOrderHeader/PlannerGroup}" />
                                 <core:Title text="" />
                                 <Label text="Work Center" />
-                                <Text text="Work Center" />
+                                <Text text="{localModel>/workOrderHeader/WorkCenter}" />
                                 <Label text="Func. Loc" />
-                                <Text text="Func. Loc" />
+                                <Text text="{localModel>/workOrderHeader/FunctLocation}" />
                                 <Label text="Equipment" />
-                                <Text text="Equipment" />
+                                <Text text="{localModel>/workOrderHeader/Equipment}" />
                             </f:content>
                         </f:SimpleForm>
                     </VBox>
@@ -46,18 +47,21 @@
                             <uxap:ObjectPageSubSection id="orderOpsID1" title="Order Operations" titleUppercase="false">
                                 <uxap:blocks>
                                     <VBox>
-                                        <Table id="orderOpID" items="{localModel>/orderOperations}" width="22rem">
+                                        <Toolbar>
+                                            <ToolbarSpacer />
+                                        </Toolbar>
+                                        <Table id="orderOpID" items="{path: 'localModel>/orderOperations'}" width="25rem">
                                             <columns>
-                                                <Column width="11rem">
+                                                <Column width="4rem">
                                                 </Column>
-                                                <Column width="11rem">
+                                                <Column width="21rem">
                                                 </Column>
                                             </columns>
                                             <items>
                                                 <ColumnListItem press="onTablePress" vAlign="Middle">
                                                     <cells>
-                                                        <Text text="{localModel>OPNo}" wrapping="false"/>
-                                                        <Text text="{localModel>OPDes}" wrapping="false"/>
+                                                        <Text text="{localModel>OperationNum}" wrapping="false"/>
+                                                        <Text text="{localModel>OperationDesc}" wrapping="false"/>
                                                     </cells>
                                                 </ColumnListItem>
                                             </items>
@@ -94,11 +98,11 @@
                                             <items>
                                                 <ColumnListItem press="onTablePress" vAlign="Middle">
                                                     <cells>
-                                                        <Text text="{localModel>part}" wrapping="false"/>
-                                                        <Text text="{localModel>partDesc}" wrapping="false"/>
-                                                        <Text text="{localModel>BOMQty}" wrapping="false"/>
-                                                        <Text text="{localModel>desiredQty}" wrapping="false"/>
-                                                        <Text text="{localModel>operation}" wrapping="false"/>
+                                                        <Text text="{localModel>Part}" wrapping="false"/>
+                                                        <Text text="{localModel>PartDesc}" wrapping="false"/>
+                                                        <Text text="{localModel>BOMQuan}" wrapping="false"/>
+                                                        <Text text="{localModel>DesiredQuan}" wrapping="false"/>
+                                                        <Text text="{localModel>Operation}" wrapping="false"/>
                                                     </cells>
                                                 </ColumnListItem>
                                             </items>

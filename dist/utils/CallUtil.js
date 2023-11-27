@@ -1,0 +1,2 @@
+sap.ui.define([],function(){"use strict";return{callGetData:function(n){return new Promise(function(e,i){$.get({url:n,success:function(n){e(n);sap.ui.core.BusyIndicator.hide()},error:function(n){i(n);sap.ui.core.BusyIndicator.hide()}})})}}});
+//# sourceMappingURL=CallUtil.js.map

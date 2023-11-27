@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="orderTypeVH"
+		title="Order Type"
+		items="{WorkOrderModel>/ZUSPPMEG01_ORDER_TYPE_F4Set}"
+		search=".onValueHelpSearch"
+		confirm="handleValueHelpConfirm"
+		cancel=".onValueHelpClose"
+		multiSelect="true">
+		<StandardListItem
+			title="{WorkOrderModel>OrderType}"
+			description="{WorkOrderModel>Description}" />
+	</SelectDialog>
+</core:FragmentDefinition>

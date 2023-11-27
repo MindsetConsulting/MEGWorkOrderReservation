@@ -62,7 +62,7 @@
         "uri": "./model/data.json",
         "preload": true
       },
-      "": {
+      "WorkOrderModel": {
         "dataSource": "mainService",
         "preload": true,
         "settings": {
@@ -94,7 +94,7 @@
       "routes": [
         {
           "name": "RouteWorkOrder",
-          "pattern": "RouteWorkOrder",
+          "pattern": ":?query:",
           "target": ["TargetWorkOrder"]
         },
         {
@@ -121,10 +121,10 @@
       }
     },
     "rootView": {
-      "viewName": "meg.workorder.view.WorkOrder",
+      "viewName": "meg.workorder.view.App",
       "type": "XML",
       "async": true,
-      "id": "WorkOrder"
+      "id": "App"
     }
   }
 }
