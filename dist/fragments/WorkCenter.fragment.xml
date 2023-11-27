@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="workCenterVH"
+		title="WorkC enter"
+		items="{WorkOrderModel>/ZUSPPMEG01_WORK_CENTER_F4Set}"
+		search=".onValueHelpSearch"
+		confirm="handleValueHelpConfirm"
+		cancel=".onValueHelpClose"
+		multiSelect="true">
+		<StandardListItem
+			title="{WorkOrderModel>WorkCenter}"
+			description="{WorkOrderModel>Description}" />
+	</SelectDialog>
+</core:FragmentDefinition>

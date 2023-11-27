@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/model/Filter","sap/ui/model/FilterOperator"],function(r,e){"use strict";return{prepareFilters1:function(t){var n=[];Object.keys(t).forEach(function(i){if(Array.isArray(t[i])){if(t[i].length>0){n.push(new r({filters:t[i].map(function(t){t=t.getProperty("title");return new r(i,e.EQ,t)})},false))}}});return n},prepareFilters:function(r){var e="";r.forEach(function(r){e+=r+" and "});return e}}});
+//# sourceMappingURL=FilterUtil.js.map

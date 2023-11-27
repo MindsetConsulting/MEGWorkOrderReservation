@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="plantVH"
+		title="Plant"
+		items="{WorkOrderModel>/ZUSPPMEG01_PLANT_F4Set}"
+		search=".onValueHelpSearch"
+		confirm="handleValueHelpConfirm"
+		cancel=".onValueHelpClose"
+		multiSelect="true">
+		<StandardListItem
+			title="{WorkOrderModel>Plant}"
+			description="{WorkOrderModel>Description}" />
+	</SelectDialog>
+</core:FragmentDefinition>
+
+<!-- <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="plantVH"
+		title="Plant"
+		items="{localModel>/ZUSPPMEG01_WORK_ORDER_HEADERSet}"
+        confirm="handleValueHelpConfirm"
+		search=".onValueHelpSearch"
+		cancel=".onValueHelpClose"
+        multiSelect="true">
+		<StandardListItem
+			title="{localModel>Plant}"
+			description="{localModel>Plant}" />
+	</SelectDialog>
+</core:FragmentDefinition> -->
