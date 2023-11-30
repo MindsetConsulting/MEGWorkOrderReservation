@@ -149,6 +149,7 @@ sap.ui.define(
           this.VHID = "WorkOrder";
           this._oDialogWO.open();
         }
+        this.byId("woInput").removeAllTokens();
         this.VHID = "WorkOrder";
         this._oDialogWO.open();
       },
@@ -163,6 +164,7 @@ sap.ui.define(
           this.VHID = "Plant";
           this._oDialogPlant.open();
         }
+        this.byId("plantInput").removeAllTokens();
         this.VHID = "Plant";
         this._oDialogPlant.open();
       },
@@ -177,6 +179,7 @@ sap.ui.define(
           this.VHID = "OrderType";
           this._oDialogOrderType.open();
         }
+        this.byId("orderTypeInput").removeAllTokens();
         this.VHID = "OrderType";
         this._oDialogOrderType.open();
       },
@@ -191,6 +194,7 @@ sap.ui.define(
           this.VHID = "PlannerGroup";
           this._oDialogPlannerGroup.open();
         }
+        this.byId("plannerGroupInput").removeAllTokens();
         this.VHID = "PlannerGroup";
         this._oDialogPlannerGroup.open();
       },
@@ -205,6 +209,7 @@ sap.ui.define(
           this.VHID = "WorkCenter";
           this._oDialogWorkCenter.open();
         }
+        this.byId("workCenterInput").removeAllTokens();
         this.VHID = "WorkCenter";
         this._oDialogWorkCenter.open();
       },
@@ -219,6 +224,7 @@ sap.ui.define(
           this.VHID = "FunctLocation";
           this._oDialogFuncLoc.open();
         }
+        this.byId("funLocInput").removeAllTokens();
         this.VHID = "FunctLocation";
         this._oDialogFuncLoc.open();
       },
@@ -233,6 +239,7 @@ sap.ui.define(
           this.VHID = "Equipment";
           this._oDialogEquipment.open();
         }
+        this.byId("equipmentInput").removeAllTokens();
         this.VHID = "Equipment";
         this._oDialogEquipment.open();
       },

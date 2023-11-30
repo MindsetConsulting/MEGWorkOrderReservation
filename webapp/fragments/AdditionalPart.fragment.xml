@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <SelectDialog id="addPartVH" title="Part" items="{localModel>/ZUSPPMEG01_PART_F4Set}" search=".onValueHelpSearch" confirm="handlePartConfirm" cancel=".onValueHelpClose">
+        <StandardListItem title="{localModel>Part}" description="{localModel>Description}" />
+    </SelectDialog>
+</core:FragmentDefinition>
