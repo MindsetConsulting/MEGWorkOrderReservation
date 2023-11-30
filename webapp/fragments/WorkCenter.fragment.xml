@@ -1,14 +1,6 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<SelectDialog
-		id="workCenterVH"
-		title="WorkC enter"
-		items="{WorkOrderModel>/ZUSPPMEG01_WORK_CENTER_F4Set}"
-		search=".onValueHelpSearch"
-		confirm="handleValueHelpConfirm"
-		cancel=".onValueHelpClose"
-		multiSelect="true">
-		<StandardListItem
-			title="{WorkOrderModel>WorkCenter}"
-			description="{WorkOrderModel>Description}" />
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog id="workCenterVH" title="Work Center" items="{localModel>/ZUSPPMEG01_WORK_CENTER_F4Set}" search=".onValueHelpSearch" confirm="handleValueHelpConfirm" cancel=".onValueHelpClose" multiSelect="true" rememberSelections="true">
+		<StandardListItem title="{localModel>WorkCenter}" description="{localModel>Description}" />
 	</SelectDialog>
 </core:FragmentDefinition>

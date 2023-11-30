@@ -79,21 +79,27 @@
                                     <VBox>
                                         <Table id="equiBOMID" items="{localModel>/equipBOMItems}" mode="MultiSelect">
                                             <columns>
-                                                <Column width="11rem">
+                                                <Column minScreenWidth="Tablet">
                                                     <Label text="Part"/>
                                                 </Column>
-                                                <Column width="11rem">
+                                                <Column minScreenWidth="Tablet">
                                                     <Label text="Part Description"/>
                                                 </Column>
-                                                <Column width="11rem">
+                                                <Column minScreenWidth="Tablet">
                                                     <Label text="BOM Quantity"/>
                                                 </Column>
-                                                <Column width="11rem">
+                                                <Column minScreenWidth="Tablet">
                                                     <Label text="Desired Quantity"/>
                                                 </Column>
-                                                <Column width="11rem">
+                                                <Column minScreenWidth="Tablet">
                                                     <Label text="Operation"/>
                                                 </Column>
+                                                <Column minScreenWidth="Tablet" visible="true">
+                                                    <Label text="Storage Location"/>
+                                                </Column>
+                                                <!-- <Column minScreenWidth="Tablet" visible="true">
+                                                    <Label text="Storage Location"/>
+                                                </Column> -->
                                             </columns>
                                             <items>
                                                 <ColumnListItem press="onTablePress" vAlign="Middle">
@@ -101,8 +107,12 @@
                                                         <Text text="{localModel>Part}" wrapping="false"/>
                                                         <Text text="{localModel>PartDesc}" wrapping="false"/>
                                                         <Text text="{localModel>BOMQuan}" wrapping="false"/>
-                                                        <Text text="{localModel>DesiredQuan}" wrapping="false"/>
-                                                        <Text text="{localModel>Operation}" wrapping="false"/>
+                                                        <Input id="idDesiredQuanBOM" value="{localModel>DesiredQuan}" />
+                                                        <Input id="idOperationBOM" value="{localModel>OperationBOM}" />
+                                                        <!-- <Input id="idStorageLoc" value="{localModel>StorageLocation}" visible="{localModel>isInput}" /> -->
+                                                        <Select selectedKey="{localModel>StorageLocation/StorageLocation}" enabled="{localModel>isEnabled}" width="100%" forceSelection="{localModel>isSelected}" items="{path: 'localModel>StorageLocation'}">
+                                                            <core:Item key="{localModel>StorageLocation}" text="{localModel>StorageLocation}" />
+                                                        </Select>
                                                     </cells>
                                                 </ColumnListItem>
                                             </items>
@@ -118,39 +128,50 @@
                             <uxap:ObjectPageSubSection id="addPart1" title="Additional Part Items" titleUppercase="false">
                                 <uxap:blocks>
                                     <VBox>
-                                        <Table id="addPartItemsID" items="{localModel>/addPartsItems}">
+                                        <Table id="addPartItemsID" items="{localModel>/AddPartsItems}">
                                             <headerToolbar>
                                                 <OverflowToolbar>
-                                                    <content>
-                                                        <Title text="" level="H2"/>
-                                                        <ToolbarSpacer />
-                                                        <Button text="Add" press="" />
-                                                        <Button text="Edit" press="" />
-                                                        <Button text="Delete" press="" />
-                                                    </content>
+                                                    <ToolbarSpacer />
+                                                    <Button text="Add Item" icon="sap-icon://add" press="onRowAddParts" />
                                                 </OverflowToolbar>
                                             </headerToolbar>
                                             <columns>
-                                                <Column width="11rem">
+                                                <Column minScreenWidth="Tablet">
                                                     <Label text="Part"/>
                                                 </Column>
-                                                <Column width="11rem">
+                                                <Column minScreenWidth="Tablet">
                                                     <Label text="Part Description"/>
                                                 </Column>
-                                                <Column width="11rem">
+                                                <Column minScreenWidth="Tablet">
                                                     <Label text="Desired Quantity"/>
                                                 </Column>
-                                                <Column width="11rem">
+                                                <Column minScreenWidth="Tablet">
                                                     <Label text="Operation"/>
+                                                </Column>
+                                                <Column minScreenWidth="Tablet">
+                                                    <Label text="Storage Location"/>
+                                                </Column>
+                                                <Column width="1rem">
+                                                    <Label text=""/>
                                                 </Column>
                                             </columns>
                                             <items>
                                                 <ColumnListItem press="onTablePress" vAlign="Middle">
                                                     <cells>
-                                                        <Text text="{localModel>part}" wrapping="false"/>
-                                                        <Text text="{localModel>partDesc}" wrapping="false"/>
-                                                        <Text text="{localModel>desiredQty}" wrapping="false"/>
-                                                        <Text text="{localModel>operation}" wrapping="false"/>
+                                                        <!-- <MultiInput items="{localModel>part}" showValueHelp="true" valueHelpRequest=".onAddPartValueHelp" valueHelpOnly="true" /> -->
+                                                        <Input id="idPart" value="{localModel>Part}" type="Text" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onAddPartValueHelp" />
+                                                        <Input value="{localModel>PartDesc}" editable="false" />
+                                                        <Input value="{localModel>DesiredQuan}" />
+                                                        <Input value="{localModel>Operation}" />
+                                                        <Select selectedKey="{localModel>StorageLocation/StorageLocation}" enabled="{localModel>isEnabled}" width="100%" forceSelection="{localModel>isSelected}" items="{path: 'localModel>StorageLocation'}">
+                                                            <core:Item key="{localModel>StorageLocation}" text="{localModel>StorageLocation}" />
+                                                        </Select>
+                                                        <!-- <Input value="{localModel>StorageLocation}" /> -->
+                                                        <Button icon="sap-icon://delete" press="onTableRowDelete" />
+                                                        <!-- <Text id="idPartInput" text="{localModel>part}" wrapping="false"/> -->
+                                                        <!-- <Text id="idPartDescAdd" text="{localModel>partDesc}" wrapping="false"/> -->
+                                                        <!-- <Text id="idDesiredQuanAdd"text="{localModel>desiredQty}" wrapping="false"/>
+                                                        <Text id="idOperationAdd" text="{localModel>operation}" wrapping="false"/> -->
                                                     </cells>
                                                 </ColumnListItem>
                                             </items>
@@ -167,7 +188,7 @@
         <footer>
             <Toolbar>
                 <ToolbarSpacer/>
-                <Button text="Pass to Work Order Reservation" press="" type="Emphasized"/>
+                <Button text="Pass to Work Order Reservation" press="passWOReservation" type="Emphasized"/>
             </Toolbar>
         </footer>
     </Page>
