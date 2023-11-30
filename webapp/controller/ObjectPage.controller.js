@@ -15,9 +15,8 @@ sap.ui.define(
 
     return Controller.extend("meg.workorder.controller.ObjectPage", {
       onInit: async function () {
-        sap.ui.core.BusyIndicator.show();
         this.localModel = this.getOwnerComponent().getModel("localModel");
-        this.localModel.setProperty("/AddPartsItems", []);
+        // this.localModel.setProperty("/AddPartsItems", []);
 
         var oRouter = this.getOwnerComponent().getRouter();
         oRouter
@@ -26,6 +25,7 @@ sap.ui.define(
       },
 
       _onObjectMatched: async function (oEvent) {
+        sap.ui.core.BusyIndicator.show();
         this.WorkOrderId = oEvent.getParameter("arguments").id;
 
         this.serviceUrl =
@@ -53,6 +53,7 @@ sap.ui.define(
           }
         }
         this.localModel.setProperty("/orderOperations", orderOps);
+        this.localModel.setProperty("/AddPartsItems", []);
         // this.localModel.setProperty("/equipBOMItems", equipBOMItems);
       },
 
