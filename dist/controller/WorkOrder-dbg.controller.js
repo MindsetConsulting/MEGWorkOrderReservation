@@ -39,8 +39,11 @@ sap.ui.define(
         this.dateFilter =
           "(Date ge '" + prevDate + "' and Date le '" + curDate + "')";
 
-        this.serviceUrl =
-          this.getOwnerComponent().getModel("WorkOrderModel").sServiceUrl;
+        this.localModel = this.getOwnerComponent().getModel("localModel");
+        this.WorkOrderModel =
+          this.getOwnerComponent().getModel("WorkOrderModel");
+
+        this.serviceUrl = this.WorkOrderModel.sServiceUrl;
         var data = await CallUtil.callGetData(
           this.serviceUrl +
             "/ZUSPPMEG01_WORK_ORDER_HEADERSet?$format=json&$filter=" +
@@ -49,10 +52,9 @@ sap.ui.define(
 
         data = data.d.results;
 
-        this.localModel = this.getOwnerComponent().getModel("localModel");
         this.localModel.setProperty("/workOrderList", data);
 
-        this.localModel.setProperty("/filterValues", {});
+        // this.localModel.setProperty("/filterValues", {});
         this.oFilterBar = this.getView().byId("FilterBar");
         this.oTable = this.getView().byId("workOrderTable");
       },
@@ -139,6 +141,14 @@ sap.ui.define(
         this.byId("equipmentInput").removeAllTokens();
       },
 
+      prepareGetCall: async function (entityName) {
+        var data = await CallUtil.callGetData(
+          this.serviceUrl + entityName + "?$format=json"
+        );
+        data = data.d.results;
+        this.localModel.setProperty(entityName, data);
+      },
+
       onWOValueHelp: function (oEvent) {
         if (!this._oDialogWO) {
           this._oDialogWO = sap.ui.xmlfragment(
@@ -147,6 +157,7 @@ sap.ui.define(
           );
           this.getView().addDependent(this._oDialogWO);
           this.VHID = "WorkOrder";
+          this.prepareGetCall("/ZUSPPMEG01_WORK_ORDER_F4Set");
           this._oDialogWO.open();
         }
         this.byId("woInput").removeAllTokens();
@@ -154,7 +165,7 @@ sap.ui.define(
         this._oDialogWO.open();
       },
 
-      onPlantValueHelp: function (oEvent) {
+      onPlantValueHelp: async function (oEvent) {
         if (!this._oDialogPlant) {
           this._oDialogPlant = sap.ui.xmlfragment(
             "meg.workorder.fragments.Plant",
@@ -162,6 +173,15 @@ sap.ui.define(
           );
           this.getView().addDependent(this._oDialogPlant);
           this.VHID = "Plant";
+
+          this.prepareGetCall("/ZUSPPMEG01_PLANT_F4Set");
+          // var data = await CallUtil.callGetData(
+          //   this.serviceUrl + "/ZUSPPMEG01_PLANT_F4Set?$format=json"
+          // );
+
+          // data = data.d.results;
+          // this.localModel.setProperty("/ZUSPPMEG01_PLANT_F4Set", data);
+
           this._oDialogPlant.open();
         }
         this.byId("plantInput").removeAllTokens();
@@ -177,6 +197,7 @@ sap.ui.define(
           );
           this.getView().addDependent(this._oDialogOrderType);
           this.VHID = "OrderType";
+          this.prepareGetCall("/ZUSPPMEG01_ORDER_TYPE_F4Set");
           this._oDialogOrderType.open();
         }
         this.byId("orderTypeInput").removeAllTokens();
@@ -192,6 +213,7 @@ sap.ui.define(
           );
           this.getView().addDependent(this._oDialogPlannerGroup);
           this.VHID = "PlannerGroup";
+          this.prepareGetCall("/ZUSPPMEG01_PLANNER_GROUP_F4Set");
           this._oDialogPlannerGroup.open();
         }
         this.byId("plannerGroupInput").removeAllTokens();
@@ -207,6 +229,7 @@ sap.ui.define(
           );
           this.getView().addDependent(this._oDialogWorkCenter);
           this.VHID = "WorkCenter";
+          this.prepareGetCall("/ZUSPPMEG01_WORK_CENTER_F4Set");
           this._oDialogWorkCenter.open();
         }
         this.byId("workCenterInput").removeAllTokens();
@@ -222,6 +245,7 @@ sap.ui.define(
           );
           this.getView().addDependent(this._oDialogFuncLoc);
           this.VHID = "FunctLocation";
+          this.prepareGetCall("/ZUSPPMEG01_FUNCTION_LOCATION_F4Set");
           this._oDialogFuncLoc.open();
         }
         this.byId("funLocInput").removeAllTokens();
@@ -237,6 +261,7 @@ sap.ui.define(
           );
           this.getView().addDependent(this._oDialogEquipment);
           this.VHID = "Equipment";
+          this.prepareGetCall("/ZUSPPMEG01_EQUIPMENT_F4Set");
           this._oDialogEquipment.open();
         }
         this.byId("equipmentInput").removeAllTokens();
