@@ -149,7 +149,7 @@ sap.ui.define(
         this.localModel.setProperty(entityName, data);
       },
 
-      onWOValueHelp: function (oEvent) {
+      onWOValueHelp: async function (oEvent) {
         if (!this._oDialogWO) {
           this._oDialogWO = sap.ui.xmlfragment(
             "meg.workorder.fragments.WorkOrder",
@@ -157,7 +157,13 @@ sap.ui.define(
           );
           this.getView().addDependent(this._oDialogWO);
           this.VHID = "WorkOrder";
-          this.prepareGetCall("/ZUSPPMEG01_WORK_ORDER_F4Set");
+          // this.prepareGetCall("/ZUSPPMEG01_WORK_ORDER_F4Set");
+          var data = await CallUtil.callGetData(
+            this.serviceUrl + "/ZUSPPMEG01_WORK_ORDER_F4Set?$format=json"
+          );
+          data = data.d.results;
+          this.localModel.setProperty("/ZUSPPMEG01_WORK_ORDER_F4Set", data);
+
           this._oDialogWO.open();
         }
         this.byId("woInput").removeAllTokens();
@@ -174,13 +180,12 @@ sap.ui.define(
           this.getView().addDependent(this._oDialogPlant);
           this.VHID = "Plant";
 
-          this.prepareGetCall("/ZUSPPMEG01_PLANT_F4Set");
-          // var data = await CallUtil.callGetData(
-          //   this.serviceUrl + "/ZUSPPMEG01_PLANT_F4Set?$format=json"
-          // );
-
-          // data = data.d.results;
-          // this.localModel.setProperty("/ZUSPPMEG01_PLANT_F4Set", data);
+          // this.prepareGetCall("/ZUSPPMEG01_PLANT_F4Set");
+          var data = await CallUtil.callGetData(
+            this.serviceUrl + "/ZUSPPMEG01_PLANT_F4Set?$format=json"
+          );
+          data = data.d.results;
+          this.localModel.setProperty("/ZUSPPMEG01_PLANT_F4Set", data);
 
           this._oDialogPlant.open();
         }
@@ -189,7 +194,7 @@ sap.ui.define(
         this._oDialogPlant.open();
       },
 
-      onOrderTypeValueHelp: function (oEvent) {
+      onOrderTypeValueHelp: async function (oEvent) {
         if (!this._oDialogOrderType) {
           this._oDialogOrderType = sap.ui.xmlfragment(
             "meg.workorder.fragments.OrderType",
@@ -197,7 +202,13 @@ sap.ui.define(
           );
           this.getView().addDependent(this._oDialogOrderType);
           this.VHID = "OrderType";
-          this.prepareGetCall("/ZUSPPMEG01_ORDER_TYPE_F4Set");
+          // this.prepareGetCall("/ZUSPPMEG01_ORDER_TYPE_F4Set");
+          var data = await CallUtil.callGetData(
+            this.serviceUrl + "/ZUSPPMEG01_ORDER_TYPE_F4Set?$format=json"
+          );
+          data = data.d.results;
+          this.localModel.setProperty("/ZUSPPMEG01_ORDER_TYPE_F4Set", data);
+
           this._oDialogOrderType.open();
         }
         this.byId("orderTypeInput").removeAllTokens();
@@ -205,7 +216,7 @@ sap.ui.define(
         this._oDialogOrderType.open();
       },
 
-      onPlannerGroupValueHelp: function (oEvent) {
+      onPlannerGroupValueHelp: async function (oEvent) {
         if (!this._oDialogPlannerGroup) {
           this._oDialogPlannerGroup = sap.ui.xmlfragment(
             "meg.workorder.fragments.PlannerGroup",
@@ -213,7 +224,13 @@ sap.ui.define(
           );
           this.getView().addDependent(this._oDialogPlannerGroup);
           this.VHID = "PlannerGroup";
-          this.prepareGetCall("/ZUSPPMEG01_PLANNER_GROUP_F4Set");
+          // this.prepareGetCall("/ZUSPPMEG01_PLANNER_GROUP_F4Set");
+          var data = await CallUtil.callGetData(
+            this.serviceUrl + "/ZUSPPMEG01_PLANNER_GROUP_F4Set?$format=json"
+          );
+          data = data.d.results;
+          this.localModel.setProperty("/ZUSPPMEG01_PLANNER_GROUP_F4Set", data);
+
           this._oDialogPlannerGroup.open();
         }
         this.byId("plannerGroupInput").removeAllTokens();
@@ -221,7 +238,7 @@ sap.ui.define(
         this._oDialogPlannerGroup.open();
       },
 
-      onWorkCenterValueHelp: function (oEvent) {
+      onWorkCenterValueHelp: async function (oEvent) {
         if (!this._oDialogWorkCenter) {
           this._oDialogWorkCenter = sap.ui.xmlfragment(
             "meg.workorder.fragments.WorkCenter",
@@ -229,7 +246,13 @@ sap.ui.define(
           );
           this.getView().addDependent(this._oDialogWorkCenter);
           this.VHID = "WorkCenter";
-          this.prepareGetCall("/ZUSPPMEG01_WORK_CENTER_F4Set");
+          // this.prepareGetCall("/ZUSPPMEG01_WORK_CENTER_F4Set");
+          var data = await CallUtil.callGetData(
+            this.serviceUrl + "/ZUSPPMEG01_WORK_CENTER_F4Set?$format=json"
+          );
+          data = data.d.results;
+          this.localModel.setProperty("/ZUSPPMEG01_WORK_CENTER_F4Set", data);
+
           this._oDialogWorkCenter.open();
         }
         this.byId("workCenterInput").removeAllTokens();
@@ -237,7 +260,7 @@ sap.ui.define(
         this._oDialogWorkCenter.open();
       },
 
-      onFuncLocValueHelp: function (oEvent) {
+      onFuncLocValueHelp: async function (oEvent) {
         if (!this._oDialogFuncLoc) {
           this._oDialogFuncLoc = sap.ui.xmlfragment(
             "meg.workorder.fragments.FuncLoc",
@@ -245,7 +268,16 @@ sap.ui.define(
           );
           this.getView().addDependent(this._oDialogFuncLoc);
           this.VHID = "FunctLocation";
-          this.prepareGetCall("/ZUSPPMEG01_FUNCTION_LOCATION_F4Set");
+          // this.prepareGetCall("/ZUSPPMEG01_FUNCTION_LOCATION_F4Set");
+          var data = await CallUtil.callGetData(
+            this.serviceUrl + "/ZUSPPMEG01_FUNCTION_LOCATION_F4Set?$format=json"
+          );
+          data = data.d.results;
+          this.localModel.setProperty(
+            "/ZUSPPMEG01_FUNCTION_LOCATION_F4Set",
+            data
+          );
+
           this._oDialogFuncLoc.open();
         }
         this.byId("funLocInput").removeAllTokens();
@@ -253,7 +285,7 @@ sap.ui.define(
         this._oDialogFuncLoc.open();
       },
 
-      onEquipmentValueHelp: function (oEvent) {
+      onEquipmentValueHelp: async function (oEvent) {
         if (!this._oDialogEquipment) {
           this._oDialogEquipment = sap.ui.xmlfragment(
             "meg.workorder.fragments.Equipment",
@@ -261,7 +293,13 @@ sap.ui.define(
           );
           this.getView().addDependent(this._oDialogEquipment);
           this.VHID = "Equipment";
-          this.prepareGetCall("/ZUSPPMEG01_EQUIPMENT_F4Set");
+          // this.prepareGetCall("/ZUSPPMEG01_EQUIPMENT_F4Set");
+          var data = await CallUtil.callGetData(
+            this.serviceUrl + "/ZUSPPMEG01_EQUIPMENT_F4Set?$format=json"
+          );
+          data = data.d.results;
+          this.localModel.setProperty("/ZUSPPMEG01_EQUIPMENT_F4Set", data);
+
           this._oDialogEquipment.open();
         }
         this.byId("equipmentInput").removeAllTokens();

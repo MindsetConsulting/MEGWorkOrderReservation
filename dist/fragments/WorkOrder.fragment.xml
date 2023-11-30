@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:core="sap.ui.core">
-    <SelectDialog id="workOrderVH" rememberSelections="true" title="Work Order" items="{WorkOrderModel>/ZUSPPMEG01_WORK_ORDER_F4Set}" search=".onValueHelpSearch" confirm="handleValueHelpConfirm" cancel=".onValueHelpClose" multiSelect="true">
-        <StandardListItem selected="{selected}" title="{WorkOrderModel>WorkOrder}" description="{WorkOrderModel>Description}" />
+    <SelectDialog id="workOrderVH" rememberSelections="true" title="Work Order" items="{localModel>/ZUSPPMEG01_WORK_ORDER_F4Set}" search=".onValueHelpSearch" confirm="handleValueHelpConfirm" cancel=".onValueHelpClose" multiSelect="true">
+        <StandardListItem title="{localModel>WorkOrder}" description="{localModel>Description}" />
     </SelectDialog>
 </core:FragmentDefinition>
 

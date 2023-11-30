@@ -1,14 +1,6 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<SelectDialog
-		id="equipmentVH"
-		title="Equipment"
-		items="{WorkOrderModel>/ZUSPPMEG01_EQUIPMENT_F4Set}"
-		search=".onValueHelpSearch"
-		confirm="handleValueHelpConfirm"
-		cancel=".onValueHelpClose"
-		multiSelect="true">
-		<StandardListItem
-			title="{WorkOrderModel>Equipment}"
-			description="{WorkOrderModel>Description}" />
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog id="equipmentVH" title="Equipment" items="{localModel>/ZUSPPMEG01_EQUIPMENT_F4Set}" search=".onValueHelpSearch" confirm="handleValueHelpConfirm" cancel=".onValueHelpClose" multiSelect="true" rememberSelections="true">
+		<StandardListItem title="{localModel>Equipment}" description="{localModel>Description}" />
 	</SelectDialog>
 </core:FragmentDefinition>
