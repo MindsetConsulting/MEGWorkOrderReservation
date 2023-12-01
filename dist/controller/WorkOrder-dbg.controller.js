@@ -69,7 +69,7 @@ sap.ui.define(
         ][index];
 
         var WOID = selectedValues.WorkOrder;
-        this.localModel.setProperty("/selectedValues", selectedValues);
+        // this.localModel.setProperty("/selectedValues", selectedValues);
         var oRouter = this.getOwnerComponent().getRouter();
         oRouter.navTo("RouteObjectPage", { id: WOID });
       },
@@ -115,21 +115,6 @@ sap.ui.define(
           return "equipmentInput";
         }
       },
-
-      //   handleFilterChange: async function () {
-      //     var DataModel = this.getView().getModel("localModel");
-      //     var filterValues = DataModel.getData().filterValues;
-
-      //     var filters = FilterUtil.prepareFilters({
-      //       WorkOrder: filterValues.WorkOrder,
-      //       Plant: filterValues.Plant,
-      //       OrderType: filterValues.OrderType,
-      //     });
-      //     this.getView()
-      //       .byId("workOrderTable")
-      //       .getBinding("items")
-      //       .filter(filters, FilterType.Application);
-      //   },
 
       onResetFilters: function () {
         this.byId("woInput").removeAllTokens();

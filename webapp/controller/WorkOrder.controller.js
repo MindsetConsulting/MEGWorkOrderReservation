@@ -126,13 +126,13 @@ sap.ui.define(
         this.byId("equipmentInput").removeAllTokens();
       },
 
-      prepareGetCall: async function (entityName) {
-        var data = await CallUtil.callGetData(
-          this.serviceUrl + entityName + "?$format=json"
-        );
-        data = data.d.results;
-        this.localModel.setProperty(entityName, data);
-      },
+      // prepareGetCall: async function (entityName) {
+      //   var data = await CallUtil.callGetData(
+      //     this.serviceUrl + entityName + "?$format=json"
+      //   );
+      //   data = data.d.results;
+      //   this.localModel.setProperty(entityName, data);
+      // },
 
       onWOValueHelp: async function (oEvent) {
         if (!this._oDialogWO) {
