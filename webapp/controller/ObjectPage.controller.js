@@ -6,11 +6,20 @@ sap.ui.define(
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "meg/workorder/utils/CallUtil",
+    "sap/m/MessageBox",
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Controller, JSONModel, Fragment, Filter, FilterOperator, CallUtil) {
+  function (
+    Controller,
+    JSONModel,
+    Fragment,
+    Filter,
+    FilterOperator,
+    CallUtil,
+    MessageBox
+  ) {
     "use strict";
 
     return Controller.extend("meg.workorder.controller.ObjectPage", {
@@ -25,7 +34,7 @@ sap.ui.define(
       },
 
       _onObjectMatched: async function (oEvent) {
-        sap.ui.core.BusyIndicator.show();
+        // sap.ui.core.BusyIndicator.show();
         this.WorkOrderId = oEvent.getParameter("arguments").id;
 
         this.serviceUrl =
@@ -181,19 +190,71 @@ sap.ui.define(
         oBinding.filter([oFilter]);
       },
 
-      passWOReservation: function (oEvent) {
+      passWOReservation: async function (oEvent) {
         var oEquiBOMTable = this.byId("equiBOMID");
         var aSelectedPaths = oEquiBOMTable.getSelectedContextPaths();
         var data = this.localModel.getData();
         this.localModel.setProperty("/selectedEquiBOM", []);
+        var url = this.serviceUrl + "/ZUSPPMEG01_WORK_ORDER_HEADERSet";
 
         if (aSelectedPaths && aSelectedPaths.length > 0) {
           aSelectedPaths.forEach(function (sPath) {
             var index = sPath.split("/")[2];
             var equiData = data.equipBOMItems[index];
+            equiData = {
+              WorkOrder: equiData.WorkOrder,
+              Part: equiData.Part,
+              PartDesc: equiData.PartDesc,
+              BOMQuan: equiData.BOMQuan,
+              DesiredQuan: equiData.DesiredQuan,
+              Operation: equiData.Operation,
+              Select: equiData.Select,
+              StorageLocation: equiData.StorageLocation.StorageLocation,
+            };
             data.selectedEquiBOM.push(equiData);
           });
         }
+
+        if (data.orderOperations) {
+          data.orderOperations.forEach(function (orderOp) {
+            delete orderOp.__metadata;
+            delete orderOp.Status;
+          });
+        }
+
+        if (data.AddPartsItems) {
+          data.AddPartsItems.forEach(function (addPart) {
+            addPart.WorkOrder = data.workOrderHeader.WorkOrder;
+            delete addPart.isEnabled;
+            delete addPart.isSelected;
+            if (addPart.StorageLocation) {
+              addPart.StorageLocation = addPart.StorageLocation.StorageLocation;
+            }
+          });
+        }
+
+        // mandatory check
+        var isRequiredCheck = true;
+        if (data.selectedEquiBOM) {
+          data.selectedEquiBOM.forEach(function (equiBOM) {
+            if (equiBOM.DesiredQuan == "" || equiBOM.Operation == "") {
+              isRequiredCheck = false;
+            }
+          });
+        }
+        if (data.AddPartsItems) {
+          data.AddPartsItems.forEach(function (addPart) {
+            if (addPart.DesiredQuan == "" || addPart.Operation == "") {
+              isRequiredCheck = false;
+            }
+          });
+        }
+        // if (!isRequiredCheck) {
+        //   MessageBox.error(
+        //     "Please enter the Desired Quantity and Operation for the selected Items"
+        //   );
+        //   return;
+        // }
 
         var payload = {
           WorkOrder: data.workOrderHeader.WorkOrder,
@@ -204,14 +265,76 @@ sap.ui.define(
           WorkCenter: data.workOrderHeader.WorkCenter,
           FunctLocation: data.workOrderHeader.FunctLocation,
           Equipment: data.workOrderHeader.Equipment,
-          // OrdOperationNav Data
-          OrdOperationNav: data.OrdOperationNav.results,
-          // EquipBOMItemNav Data
+          /** OrdOperationNav Data  */
+          OrdOperationNav: data.orderOperations,
+          /** EquipBOMItemNav Data  */
           EquipBOMItemNav: data.selectedEquiBOM,
-          // AddPartItemNav Data
+          /** AddPartItemNav Data  */
           AddPartItemNav: data.AddPartsItems,
+          LogNav: [{}],
         };
+
+        // var payload = {
+        //   WorkOrder: "8001002",
+        //   Plant: "7300",
+        //   OrderType: "ZOCR",
+        //   Description: "",
+        //   PlannerGroup: "",
+        //   WorkCenter: "ELECTRO",
+        //   FunctLocation: "7300-FINI-CRAN-CRAN",
+        //   Equipment: "80000138",
+        //   OrdOperationNav: [
+        //     {
+        //       WorkOrder: "8001002",
+        //       OperationNum: "0010",
+        //       OperationDesc: "EMT - fixes Crane",
+        //     },
+        //   ],
+        //   EquipBOMItemNav: [
+        //     {
+        //       WorkOrder: "8001002",
+        //       Part: "16000000014",
+        //       PartDesc: "PUMP",
+        //       BOMQuan: "1.000 ",
+        //       DesiredQuan: "2",
+        //       Operation: "10",
+        //       Select: false,
+        //       StorageLocation: "7372",
+        //     },
+        //     {
+        //       WorkOrder: "8001002",
+        //       Part: "16000000031",
+        //       PartDesc: "PUMP",
+        //       BOMQuan: "1.000 ",
+        //       DesiredQuan: "3",
+        //       Operation: "10",
+        //       Select: false,
+        //       StorageLocation: "7372",
+        //     },
+        //   ],
+        //   AddPartItemNav: [
+        //     {
+        //       WorkOrder: "8001002",
+        //       Part: "16000000029",
+        //       PartDesc: "",
+        //       DesiredQuan: "2",
+        //       Operation: "10",
+        //       StorageLocation: "7372",
+        //     },
+        //     {
+        //       WorkOrder: "8001002",
+        //       Part: "16000000007",
+        //       PartDesc: "",
+        //       DesiredQuan: "3",
+        //       Operation: "10",
+        //       StorageLocation: "7372",
+        //     },
+        //   ],
+        // };
         console.log(payload);
+
+        var response = await CallUtil.callPostData(url, payload);
+        console.log(response);
       },
     });
   }

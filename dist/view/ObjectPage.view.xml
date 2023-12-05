@@ -108,7 +108,7 @@
                                                         <Text text="{localModel>PartDesc}" wrapping="false"/>
                                                         <Text text="{localModel>BOMQuan}" wrapping="false"/>
                                                         <Input id="idDesiredQuanBOM" value="{localModel>DesiredQuan}" />
-                                                        <Input id="idOperationBOM" value="{localModel>OperationBOM}" />
+                                                        <Input id="idOperationBOM" value="{localModel>Operation}" />
                                                         <!-- <Input id="idStorageLoc" value="{localModel>StorageLocation}" visible="{localModel>isInput}" /> -->
                                                         <Select selectedKey="{localModel>StorageLocation/StorageLocation}" enabled="{localModel>isEnabled}" width="100%" forceSelection="{localModel>isSelected}" items="{path: 'localModel>StorageLocation'}">
                                                             <core:Item key="{localModel>StorageLocation}" text="{localModel>StorageLocation}" />
