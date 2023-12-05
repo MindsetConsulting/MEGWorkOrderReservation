@@ -28,13 +28,22 @@ sap.ui.define(
 
     return Controller.extend("meg.workorder.controller.WorkOrder", {
       onInit: async function () {
-        sap.ui.core.BusyIndicator.show();
+        // sap.ui.core.BusyIndicator.show();
         var date = new Date();
-        var curDate =
-          date.getFullYear() + "" + (date.getMonth() + 1) + "" + date.getDate();
+        // var curDate =
+        //   date.getFullYear() + "" + (date.getMonth() + 1) + "" + date.getDate();
+        // date.setDate(date.getDate() - 30);
+        // var prevDate =
+        //   date.getFullYear() + "" + (date.getMonth() + 1) + "" + date.getDate();
+
+        var getMonth = String(date.getMonth() + 1).padStart(2, "0");
+        var getDate = String(date.getDate()).padStart(2, "0");
+        var curDate = date.getFullYear() + "" + getMonth + "" + getDate;
         date.setDate(date.getDate() - 30);
-        var prevDate =
-          date.getFullYear() + "" + (date.getMonth() + 1) + "" + date.getDate();
+
+        getMonth = String(date.getMonth() + 1).padStart(2, "0");
+        getDate = String(date.getDate()).padStart(2, "0");
+        var prevDate = date.getFullYear() + "" + getMonth + "" + getDate;
 
         this.dateFilter =
           "(Date ge '" + prevDate + "' and Date le '" + curDate + "')";
@@ -126,13 +135,13 @@ sap.ui.define(
         this.byId("equipmentInput").removeAllTokens();
       },
 
-      prepareGetCall: async function (entityName) {
-        var data = await CallUtil.callGetData(
-          this.serviceUrl + entityName + "?$format=json"
-        );
-        data = data.d.results;
-        this.localModel.setProperty(entityName, data);
-      },
+      // prepareGetCall: async function (entityName) {
+      //   var data = await CallUtil.callGetData(
+      //     this.serviceUrl + entityName + "?$format=json"
+      //   );
+      //   data = data.d.results;
+      //   this.localModel.setProperty(entityName, data);
+      // },
 
       onWOValueHelp: async function (oEvent) {
         if (!this._oDialogWO) {

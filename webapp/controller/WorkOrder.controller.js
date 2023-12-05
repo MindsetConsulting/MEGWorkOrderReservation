@@ -28,13 +28,22 @@ sap.ui.define(
 
     return Controller.extend("meg.workorder.controller.WorkOrder", {
       onInit: async function () {
-        sap.ui.core.BusyIndicator.show();
+        // sap.ui.core.BusyIndicator.show();
         var date = new Date();
-        var curDate =
-          date.getFullYear() + "" + (date.getMonth() + 1) + "" + date.getDate();
+        // var curDate =
+        //   date.getFullYear() + "" + (date.getMonth() + 1) + "" + date.getDate();
+        // date.setDate(date.getDate() - 30);
+        // var prevDate =
+        //   date.getFullYear() + "" + (date.getMonth() + 1) + "" + date.getDate();
+
+        var getMonth = String(date.getMonth() + 1).padStart(2, "0");
+        var getDate = String(date.getDate()).padStart(2, "0");
+        var curDate = date.getFullYear() + "" + getMonth + "" + getDate;
         date.setDate(date.getDate() - 30);
-        var prevDate =
-          date.getFullYear() + "" + (date.getMonth() + 1) + "" + date.getDate();
+
+        getMonth = String(date.getMonth() + 1).padStart(2, "0");
+        getDate = String(date.getDate()).padStart(2, "0");
+        var prevDate = date.getFullYear() + "" + getMonth + "" + getDate;
 
         this.dateFilter =
           "(Date ge '" + prevDate + "' and Date le '" + curDate + "')";
