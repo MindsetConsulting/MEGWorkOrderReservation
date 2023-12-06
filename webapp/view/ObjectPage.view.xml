@@ -18,9 +18,9 @@
 
                 <uxap:headerContent>
                     <VBox class="sapUiSmallMargin">
-                        <f:SimpleForm id="SimpleFormDisplaywideDual" title="" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+                        <f:SimpleForm id="SimpleFormDisplaywideDual" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="true">
                             <f:content>
-                                <core:Title text="" />
+                                <core:Title text="" class="title"/>
                                 <Label text="Work Order #" />
                                 <Text text="{localModel>/workOrderHeader/WorkOrder}" />
                                 <Label text="Plant" />
@@ -107,8 +107,8 @@
                                                         <Text text="{localModel>Part}" wrapping="false"/>
                                                         <Text text="{localModel>PartDesc}" wrapping="false"/>
                                                         <Text text="{localModel>BOMQuan}" wrapping="false"/>
-                                                        <Input id="idDesiredQuanBOM" value="{localModel>DesiredQuan}" />
-                                                        <Input id="idOperationBOM" value="{localModel>Operation}" />
+                                                        <Input id="idDesiredQuanBOM" value="{localModel>DesiredQuan}" valueState="{localModel>DesiredQuanVS}" />
+                                                        <Input id="idOperationBOM" value="{localModel>Operation}" valueState="{localModel>OperationVS}" />
                                                         <!-- <Input id="idStorageLoc" value="{localModel>StorageLocation}" visible="{localModel>isInput}" /> -->
                                                         <Select selectedKey="{localModel>StorageLocation/StorageLocation}" enabled="{localModel>isEnabled}" width="100%" forceSelection="{localModel>isSelected}" items="{path: 'localModel>StorageLocation'}">
                                                             <core:Item key="{localModel>StorageLocation}" text="{localModel>StorageLocation}" />
@@ -161,8 +161,8 @@
                                                         <!-- <MultiInput items="{localModel>part}" showValueHelp="true" valueHelpRequest=".onAddPartValueHelp" valueHelpOnly="true" /> -->
                                                         <Input id="idPart" value="{localModel>Part}" type="Text" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onAddPartValueHelp" />
                                                         <Input value="{localModel>PartDesc}" editable="false" />
-                                                        <Input value="{localModel>DesiredQuan}" />
-                                                        <Input value="{localModel>Operation}" />
+                                                        <Input value="{localModel>DesiredQuan}" valueState="{localModel>DesiredQuanVS}" />
+                                                        <Input value="{localModel>Operation}" valueState="{localModel>OperationVS}" />
                                                         <Select selectedKey="{localModel>StorageLocation/StorageLocation}" enabled="{localModel>isEnabled}" width="100%" forceSelection="{localModel>isSelected}" items="{path: 'localModel>StorageLocation'}">
                                                             <core:Item key="{localModel>StorageLocation}" text="{localModel>StorageLocation}" />
                                                         </Select>
