@@ -304,6 +304,8 @@ sap.ui.define(
       onFilterSearch: async function () {
         // sap.ui.core.BusyIndicator.show();
         this.oTable.setShowOverlay(true);
+        // var sFilters = "";
+        var WOValue = this.byId("woInput").getProperty("value");
 
         var aTableFilters = this.oFilterBar
           .getFilterGroupItems()
@@ -335,6 +337,10 @@ sap.ui.define(
           }, []);
 
         var filter = FilterUtil.prepareFilters(aTableFilters);
+
+        if (WOValue != "") {
+          filter += "WorkOrder eq '" + WOValue + "' and ";
+        }
 
         var data = await CallUtil.callGetData(
           this.serviceUrl +
