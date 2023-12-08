@@ -15,7 +15,7 @@
 					<fb:FilterGroupItem groupName="G1" name="WorkOrder" label="Work Order #" visibleInFilterBar="true">
 						<fb:control>
 							<!-- <Input id="woInput" value="{localModel>/valueHelp/workOrderValueHelp}" showValueHelp="true" valueHelpRequest=".onWOValueHelp" tokenUpdate="onSearch" /> -->
-							<MultiInput id="woInput" items="{localModel>/filterValues/wo}" showValueHelp="true" valueHelpRequest=".onWOValueHelp" valueHelpOnly="true">
+							<MultiInput id="woInput" items="{localModel>/filterValues/wo}" showValueHelp="true" valueHelpRequest=".onWOValueHelp" valueHelpOnly="false">
 								<!-- <core:Item key="{WorkOrderModel>WorkOrder}" text="{WorkOrderModel>Description}" /> -->
 							</MultiInput>
 						</fb:control>

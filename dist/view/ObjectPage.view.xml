@@ -18,9 +18,9 @@
 
                 <uxap:headerContent>
                     <VBox class="sapUiSmallMargin">
-                        <f:SimpleForm id="SimpleFormDisplaywideDual" title="" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+                        <f:SimpleForm id="SimpleFormDisplaywideDual" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="true">
                             <f:content>
-                                <core:Title text="" />
+                                <core:Title text="" class="title"/>
                                 <Label text="Work Order #" />
                                 <Text text="{localModel>/workOrderHeader/WorkOrder}" />
                                 <Label text="Plant" />

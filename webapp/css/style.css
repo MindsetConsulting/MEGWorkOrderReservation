@@ -2,10 +2,20 @@
 .font {
   font-size: 18px;
 }
-
 .header {
   margin-top: "100px";
 }
 .title {
   margin: "0px";
+}
+.alignCenter {
+  text-align: center;
+}
+.label {
+  font-weight: 500;
+  font-size: 18px;
+}
+.text {
+  font-weight: 500;
+  font-size: 18px;
 }

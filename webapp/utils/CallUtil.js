@@ -53,9 +53,12 @@ sap.ui.define(["sap/m/MessageBox"], function (MessageBox) {
               // will be called once the xsjs file sends a
               // resolve(response);
               // MessageBox.success("Confirmation Saved!");
+              var WO = oData.d.WorkOrder;
               var LogNav = oData.d.LogNav;
               if (LogNav == null) {
-                MessageBox.information("No data changed!");
+                MessageBox.information("NO DATA CHANGED!", {
+                  styleClass: "alignCenter",
+                });
               } else if (LogNav) {
                 var errMsg = "";
                 LogNav.results.forEach(function (log) {
@@ -64,9 +67,13 @@ sap.ui.define(["sap/m/MessageBox"], function (MessageBox) {
                   }
                 });
                 if (errMsg != "") {
-                  MessageBox.error(errMsg);
+                  MessageBox.error(errMsg.toUpperCase(), {
+                    styleClass: "alignCenter",
+                  });
                 } else {
-                  MessageBox.success("Confirmation Saved!");
+                  MessageBox.success("ORDER " + WO + " SAVED!", {
+                    styleClass: "alignCenter",
+                  });
                 }
               }
               // else {

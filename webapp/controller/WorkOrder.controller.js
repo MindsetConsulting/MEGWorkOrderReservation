@@ -30,20 +30,23 @@ sap.ui.define(
       onInit: async function () {
         // sap.ui.core.BusyIndicator.show();
         var date = new Date();
+        // this.byId("toDate").setDateValue(date);
         // var curDate =
         //   date.getFullYear() + "" + (date.getMonth() + 1) + "" + date.getDate();
         // date.setDate(date.getDate() - 30);
         // var prevDate =
         //   date.getFullYear() + "" + (date.getMonth() + 1) + "" + date.getDate();
 
-        var getMonth = String(date.getMonth() + 1).padStart(2, "0");
-        var getDate = String(date.getDate()).padStart(2, "0");
-        var curDate = date.getFullYear() + "" + getMonth + "" + getDate;
+        // var getMonth = String(date.getMonth() + 1).padStart(2, "0");
+        // var getDate = String(date.getDate()).padStart(2, "0");
+        // var curDate = date.getFullYear() + "" + getMonth + "" + getDate;
+        var curDate = FilterUtil.getFormattedDate(date);
         date.setDate(date.getDate() - 30);
 
-        getMonth = String(date.getMonth() + 1).padStart(2, "0");
-        getDate = String(date.getDate()).padStart(2, "0");
-        var prevDate = date.getFullYear() + "" + getMonth + "" + getDate;
+        // getMonth = String(date.getMonth() + 1).padStart(2, "0");
+        // getDate = String(date.getDate()).padStart(2, "0");
+        // var prevDate = date.getFullYear() + "" + getMonth + "" + getDate;
+        var prevDate = FilterUtil.getFormattedDate(date);
 
         this.dateFilter =
           "(Date ge '" + prevDate + "' and Date le '" + curDate + "')";
@@ -64,8 +67,11 @@ sap.ui.define(
         this.localModel.setProperty("/workOrderList", data);
 
         // this.localModel.setProperty("/filterValues", {});
-        this.oFilterBar = this.getView().byId("FilterBar");
+        // this.oFilterBar = this.getView().byId("FilterBar");
         this.oTable = this.getView().byId("workOrderTable");
+        // var toDate = new Date();
+        // this.byId("fromDate").setDateValue(date);
+        // this.byId("toDate").setDateValue(toDate);
       },
 
       onTableItemPress: function (oEvent) {
@@ -126,6 +132,9 @@ sap.ui.define(
       },
 
       onResetFilters: function () {
+        this.byId("woInput").setValue("");
+        this.byId("fromDate").setValue("");
+        this.byId("toDate").setValue("");
         this.byId("woInput").removeAllTokens();
         this.byId("plantInput").removeAllTokens();
         this.byId("orderTypeInput").removeAllTokens();
@@ -157,9 +166,10 @@ sap.ui.define(
           );
           data = data.d.results;
           this.localModel.setProperty("/ZUSPPMEG01_WORK_ORDER_F4Set", data);
-
+          this.byId("woInput").setValue("");
           this._oDialogWO.open();
         }
+        this.byId("woInput").setValue("");
         this.byId("woInput").removeAllTokens();
         this.VHID = "WorkOrder";
         this._oDialogWO.open();
@@ -306,16 +316,23 @@ sap.ui.define(
         this.oTable.setShowOverlay(true);
         // var sFilters = "";
         var WOValue = this.byId("woInput").getProperty("value");
+        var fromDate = this.byId("fromDate").getDateValue();
+        var toDate = this.byId("toDate").getDateValue();
 
-        var aTableFilters = this.oFilterBar
+        var oFilterBar = this.getView().byId("FilterBar");
+
+        var aTableFilters = oFilterBar
           .getFilterGroupItems()
           .reduce(function (aResult, oFilterGroupItem) {
-            var oControl = oFilterGroupItem.getControl(),
-              aSelectedKeys = oControl._tokenizer.getAggregation("tokens"),
-              sFilterName = oFilterGroupItem.getName(),
+            var oControl = oFilterGroupItem.getControl();
+            if (oControl._tokenizer) {
+              var aSelectedKeys = oControl._tokenizer.getAggregation("tokens");
+            }
+            // aSelectedKeys = oControl._tokenizer.getAggregation("tokens"),
+            var sFilterName = oFilterGroupItem.getName(),
               sFilters = "";
 
-            if (aSelectedKeys.length > 1) {
+            if (aSelectedKeys && aSelectedKeys.length > 1) {
               sFilters = "(";
               aSelectedKeys.map(function (sSelectedKey) {
                 if (aSelectedKeys.length != aSelectedKeys.length > 1)
@@ -324,7 +341,7 @@ sap.ui.define(
               });
               sFilters = sFilters.slice(0, -4);
               sFilters += ")";
-            } else if (aSelectedKeys.length == 1) {
+            } else if (aSelectedKeys && aSelectedKeys.length == 1) {
               sFilters =
                 sFilterName + " eq '" + aSelectedKeys[0].getText() + "'";
             }
@@ -339,7 +356,40 @@ sap.ui.define(
         var filter = FilterUtil.prepareFilters(aTableFilters);
 
         if (WOValue != "") {
-          filter += "WorkOrder eq '" + WOValue + "' and ";
+          if (filter == "") {
+            filter += "WorkOrder eq '" + WOValue + "'";
+          } else {
+            filter += " and WorkOrder eq '" + WOValue + "'";
+          }
+        }
+
+        if (fromDate && toDate) {
+          fromDate = FilterUtil.getFormattedDate(fromDate);
+          toDate = FilterUtil.getFormattedDate(toDate);
+          this.dateFilter =
+            " and (Date ge '" +
+            fromDate +
+            "'" +
+            " and Date le '" +
+            toDate +
+            "')";
+        } else if (fromDate) {
+          fromDate = FilterUtil.getFormattedDate(fromDate);
+          this.dateFilter = " and Date ge '" + fromDate + "'";
+        } else if (toDate) {
+          toDate = FilterUtil.getFormattedDate(toDate);
+          this.dateFilter = " and Date ge '" + toDate + "'";
+        } else {
+          this.dateFilter = "";
+        }
+
+        if (filter == "") {
+          var date = new Date();
+          var curDate = FilterUtil.getFormattedDate(date);
+          date.setDate(date.getDate() - 30);
+          var prevDate = FilterUtil.getFormattedDate(date);
+          this.dateFilter =
+            "(Date ge '" + prevDate + "' and Date le '" + curDate + "')";
         }
 
         var data = await CallUtil.callGetData(
@@ -358,7 +408,6 @@ sap.ui.define(
       onValueHelpSearch: function (oEvent) {
         var sValue = oEvent.getParameter("value");
         var oFilter = new Filter(this.VHID, FilterOperator.Contains, sValue);
-        // var oFilter = new Filter("", FilterOperator.Contains, sValue);
         var oBinding = oEvent.getParameter("itemsBinding");
         oBinding.filter([oFilter]);
       },

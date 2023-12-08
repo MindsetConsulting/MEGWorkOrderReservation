@@ -21,55 +21,18 @@ sap.ui.define(["sap/m/MessageBox"], function (MessageBox) {
 
     callPostData: function (url, data) {
       var token = "";
-      // return new Promise(function (resolve, reject) {
-      //   jQuery.ajax({
-      //     url: url,
-      //     type: "GET",
-      //     // data: data,
-      //     beforeSend: function (xhr) {
-      //       xhr.setRequestHeader("X-CSRF-Token", "Fetch");
-      //     },
-      //     success: function (responseToken, textStatus, XMLHttpRequest) {
-      //       token = XMLHttpRequest.getResponseHeader("X-CSRF-Token");
-      //       console.log("token = " + token);
-      //       $.post({
-      //         "X-CSRF-Token": token,
-      //         type: "POST",
-      //         url: url,
-      //         contentType: "application/json",
-      //         data: JSON.stringify(data),
-      //         async: true,
-      //         success: function (response) {
-      //           resolve(response);
-      //         }.bind(this),
-      //         error: function (response) {
-      //           reject(response);
-      //         },
-      //       });
-      //     },
-      //   });
-
-      //   // $.post({
-      //   //   "X-CSRF-Token": token,
-      //   //   type: "POST",
-      //   //   url: url,
-      //   //   contentType: "application/json",
-      //   //   data: JSON.stringify(data),
-      //   //   async: true,
-      //   //   success: function (response) {
-      //   //     resolve(response);
-      //   //   }.bind(this),
-      //   //   error: function (response) {
-      //   //     reject(response);
-      //   //   },
-      //   // });
-      // });
-
       jQuery.ajax({
         url: url,
         type: "GET",
+        accepts: {
+          json: "application/json",
+        },
+        contentType: "application/json",
         // data: data,
         beforeSend: function (xhr) {
+          // setRequestHeader("Accept", "application/json; charset=utf-8");
+          // xhr.setRequestHeader("Content-Type", "application/json");
+          xhr.setRequestHeader("Accept", "application/json");
           xhr.setRequestHeader("X-CSRF-Token", "Fetch");
         },
         success: function (responseToken, textStatus, XMLHttpRequest) {
@@ -80,21 +43,43 @@ sap.ui.define(["sap/m/MessageBox"], function (MessageBox) {
             type: "POST",
             data: JSON.stringify(data),
             contentType: "application/json",
-            accept: "application/json",
+            // accept: "application/json",
             beforeSend: function (xhr) {
+              // setRequestHeader("Accept", "application/json; charset=utf-8");
+              xhr.setRequestHeader("Accept", "application/json");
               xhr.setRequestHeader("X-CSRF-Token", token);
             },
-            success: function (response) {
+            success: function (oData, oResponse, xhr) {
               // will be called once the xsjs file sends a
-              response;
-              console.log(response);
+              // resolve(response);
+              // MessageBox.success("Confirmation Saved!");
+              var LogNav = oData.d.LogNav;
+              if (LogNav == null) {
+                MessageBox.information("No data changed!");
+              } else if (LogNav) {
+                var errMsg = "";
+                LogNav.results.forEach(function (log) {
+                  if (log.Type == "E") {
+                    errMsg += log.Message + "\n";
+                  }
+                });
+                if (errMsg != "") {
+                  MessageBox.error(errMsg);
+                } else {
+                  MessageBox.success("Confirmation Saved!");
+                }
+              }
+              // else {
+              //   MessageBox.success("Confirmation Saved!");
+              // }
+              console.log(oData, oResponse, xhr);
             },
             error: function (e) {
               // will be called in case of any errors:
-              var errMsg = e.responseText;
-              var message = JSON.parse(e.responseText).error.message;
-              // MessageBox.error(e);
-              console.log(e, message);
+              // var errMsg = e.responseText;
+              var errMsg = JSON.parse(e.responseText).error.message.value;
+              MessageBox.error(errMsg);
+              console.log(e, errMsg);
             },
           });
         },
