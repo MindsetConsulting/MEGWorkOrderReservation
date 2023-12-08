@@ -20,25 +20,21 @@
 							</MultiInput>
 						</fb:control>
 					</fb:FilterGroupItem>
-
 					<fb:FilterGroupItem groupName="G1" name="Plant" label="Plant" visibleInFilterBar="true">
 						<fb:control>
 							<MultiInput id="plantInput" showValueHelp="true" valueHelpRequest=".onPlantValueHelp" valueHelpOnly="true" tokenUpdate="handleValueHelpClose" />
 						</fb:control>
 					</fb:FilterGroupItem>
-
 					<fb:FilterGroupItem groupName="G1" name="OrderType" label="Order Type" visibleInFilterBar="true">
 						<fb:control>
 							<MultiInput id="orderTypeInput" showValueHelp="true" valueHelpRequest=".onOrderTypeValueHelp" valueHelpOnly="true" />
 						</fb:control>
 					</fb:FilterGroupItem>
-
 					<fb:FilterGroupItem groupName="G1" name="PlannerGroup" label="Planner Group" visibleInFilterBar="true">
 						<fb:control>
 							<MultiInput id="plannerGroupInput" showValueHelp="true" valueHelpRequest=".onPlannerGroupValueHelp" valueHelpOnly="true" />
 						</fb:control>
 					</fb:FilterGroupItem>
-
 					<fb:FilterGroupItem groupName="G1" name="WorkCenter" label="Work Center" visibleInFilterBar="true">
 						<fb:control>
 							<MultiInput id="workCenterInput" showValueHelp="true" valueHelpRequest=".onWorkCenterValueHelp" valueHelpOnly="true" />
@@ -52,6 +48,16 @@
 					<fb:FilterGroupItem groupName="G1" name="Equipment" label="Equipment" visibleInFilterBar="true">
 						<fb:control>
 							<MultiInput id="equipmentInput" showValueHelp="true" valueHelpRequest=".onEquipmentValueHelp" valueHelpOnly="true" />
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem groupName="G1" name="From Date" label="From Date" visibleInFilterBar="true">
+						<fb:control>
+							<DatePicker id="fromDate" change="handleChange" valueFormat="yyyy-MM-dd" value="{'path': '','formatOptions': {'pattern': 'dd/MM/y'}}"/>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem groupName="G1" name="To Date" label="To Date" visibleInFilterBar="true">
+						<fb:control>
+							<DatePicker id="toDate" change="handleChange" value="{'type': 'sap.ui.model.type.Date','formatOptions': {'pattern': 'dd/MM/y'}}"/>
 						</fb:control>
 					</fb:FilterGroupItem>
 				</fb:filterGroupItems>

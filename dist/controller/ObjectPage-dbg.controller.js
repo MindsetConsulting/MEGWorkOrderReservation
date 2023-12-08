@@ -201,6 +201,12 @@ sap.ui.define(
           aSelectedPaths.forEach(function (sPath) {
             var index = sPath.split("/")[2];
             var equiData = data.equipBOMItems[index];
+            if (data.equipBOMItems[index].DesiredQuan == "") {
+              // data.equipBOMItems[index].DesiredQuanVS = "Error";
+            }
+            if (data.equipBOMItems[index].Operation == "") {
+              // data.equipBOMItems[index].OperationVS = "Error";
+            }
             equiData = {
               WorkOrder: equiData.WorkOrder,
               Part: equiData.Part,
@@ -249,12 +255,12 @@ sap.ui.define(
             }
           });
         }
-        // if (!isRequiredCheck) {
-        //   MessageBox.error(
-        //     "Please enter the Desired Quantity and Operation for the selected Items"
-        //   );
-        //   return;
-        // }
+        if (!isRequiredCheck) {
+          MessageBox.warning(
+            "Please enter the Desired Quantity and Operation for the selected Items"
+          );
+          return;
+        }
 
         var payload = {
           WorkOrder: data.workOrderHeader.WorkOrder,
@@ -271,10 +277,11 @@ sap.ui.define(
           EquipBOMItemNav: data.selectedEquiBOM,
           /** AddPartItemNav Data  */
           AddPartItemNav: data.AddPartsItems,
+          LogNav: [{}],
         };
 
         // var payload = {
-        //   WorkOrder: "8001002",
+        //   WorkOrder: "5001002",
         //   Plant: "7300",
         //   OrderType: "ZOCR",
         //   Description: "",
@@ -296,7 +303,7 @@ sap.ui.define(
         //       PartDesc: "PUMP",
         //       BOMQuan: "1.000 ",
         //       DesiredQuan: "2",
-        //       Operation: "10",
+        //       Operation: "ops123",
         //       Select: false,
         //       StorageLocation: "7372",
         //     },
@@ -329,6 +336,7 @@ sap.ui.define(
         //       StorageLocation: "7372",
         //     },
         //   ],
+        //   LogNav: [{}],
         // };
         console.log(payload);
 

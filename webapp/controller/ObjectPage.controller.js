@@ -202,10 +202,10 @@ sap.ui.define(
             var index = sPath.split("/")[2];
             var equiData = data.equipBOMItems[index];
             if (data.equipBOMItems[index].DesiredQuan == "") {
-              data.equipBOMItems[index].DesiredQuanVS = "Error";
+              // data.equipBOMItems[index].DesiredQuanVS = "Error";
             }
             if (data.equipBOMItems[index].Operation == "") {
-              data.equipBOMItems[index].OperationVS = "Error";
+              // data.equipBOMItems[index].OperationVS = "Error";
             }
             equiData = {
               WorkOrder: equiData.WorkOrder,
@@ -256,9 +256,12 @@ sap.ui.define(
           });
         }
         if (!isRequiredCheck) {
-          MessageBox.error(
+          MessageBox.warning(
             "Please enter the Desired Quantity and Operation for the selected Items"
-          );
+          ),
+            {
+              styleClass: "alignCenter",
+            };
           return;
         }
 

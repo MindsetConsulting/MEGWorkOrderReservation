@@ -126,6 +126,7 @@ sap.ui.define(
       },
 
       onResetFilters: function () {
+        this.byId("woInput").setValue("");
         this.byId("woInput").removeAllTokens();
         this.byId("plantInput").removeAllTokens();
         this.byId("orderTypeInput").removeAllTokens();
@@ -157,9 +158,10 @@ sap.ui.define(
           );
           data = data.d.results;
           this.localModel.setProperty("/ZUSPPMEG01_WORK_ORDER_F4Set", data);
-
+          this.byId("woInput").setValue("");
           this._oDialogWO.open();
         }
+        this.byId("woInput").setValue("");
         this.byId("woInput").removeAllTokens();
         this.VHID = "WorkOrder";
         this._oDialogWO.open();
@@ -304,6 +306,8 @@ sap.ui.define(
       onFilterSearch: async function () {
         // sap.ui.core.BusyIndicator.show();
         this.oTable.setShowOverlay(true);
+        // var sFilters = "";
+        var WOValue = this.byId("woInput").getProperty("value");
 
         var aTableFilters = this.oFilterBar
           .getFilterGroupItems()
@@ -336,6 +340,10 @@ sap.ui.define(
 
         var filter = FilterUtil.prepareFilters(aTableFilters);
 
+        if (WOValue != "") {
+          filter += "WorkOrder eq '" + WOValue + "' and ";
+        }
+
         var data = await CallUtil.callGetData(
           this.serviceUrl +
             "/ZUSPPMEG01_WORK_ORDER_HEADERSet?$format=json&$filter=" +
@@ -352,7 +360,6 @@ sap.ui.define(
       onValueHelpSearch: function (oEvent) {
         var sValue = oEvent.getParameter("value");
         var oFilter = new Filter(this.VHID, FilterOperator.Contains, sValue);
-        // var oFilter = new Filter("", FilterOperator.Contains, sValue);
         var oBinding = oEvent.getParameter("itemsBinding");
         oBinding.filter([oFilter]);
       },

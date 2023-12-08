@@ -21,21 +21,21 @@
                         <f:SimpleForm id="SimpleFormDisplaywideDual" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="true">
                             <f:content>
                                 <core:Title text="" class="title"/>
-                                <Label text="Work Order #" />
-                                <Text text="{localModel>/workOrderHeader/WorkOrder}" />
-                                <Label text="Plant" />
-                                <Text text="{localModel>/workOrderHeader/Plant}" />
-                                <Label text="Order Type and Des." />
-                                <Text text="{localModel>/workOrderHeader/OrderType}" />
-                                <Label text="Planner Group" />
-                                <Text text="{localModel>/workOrderHeader/PlannerGroup}" />
+                                <Label text="Work Order #" class="label"/>
+                                <Text text="{localModel>/workOrderHeader/WorkOrder}" class="text"/>
+                                <Label text="Plant" class="label"/>
+                                <Text text="{localModel>/workOrderHeader/Plant}" class="text"/>
+                                <Label text="Order Type and Des." class="label"/>
+                                <Text text="{localModel>/workOrderHeader/OrderType}" class="text"/>
+                                <Label text="Planner Group" class="label"/>
+                                <Text text="{localModel>/workOrderHeader/PlannerGroup}" class="text"/>
                                 <core:Title text="" />
-                                <Label text="Work Center" />
-                                <Text text="{localModel>/workOrderHeader/WorkCenter}" />
-                                <Label text="Func. Loc" />
-                                <Text text="{localModel>/workOrderHeader/FunctLocation}" />
-                                <Label text="Equipment" />
-                                <Text text="{localModel>/workOrderHeader/Equipment}" />
+                                <Label text="Work Center" class="label"/>
+                                <Text text="{localModel>/workOrderHeader/WorkCenter}" class="text"/>
+                                <Label text="Func. Loc" class="label"/>
+                                <Text text="{localModel>/workOrderHeader/FunctLocation}" class="text"/>
+                                <Label text="Equipment" class="label"/>
+                                <Text text="{localModel>/workOrderHeader/Equipment}" class="text"/>
                             </f:content>
                         </f:SimpleForm>
                     </VBox>
@@ -107,8 +107,8 @@
                                                         <Text text="{localModel>Part}" wrapping="false"/>
                                                         <Text text="{localModel>PartDesc}" wrapping="false"/>
                                                         <Text text="{localModel>BOMQuan}" wrapping="false"/>
-                                                        <Input id="idDesiredQuanBOM" value="{localModel>DesiredQuan}" valueState="{localModel>DesiredQuanVS}" />
-                                                        <Input id="idOperationBOM" value="{localModel>Operation}" valueState="{localModel>OperationVS}" />
+                                                        <Input id="idDesiredQuanBOM" value="{localModel>DesiredQuan}" />
+                                                        <Input id="idOperationBOM" value="{localModel>Operation}" />
                                                         <!-- <Input id="idStorageLoc" value="{localModel>StorageLocation}" visible="{localModel>isInput}" /> -->
                                                         <Select selectedKey="{localModel>StorageLocation/StorageLocation}" enabled="{localModel>isEnabled}" width="100%" forceSelection="{localModel>isSelected}" items="{path: 'localModel>StorageLocation'}">
                                                             <core:Item key="{localModel>StorageLocation}" text="{localModel>StorageLocation}" />
@@ -161,8 +161,8 @@
                                                         <!-- <MultiInput items="{localModel>part}" showValueHelp="true" valueHelpRequest=".onAddPartValueHelp" valueHelpOnly="true" /> -->
                                                         <Input id="idPart" value="{localModel>Part}" type="Text" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onAddPartValueHelp" />
                                                         <Input value="{localModel>PartDesc}" editable="false" />
-                                                        <Input value="{localModel>DesiredQuan}" valueState="{localModel>DesiredQuanVS}" />
-                                                        <Input value="{localModel>Operation}" valueState="{localModel>OperationVS}" />
+                                                        <Input value="{localModel>DesiredQuan}" />
+                                                        <Input value="{localModel>Operation}" />
                                                         <Select selectedKey="{localModel>StorageLocation/StorageLocation}" enabled="{localModel>isEnabled}" width="100%" forceSelection="{localModel>isSelected}" items="{path: 'localModel>StorageLocation'}">
                                                             <core:Item key="{localModel>StorageLocation}" text="{localModel>StorageLocation}" />
                                                         </Select>
