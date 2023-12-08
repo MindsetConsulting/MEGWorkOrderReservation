@@ -383,7 +383,7 @@ sap.ui.define(
           this.dateFilter = "";
         }
 
-        if (filter == "") {
+        if (filter == "" && this.dateFilter == "") {
           var date = new Date();
           var curDate = FilterUtil.getFormattedDate(date);
           date.setDate(date.getDate() - 30);
