@@ -257,7 +257,7 @@ sap.ui.define(
         }
         if (!isRequiredCheck) {
           MessageBox.warning(
-            "Please enter the Desired Quantity and Operation for the selected Items"
+            "PLEASE ENTER THE DESIRED QUANTITY AND OPERATION FOR THE SELECTED ITEMS"
           ),
             {
               styleClass: "alignCenter",
@@ -282,66 +282,6 @@ sap.ui.define(
           AddPartItemNav: data.AddPartsItems,
           LogNav: [{}],
         };
-
-        // var payload = {
-        //   WorkOrder: "5001002",
-        //   Plant: "7300",
-        //   OrderType: "ZOCR",
-        //   Description: "",
-        //   PlannerGroup: "",
-        //   WorkCenter: "ELECTRO",
-        //   FunctLocation: "7300-FINI-CRAN-CRAN",
-        //   Equipment: "80000138",
-        //   OrdOperationNav: [
-        //     {
-        //       WorkOrder: "8001002",
-        //       OperationNum: "0010",
-        //       OperationDesc: "EMT - fixes Crane",
-        //     },
-        //   ],
-        //   EquipBOMItemNav: [
-        //     {
-        //       WorkOrder: "8001002",
-        //       Part: "16000000014",
-        //       PartDesc: "PUMP",
-        //       BOMQuan: "1.000 ",
-        //       DesiredQuan: "2",
-        //       Operation: "ops123",
-        //       Select: false,
-        //       StorageLocation: "7372",
-        //     },
-        //     {
-        //       WorkOrder: "8001002",
-        //       Part: "16000000031",
-        //       PartDesc: "PUMP",
-        //       BOMQuan: "1.000 ",
-        //       DesiredQuan: "3",
-        //       Operation: "10",
-        //       Select: false,
-        //       StorageLocation: "7372",
-        //     },
-        //   ],
-        //   AddPartItemNav: [
-        //     {
-        //       WorkOrder: "8001002",
-        //       Part: "16000000029",
-        //       PartDesc: "",
-        //       DesiredQuan: "2",
-        //       Operation: "10",
-        //       StorageLocation: "7372",
-        //     },
-        //     {
-        //       WorkOrder: "8001002",
-        //       Part: "16000000007",
-        //       PartDesc: "",
-        //       DesiredQuan: "3",
-        //       Operation: "10",
-        //       StorageLocation: "7372",
-        //     },
-        //   ],
-        //   LogNav: [{}],
-        // };
-        console.log(payload);
 
         var response = await CallUtil.callPostData(url, payload);
         console.log(response);
