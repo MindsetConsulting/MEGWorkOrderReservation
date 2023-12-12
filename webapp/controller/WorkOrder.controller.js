@@ -364,21 +364,25 @@ sap.ui.define(
         }
 
         if (fromDate && toDate) {
+          if (filter != "") {
+            filter += " and ";
+          }
           fromDate = FilterUtil.getFormattedDate(fromDate);
           toDate = FilterUtil.getFormattedDate(toDate);
           this.dateFilter =
-            " and (Date ge '" +
-            fromDate +
-            "'" +
-            " and Date le '" +
-            toDate +
-            "')";
+            "(Date ge '" + fromDate + "'" + "Date le '" + toDate + "')";
         } else if (fromDate) {
+          if (filter != "") {
+            filter += " and ";
+          }
           fromDate = FilterUtil.getFormattedDate(fromDate);
-          this.dateFilter = " and Date ge '" + fromDate + "'";
+          this.dateFilter = "Date ge '" + fromDate + "'";
         } else if (toDate) {
+          if (filter != "") {
+            filter += " and ";
+          }
           toDate = FilterUtil.getFormattedDate(toDate);
-          this.dateFilter = " and Date ge '" + toDate + "'";
+          this.dateFilter = "Date ge '" + toDate + "'";
         } else {
           this.dateFilter = "";
         }
