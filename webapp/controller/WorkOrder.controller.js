@@ -370,7 +370,7 @@ sap.ui.define(
           fromDate = FilterUtil.getFormattedDate(fromDate);
           toDate = FilterUtil.getFormattedDate(toDate);
           this.dateFilter =
-            "(Date ge '" + fromDate + "'" + "Date le '" + toDate + "')";
+            "(Date ge '" + fromDate + "'" + " and Date le '" + toDate + "')";
         } else if (fromDate) {
           if (filter != "") {
             filter += " and ";
@@ -382,7 +382,7 @@ sap.ui.define(
             filter += " and ";
           }
           toDate = FilterUtil.getFormattedDate(toDate);
-          this.dateFilter = "Date ge '" + toDate + "'";
+          this.dateFilter = "Date le '" + toDate + "'";
         } else {
           this.dateFilter = "";
         }
