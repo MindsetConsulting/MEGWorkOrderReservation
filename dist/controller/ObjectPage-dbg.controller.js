@@ -258,7 +258,10 @@ sap.ui.define(
         if (!isRequiredCheck) {
           MessageBox.warning(
             "Please enter the Desired Quantity and Operation for the selected Items"
-          );
+          ),
+            {
+              styleClass: "alignCenter",
+            };
           return;
         }
 
