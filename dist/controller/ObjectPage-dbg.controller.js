@@ -46,10 +46,10 @@ sap.ui.define(
             "/ZUSPPMEG01_WORK_ORDER_HEADERSet" +
             filter +
             expand +
-            "&$format=json"
+            "&$format=json" + "&sap-client=410"
         );
 
-        var orderOps, equipBOMItems;
+        var orderOps, equipBOMItems, addPartsData;
         if (data && data.d.results.length > 0) {
           data = data.d.results[0];
           this.localModel.setProperty("/workOrderHeader", data);
@@ -60,15 +60,20 @@ sap.ui.define(
             this.getEquipBOMData(data.EquipBOMItemNav.results);
             // equipBOMItems = data.EquipBOMItemNav.results;
           }
+          if (data && data.AddPartItemNav) {
+            // this.getEquipBOMData(data.AddPartItemNav.results);
+            addPartsData = data.AddPartItemNav.results;
+          }
         }
         this.localModel.setProperty("/orderOperations", orderOps);
-        this.localModel.setProperty("/AddPartsItems", []);
+        this.localModel.setProperty("/AddPartsItems", addPartsData);
         // this.localModel.setProperty("/equipBOMItems", equipBOMItems);
       },
 
       getEquipBOMData: async function (data) {
         var oTable = this.getView().byId("equiBOMID");
         oTable.setShowOverlay(true);
+        oTable.removeSelections(true);
         var url = this.serviceUrl;
         var plant = this.localModel.getData().workOrderHeader.Plant;
 
@@ -81,7 +86,7 @@ sap.ui.define(
               part +
               "' and Plant eq '" +
               plant +
-              "'&$format=json"
+              "'&$format=json" + "&sap-client=410"
           );
           if (storageLoc && storageLoc.d && storageLoc.d.results) {
             data[i].StorageLocation = storageLoc.d.results;
@@ -161,7 +166,7 @@ sap.ui.define(
             part +
             "' and Plant eq '" +
             plant +
-            "'&$format=json"
+            "'&$format=json" + "&sap-client=410"
         );
 
         addItemsData[this.valueHelpIndex].Part = part;
@@ -257,7 +262,7 @@ sap.ui.define(
         }
         if (!isRequiredCheck) {
           MessageBox.warning(
-            "Please enter the Desired Quantity and Operation for the selected Items"
+            "PLEASE ENTER THE DESIRED QUANTITY AND OPERATION FOR THE SELECTED ITEMS"
           ),
             {
               styleClass: "alignCenter",
@@ -283,69 +288,42 @@ sap.ui.define(
           LogNav: [{}],
         };
 
-        // var payload = {
-        //   WorkOrder: "5001002",
-        //   Plant: "7300",
-        //   OrderType: "ZOCR",
-        //   Description: "",
-        //   PlannerGroup: "",
-        //   WorkCenter: "ELECTRO",
-        //   FunctLocation: "7300-FINI-CRAN-CRAN",
-        //   Equipment: "80000138",
-        //   OrdOperationNav: [
-        //     {
-        //       WorkOrder: "8001002",
-        //       OperationNum: "0010",
-        //       OperationDesc: "EMT - fixes Crane",
-        //     },
-        //   ],
-        //   EquipBOMItemNav: [
-        //     {
-        //       WorkOrder: "8001002",
-        //       Part: "16000000014",
-        //       PartDesc: "PUMP",
-        //       BOMQuan: "1.000 ",
-        //       DesiredQuan: "2",
-        //       Operation: "ops123",
-        //       Select: false,
-        //       StorageLocation: "7372",
-        //     },
-        //     {
-        //       WorkOrder: "8001002",
-        //       Part: "16000000031",
-        //       PartDesc: "PUMP",
-        //       BOMQuan: "1.000 ",
-        //       DesiredQuan: "3",
-        //       Operation: "10",
-        //       Select: false,
-        //       StorageLocation: "7372",
-        //     },
-        //   ],
-        //   AddPartItemNav: [
-        //     {
-        //       WorkOrder: "8001002",
-        //       Part: "16000000029",
-        //       PartDesc: "",
-        //       DesiredQuan: "2",
-        //       Operation: "10",
-        //       StorageLocation: "7372",
-        //     },
-        //     {
-        //       WorkOrder: "8001002",
-        //       Part: "16000000007",
-        //       PartDesc: "",
-        //       DesiredQuan: "3",
-        //       Operation: "10",
-        //       StorageLocation: "7372",
-        //     },
-        //   ],
-        //   LogNav: [{}],
-        // };
-        console.log(payload);
-
         var response = await CallUtil.callPostData(url, payload);
         console.log(response);
       },
+      onBomItemSel: function(oEvent){
+        // var oEqBOMTab = this.byId("equiBOMID");
+        // var aSelectedPaths = oEqBOMTab.getSelectedContextPaths();
+        // var data = this.localModel.getData();
+        // this.localModel.setProperty("/selectedEquiBOM", []);
+        // var url = this.serviceUrl + "/ZUSPPMEG01_WORK_ORDER_HEADERSet";
+
+        // if (aSelectedPaths && aSelectedPaths.length > 0) {
+        //   aSelectedPaths.forEach(function (sPath) {
+        //     var index = sPath.split("/")[2];
+        //     var equiData = data.equipBOMItems[index];
+        //     if (data.equipBOMItems[index].DesiredQuan == "") {
+        //       // data.equipBOMItems[index].DesiredQuanVS = "Error";
+        //     }
+        //     equiData = {
+        //       DesiredQuan: equiData.BOMQuan
+        //     };
+        //     data.equipBOMItems.DesiredQuan = data.equipBOMItems.BOMQuan;
+        //   });
+        // }
+        var isSelected = oEvent.getParameter("selected");
+        // var sPath =
+        //   oEvent.getSource().oPropagatedProperties.oBindingContexts.localModel
+        //     .sPath;
+        var sPath = oEvent.getParameter("listItem").getBindingContextPath();
+        var index = sPath.split("/")[2];
+        var equipBOMItem = this.localModel.getData().equipBOMItems[index];
+        if (equipBOMItem.DesiredQuan == "") {
+          equipBOMItem.DesiredQuan = equipBOMItem.BOMQuan;
+        } else {
+          equipBOMItem.DesiredQuan = "";
+        }
+      }
     });
   }
 );

@@ -49,7 +49,7 @@ sap.ui.define(
             "&$format=json"
         );
 
-        var orderOps, equipBOMItems;
+        var orderOps, equipBOMItems, addPartsData;
         if (data && data.d.results.length > 0) {
           data = data.d.results[0];
           this.localModel.setProperty("/workOrderHeader", data);
@@ -60,15 +60,20 @@ sap.ui.define(
             this.getEquipBOMData(data.EquipBOMItemNav.results);
             // equipBOMItems = data.EquipBOMItemNav.results;
           }
+          if (data && data.AddPartItemNav) {
+            // this.getEquipBOMData(data.AddPartItemNav.results);
+            addPartsData = data.AddPartItemNav.results;
+          }
         }
         this.localModel.setProperty("/orderOperations", orderOps);
-        this.localModel.setProperty("/AddPartsItems", []);
+        this.localModel.setProperty("/AddPartsItems", addPartsData);
         // this.localModel.setProperty("/equipBOMItems", equipBOMItems);
       },
 
       getEquipBOMData: async function (data) {
         var oTable = this.getView().byId("equiBOMID");
         oTable.setShowOverlay(true);
+        oTable.removeSelections(true);
         var url = this.serviceUrl;
         var plant = this.localModel.getData().workOrderHeader.Plant;
 
@@ -286,6 +291,39 @@ sap.ui.define(
         var response = await CallUtil.callPostData(url, payload);
         console.log(response);
       },
+      onBomItemSel: function(oEvent){
+        // var oEqBOMTab = this.byId("equiBOMID");
+        // var aSelectedPaths = oEqBOMTab.getSelectedContextPaths();
+        // var data = this.localModel.getData();
+        // this.localModel.setProperty("/selectedEquiBOM", []);
+        // var url = this.serviceUrl + "/ZUSPPMEG01_WORK_ORDER_HEADERSet";
+
+        // if (aSelectedPaths && aSelectedPaths.length > 0) {
+        //   aSelectedPaths.forEach(function (sPath) {
+        //     var index = sPath.split("/")[2];
+        //     var equiData = data.equipBOMItems[index];
+        //     if (data.equipBOMItems[index].DesiredQuan == "") {
+        //       // data.equipBOMItems[index].DesiredQuanVS = "Error";
+        //     }
+        //     equiData = {
+        //       DesiredQuan: equiData.BOMQuan
+        //     };
+        //     data.equipBOMItems.DesiredQuan = data.equipBOMItems.BOMQuan;
+        //   });
+        // }
+        var isSelected = oEvent.getParameter("selected");
+        // var sPath =
+        //   oEvent.getSource().oPropagatedProperties.oBindingContexts.localModel
+        //     .sPath;
+        var sPath = oEvent.getParameter("listItem").getBindingContextPath();
+        var index = sPath.split("/")[2];
+        var equipBOMItem = this.localModel.getData().equipBOMItems[index];
+        if (equipBOMItem.DesiredQuan == "") {
+          equipBOMItem.DesiredQuan = equipBOMItem.BOMQuan;
+        } else {
+          equipBOMItem.DesiredQuan = "";
+        }
+      }
     });
   }
 );

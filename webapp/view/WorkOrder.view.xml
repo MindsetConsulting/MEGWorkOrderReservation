@@ -22,32 +22,32 @@
 					</fb:FilterGroupItem>
 					<fb:FilterGroupItem groupName="G1" name="Plant" label="Plant" visibleInFilterBar="true">
 						<fb:control>
-							<MultiInput id="plantInput" showValueHelp="true" valueHelpRequest=".onPlantValueHelp" valueHelpOnly="true" tokenUpdate="handleValueHelpClose" />
+							<MultiInput id="plantInput" showValueHelp="true" valueHelpRequest=".onPlantValueHelp" valueHelpOnly="false"/>
 						</fb:control>
 					</fb:FilterGroupItem>
 					<fb:FilterGroupItem groupName="G1" name="OrderType" label="Order Type" visibleInFilterBar="true">
 						<fb:control>
-							<MultiInput id="orderTypeInput" showValueHelp="true" valueHelpRequest=".onOrderTypeValueHelp" valueHelpOnly="true" />
+							<MultiInput id="orderTypeInput" showValueHelp="true" valueHelpRequest=".onOrderTypeValueHelp" valueHelpOnly="false" />
 						</fb:control>
 					</fb:FilterGroupItem>
 					<fb:FilterGroupItem groupName="G1" name="PlannerGroup" label="Planner Group" visibleInFilterBar="true">
 						<fb:control>
-							<MultiInput id="plannerGroupInput" showValueHelp="true" valueHelpRequest=".onPlannerGroupValueHelp" valueHelpOnly="true" />
+							<MultiInput id="plannerGroupInput" showValueHelp="true" valueHelpRequest=".onPlannerGroupValueHelp" valueHelpOnly="false" />
 						</fb:control>
 					</fb:FilterGroupItem>
 					<fb:FilterGroupItem groupName="G1" name="WorkCenter" label="Work Center" visibleInFilterBar="true">
 						<fb:control>
-							<MultiInput id="workCenterInput" showValueHelp="true" valueHelpRequest=".onWorkCenterValueHelp" valueHelpOnly="true" />
+							<MultiInput id="workCenterInput" showValueHelp="true" valueHelpRequest=".onWorkCenterValueHelp" valueHelpOnly="false" />
 						</fb:control>
 					</fb:FilterGroupItem>
 					<fb:FilterGroupItem groupName="G1" name="FunctLocation" label="Func Loc" visibleInFilterBar="true">
 						<fb:control>
-							<MultiInput id="funLocInput" showValueHelp="true" valueHelpRequest=".onFuncLocValueHelp" valueHelpOnly="true" />
+							<MultiInput id="funLocInput" showValueHelp="true" valueHelpRequest=".onFuncLocValueHelp" valueHelpOnly="false" />
 						</fb:control>
 					</fb:FilterGroupItem>
 					<fb:FilterGroupItem groupName="G1" name="Equipment" label="Equipment" visibleInFilterBar="true">
 						<fb:control>
-							<MultiInput id="equipmentInput" showValueHelp="true" valueHelpRequest=".onEquipmentValueHelp" valueHelpOnly="true" />
+							<MultiInput id="equipmentInput" showValueHelp="true" valueHelpRequest=".onEquipmentValueHelp" valueHelpOnly="false" />
 						</fb:control>
 					</fb:FilterGroupItem>
 					<fb:FilterGroupItem groupName="G1" name="From Date" label="From Date" visibleInFilterBar="true">

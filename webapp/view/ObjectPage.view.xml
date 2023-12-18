@@ -25,7 +25,7 @@
                                 <Text text="{localModel>/workOrderHeader/WorkOrder}" class="text"/>
                                 <Label text="Plant" class="label"/>
                                 <Text text="{localModel>/workOrderHeader/Plant}" class="text"/>
-                                <Label text="Order Type and Des." class="label"/>
+                                <Label text="Order Type" class="label"/>
                                 <Text text="{localModel>/workOrderHeader/OrderType}" class="text"/>
                                 <Label text="Planner Group" class="label"/>
                                 <Text text="{localModel>/workOrderHeader/PlannerGroup}" class="text"/>
@@ -33,7 +33,7 @@
                                 <Label text="Work Center" class="label"/>
                                 <Text text="{localModel>/workOrderHeader/WorkCenter}" class="text"/>
                                 <Label text="Func. Loc" class="label"/>
-                                <Text text="{localModel>/workOrderHeader/FunctLocation}" class="text"/>
+                                <Text text="{localModel>/workOrderHeader/FunctLocation}" class="text" wrapping="false" width="25rem"/>
                                 <Label text="Equipment" class="label"/>
                                 <Text text="{localModel>/workOrderHeader/Equipment}" class="text"/>
                             </f:content>
@@ -77,7 +77,7 @@
                             <uxap:ObjectPageSubSection id="eqipID1" title="Equipment BOM Items" titleUppercase="false">
                                 <uxap:blocks>
                                     <VBox>
-                                        <Table id="equiBOMID" items="{localModel>/equipBOMItems}" mode="MultiSelect">
+                                        <Table id="equiBOMID" selectionChange=".onBomItemSel" items="{localModel>/equipBOMItems}" mode="MultiSelect">
                                             <columns>
                                                 <Column minScreenWidth="Tablet">
                                                     <Label text="Part"/>
@@ -108,7 +108,7 @@
                                                         <Text text="{localModel>PartDesc}" wrapping="false"/>
                                                         <Text text="{localModel>BOMQuan}" wrapping="false"/>
                                                         <Input id="idDesiredQuanBOM" value="{localModel>DesiredQuan}" />
-                                                        <Input id="idOperationBOM" value="{localModel>Operation}" />
+                                                        <Input type="Number" id="idOperationBOM" change= ".onOperationChange" value="{localModel>Operation}"/>
                                                         <!-- <Input id="idStorageLoc" value="{localModel>StorageLocation}" visible="{localModel>isInput}" /> -->
                                                         <Select selectedKey="{localModel>StorageLocation/StorageLocation}" enabled="{localModel>isEnabled}" width="100%" forceSelection="{localModel>isSelected}" items="{path: 'localModel>StorageLocation'}">
                                                             <core:Item key="{localModel>StorageLocation}" text="{localModel>StorageLocation}" />
@@ -159,7 +159,7 @@
                                                 <ColumnListItem press="onTablePress" vAlign="Middle">
                                                     <cells>
                                                         <!-- <MultiInput items="{localModel>part}" showValueHelp="true" valueHelpRequest=".onAddPartValueHelp" valueHelpOnly="true" /> -->
-                                                        <Input id="idPart" value="{localModel>Part}" type="Text" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onAddPartValueHelp" />
+                                                        <Input id="idPart" value="{localModel>Part}" type="Text" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onAddPartValueHelp" />
                                                         <Input value="{localModel>PartDesc}" editable="false" />
                                                         <Input value="{localModel>DesiredQuan}" />
                                                         <Input value="{localModel>Operation}" />

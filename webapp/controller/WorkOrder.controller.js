@@ -137,11 +137,17 @@ sap.ui.define(
         this.byId("toDate").setValue("");
         this.byId("woInput").removeAllTokens();
         this.byId("plantInput").removeAllTokens();
+        this.byId("plantInput").setValue("");
         this.byId("orderTypeInput").removeAllTokens();
+        this.byId("orderTypeInput").setValue("");
         this.byId("plannerGroupInput").removeAllTokens();
+        this.byId("plannerGroupInput").setValue("");
         this.byId("workCenterInput").removeAllTokens();
+        this.byId("workCenterInput").setValue("");
         this.byId("funLocInput").removeAllTokens();
+        this.byId("funLocInput").setValue("");
         this.byId("equipmentInput").removeAllTokens();
+        this.byId("equipmentInput").setValue("");
       },
 
       // prepareGetCall: async function (entityName) {
@@ -190,9 +196,10 @@ sap.ui.define(
           );
           data = data.d.results;
           this.localModel.setProperty("/ZUSPPMEG01_PLANT_F4Set", data);
-
+          this.byId("plantInput").setValue("");
           this._oDialogPlant.open();
         }
+        this.byId("plantInput").setValue("");
         this.byId("plantInput").removeAllTokens();
         this.VHID = "Plant";
         this._oDialogPlant.open();
@@ -212,9 +219,10 @@ sap.ui.define(
           );
           data = data.d.results;
           this.localModel.setProperty("/ZUSPPMEG01_ORDER_TYPE_F4Set", data);
-
+          this.byId("orderTypeInput").setValue("");
           this._oDialogOrderType.open();
         }
+        this.byId("orderTypeInput").setValue("");
         this.byId("orderTypeInput").removeAllTokens();
         this.VHID = "OrderType";
         this._oDialogOrderType.open();
@@ -234,9 +242,10 @@ sap.ui.define(
           );
           data = data.d.results;
           this.localModel.setProperty("/ZUSPPMEG01_PLANNER_GROUP_F4Set", data);
-
+          this.byId("plannerGroupInput").setValue("");
           this._oDialogPlannerGroup.open();
         }
+        this.byId("plannerGroupInput").setValue("");
         this.byId("plannerGroupInput").removeAllTokens();
         this.VHID = "PlannerGroup";
         this._oDialogPlannerGroup.open();
@@ -256,9 +265,10 @@ sap.ui.define(
           );
           data = data.d.results;
           this.localModel.setProperty("/ZUSPPMEG01_WORK_CENTER_F4Set", data);
-
+          this.byId("workCenterInput").setValue("");
           this._oDialogWorkCenter.open();
         }
+        this.byId("workCenterInput").setValue("");
         this.byId("workCenterInput").removeAllTokens();
         this.VHID = "WorkCenter";
         this._oDialogWorkCenter.open();
@@ -277,18 +287,15 @@ sap.ui.define(
             this.serviceUrl + "/ZUSPPMEG01_FUNCTION_LOCATION_F4Set?$format=json"
           );
           data = data.d.results;
-          this.localModel.setProperty(
-            "/ZUSPPMEG01_FUNCTION_LOCATION_F4Set",
-            data
-          );
-
+          this.localModel.setProperty("/ZUSPPMEG01_FUNCTION_LOCATION_F4Set", data);
+          this.byId("funLocInput").setValue("");
           this._oDialogFuncLoc.open();
         }
+        this.byId("funLocInput").setValue("");
         this.byId("funLocInput").removeAllTokens();
         this.VHID = "FunctLocation";
         this._oDialogFuncLoc.open();
       },
-
       onEquipmentValueHelp: async function (oEvent) {
         if (!this._oDialogEquipment) {
           this._oDialogEquipment = sap.ui.xmlfragment(
@@ -303,9 +310,10 @@ sap.ui.define(
           );
           data = data.d.results;
           this.localModel.setProperty("/ZUSPPMEG01_EQUIPMENT_F4Set", data);
-
+          this.byId("equipmentInput").setValue("");
           this._oDialogEquipment.open();
         }
+        this.byId("equipmentInput").setValue("");
         this.byId("equipmentInput").removeAllTokens();
         this.VHID = "Equipment";
         this._oDialogEquipment.open();
@@ -316,6 +324,12 @@ sap.ui.define(
         this.oTable.setShowOverlay(true);
         // var sFilters = "";
         var WOValue = this.byId("woInput").getProperty("value");
+        var plantValue = this.byId("plantInput").getProperty("value");
+        var orderTValue = this.byId("orderTypeInput").getProperty("value");
+        var plannerGValue = this.byId("plannerGroupInput").getProperty("value");
+        var workCValue = this.byId("workCenterInput").getProperty("value");
+        var funcLocValue = this.byId("funLocInput").getProperty("value");
+        var equipmentValue = this.byId("equipmentInput").getProperty("value");
         var fromDate = this.byId("fromDate").getDateValue();
         var toDate = this.byId("toDate").getDateValue();
 
@@ -360,6 +374,54 @@ sap.ui.define(
             filter += "WorkOrder eq '" + WOValue + "'";
           } else {
             filter += " and WorkOrder eq '" + WOValue + "'";
+          }
+        }
+
+        if (plantValue != "") {
+          if (filter == "") {
+            filter += "Plant eq '" + plantValue + "'";
+          } else {
+            filter += " and Plant eq '" + plantValue + "'";
+          }
+        }
+
+        if (orderTValue != "") {
+          if (filter == "") {
+            filter += "OrderType eq '" + orderTValue + "'";
+          } else {
+            filter += " and OrderType eq '" + orderTValue + "'";
+          }
+        }
+
+        if (plannerGValue != "") {
+          if (filter == "") {
+            filter += "PlannerGroup eq '" + plannerGValue + "'";
+          } else {
+            filter += " and PlannerGroup eq '" + plannerGValue + "'";
+          }
+        }
+
+        if (workCValue != "") {
+          if (filter == "") {
+            filter += "WorkCenter eq '" + workCValue + "'";
+          } else {
+            filter += " and WorkCenter eq '" + workCValue + "'";
+          }
+        }
+
+        if (funcLocValue != "") {
+          if (filter == "") {
+            filter += "FunctLocation eq '" + funcLocValue + "'";
+          } else {
+            filter += " and FunctLocation eq '" + funcLocValue + "'";
+          }
+        }
+
+        if (equipmentValue != "") {
+          if (filter == "") {
+            filter += "Equipment eq '" + equipmentValue + "'";
+          } else {
+            filter += " and Equipment eq '" + equipmentValue + "'";
           }
         }
 
