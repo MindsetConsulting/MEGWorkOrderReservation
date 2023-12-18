@@ -94,6 +94,9 @@
                                                 <Column minScreenWidth="Tablet">
                                                     <Label text="Operation"/>
                                                 </Column>
+                                                <Column minScreenWidth="Tablet">
+                                                    <Label text="Operation Description"/>
+                                                </Column>
                                                 <Column minScreenWidth="Tablet" visible="true">
                                                     <Label text="Storage Location"/>
                                                 </Column>
@@ -108,8 +111,10 @@
                                                         <Text text="{localModel>PartDesc}" wrapping="false"/>
                                                         <Text text="{localModel>BOMQuan}" wrapping="false"/>
                                                         <Input id="idDesiredQuanBOM" value="{localModel>DesiredQuan}" />
-                                                        <Input type="Number" id="idOperationBOM" change= ".onOperationChange" value="{localModel>Operation}"/>
+                                                        <Input id="idOpsVH" value="{localModel>Operation}" change= ".onOperationChange" type="Text" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onOperationValueHelp" />
+                                                        <Input type="text" id="idOperationBOM" value="{localModel>OperationDesc}"/>
                                                         <!-- <Input id="idStorageLoc" value="{localModel>StorageLocation}" visible="{localModel>isInput}" /> -->
+                                                        <!-- <Text text="{localModel>StorageLocation}" wrapping="false"/> -->
                                                         <Select selectedKey="{localModel>StorageLocation/StorageLocation}" enabled="{localModel>isEnabled}" width="100%" forceSelection="{localModel>isSelected}" items="{path: 'localModel>StorageLocation'}">
                                                             <core:Item key="{localModel>StorageLocation}" text="{localModel>StorageLocation}" />
                                                         </Select>
@@ -149,6 +154,9 @@
                                                     <Label text="Operation"/>
                                                 </Column>
                                                 <Column minScreenWidth="Tablet">
+                                                    <Label text="Operation Description"/>
+                                                </Column>
+                                                <Column minScreenWidth="Tablet">
                                                     <Label text="Storage Location"/>
                                                 </Column>
                                                 <Column width="1rem">
@@ -162,7 +170,9 @@
                                                         <Input id="idPart" value="{localModel>Part}" type="Text" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onAddPartValueHelp" />
                                                         <Input value="{localModel>PartDesc}" editable="false" />
                                                         <Input value="{localModel>DesiredQuan}" />
-                                                        <Input value="{localModel>Operation}" />
+                                                        <!-- <Input value="{localModel>Operation}" /> -->
+                                                        <Input value="{localModel>Operation}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onAddOperationValueHelp" />
+                                                        <Input value="{localModel>OperationDesc}"/>
                                                         <Select selectedKey="{localModel>StorageLocation/StorageLocation}" enabled="{localModel>isEnabled}" width="100%" forceSelection="{localModel>isSelected}" items="{path: 'localModel>StorageLocation'}">
                                                             <core:Item key="{localModel>StorageLocation}" text="{localModel>StorageLocation}" />
                                                         </Select>

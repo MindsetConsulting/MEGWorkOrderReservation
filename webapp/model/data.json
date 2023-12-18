@@ -1,5 +1,5 @@
 {
-  "WorkOrderNo": [
+  "WorkOrderNoData": [
     { "No": 1 },
     { "No": 2 },
     { "No": 3 },
@@ -7,7 +7,7 @@
     { "No": 5 }
   ],
 
-  "ZUSPPMEG01_WORK_ORDER_HEADERSet": [
+  "ZUSPPMEG01_WORK_ORDER_HEADERSetData": [
     {
       "WorkOrder": "001",
       "Plant": "Plant 1",
@@ -55,7 +55,7 @@
     }
   ],
 
-  "orderOperations": [
+  "orderOperationsData": [
     {
       "OPNo": "0010",
       "OPDes": "M PIPING INSPECTION"
@@ -82,7 +82,7 @@
     }
   ],
 
-  "equipBOMItems": [
+  "equipBOMItemsData": [
     {
       "part": "Part 1",
       "partDesc": "Part Description Type 1",
@@ -120,7 +120,7 @@
     }
   ],
 
-  "addPartsItems": [
+  "addPartsItemsData": [
     {
       "part": "Part 1",
       "partDesc": "Part Description Type 1",
