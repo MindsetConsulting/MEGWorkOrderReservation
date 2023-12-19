@@ -60,17 +60,32 @@ sap.ui.define(["sap/m/MessageBox"], function (MessageBox) {
                   styleClass: "alignCenter",
                 });
               } else if (LogNav) {
-                var errMsg = "";
+                var errMsg = "",
+                  sucMsg = "";
+                // LogNav.results.forEach(function (log) {
+                //   if (log.Type == "E") {
+                //     errMsg += log.Message + "\n";
+                //   }
+                // });
                 LogNav.results.forEach(function (log) {
                   if (log.Type == "E") {
                     errMsg += log.Message + "\n";
+                  }
+                  if (log.Type == "S") {
+                    sucMsg += log.Message + "\n";
                   }
                 });
                 if (errMsg != "") {
                   MessageBox.error(errMsg.toUpperCase(), {
                     styleClass: "alignCenter",
                   });
-                } else {
+                }
+                if (sucMsg != "") {
+                  MessageBox.success(sucMsg.toUpperCase(), {
+                    styleClass: "alignCenter",
+                  });
+                }
+                if (errMsg == "" && sucMsg == "") {
                   MessageBox.success("ORDER " + WO + " SAVED!", {
                     styleClass: "alignCenter",
                   });
