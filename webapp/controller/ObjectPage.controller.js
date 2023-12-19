@@ -391,21 +391,31 @@ sap.ui.define(
         var isRequiredCheck = true;
         if (data.selectedEquiBOM) {
           data.selectedEquiBOM.forEach(function (equiBOM) {
-            if (equiBOM.DesiredQuan == "" || equiBOM.Operation == "") {
+            if (
+              equiBOM.DesiredQuan == "" ||
+              equiBOM.Operation == "" ||
+              equiBOM.StorageLocation == "" ||
+              equiBOM.StorageLocation == undefined
+            ) {
               isRequiredCheck = false;
             }
           });
         }
         if (data.AddPartsItems) {
           data.AddPartsItems.forEach(function (addPart) {
-            if (addPart.DesiredQuan == "" || addPart.Operation == "") {
+            if (
+              addPart.DesiredQuan == "" ||
+              addPart.Operation == "" ||
+              addPart.StorageLocation == "" ||
+              addPart.StorageLocation == undefined
+            ) {
               isRequiredCheck = false;
             }
           });
         }
         if (!isRequiredCheck) {
           MessageBox.warning(
-            "PLEASE ENTER THE DESIRED QUANTITY AND OPERATION FOR THE SELECTED ITEMS"
+            "PLEASE ENTER THE DESIRED QUANTITY, OPERATION AND STORAGE LOCATION FOR THE SELECTED ITEMS"
           ),
             {
               styleClass: "alignCenter",
