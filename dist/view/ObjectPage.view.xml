@@ -110,9 +110,9 @@
                                                         <Text text="{localModel>Part}" wrapping="false"/>
                                                         <Text text="{localModel>PartDesc}" wrapping="false"/>
                                                         <Text text="{localModel>BOMQuan}" wrapping="false"/>
-                                                        <Input id="idDesiredQuanBOM" value="{localModel>DesiredQuan}" />
-                                                        <Input id="idOpsVH" value="{localModel>Operation}" change= ".onOperationChange" type="Text" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onOperationValueHelp" />
-                                                        <Input type="text" id="idOperationBOM" value="{localModel>OperationDesc}"/>
+                                                        <Input id="idDesiredQuanBOM" value="{localModel>DesiredQuan}" liveChange="onDesChange"/>
+                                                        <Input id="idOpsVH" value="{localModel>Operation}" change= ".onOperationChange" type="Number" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onOperationValueHelp" liveChange="onOpChange"/>
+                                                        <Input type="Text" id="idOperationBOM" value="{localModel>OperationDesc}"/>
                                                         <!-- <Input id="idStorageLoc" value="{localModel>StorageLocation}" visible="{localModel>isInput}" /> -->
                                                         <!-- <Text text="{localModel>StorageLocation}" wrapping="false"/> -->
                                                         <Select selectedKey="{localModel>StorageLocation/StorageLocation}" enabled="{localModel>isEnabled}" width="100%" forceSelection="{localModel>isSelected}" items="{path: 'localModel>StorageLocation'}">
@@ -167,7 +167,7 @@
                                                 <ColumnListItem press="onTablePress" vAlign="Middle">
                                                     <cells>
                                                         <!-- <MultiInput items="{localModel>part}" showValueHelp="true" valueHelpRequest=".onAddPartValueHelp" valueHelpOnly="true" /> -->
-                                                        <Input id="idPart" value="{localModel>Part}" type="Text" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onAddPartValueHelp" />
+                                                        <Input id="idPart" value="{localModel>Part}" type="Text" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onAddPartValueHelp" submit=".onPartEnter"/>
                                                         <Input value="{localModel>PartDesc}" editable="false" />
                                                         <Input value="{localModel>DesiredQuan}" />
                                                         <!-- <Input value="{localModel>Operation}" /> -->

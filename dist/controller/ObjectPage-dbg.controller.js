@@ -391,21 +391,31 @@ sap.ui.define(
         var isRequiredCheck = true;
         if (data.selectedEquiBOM) {
           data.selectedEquiBOM.forEach(function (equiBOM) {
-            if (equiBOM.DesiredQuan == "" || equiBOM.Operation == "") {
+            if (
+              equiBOM.DesiredQuan == "" ||
+              equiBOM.Operation == "" ||
+              equiBOM.StorageLocation == "" ||
+              equiBOM.StorageLocation == undefined
+            ) {
               isRequiredCheck = false;
             }
           });
         }
         if (data.AddPartsItems) {
           data.AddPartsItems.forEach(function (addPart) {
-            if (addPart.DesiredQuan == "" || addPart.Operation == "") {
+            if (
+              addPart.DesiredQuan == "" ||
+              addPart.Operation == "" ||
+              addPart.StorageLocation == "" ||
+              addPart.StorageLocation == undefined
+            ) {
               isRequiredCheck = false;
             }
           });
         }
         if (!isRequiredCheck) {
           MessageBox.warning(
-            "PLEASE ENTER THE DESIRED QUANTITY AND OPERATION FOR THE SELECTED ITEMS"
+            "PLEASE ENTER THE DESIRED QUANTITY, OPERATION AND STORAGE LOCATION FOR THE SELECTED ITEMS"
           ),
             {
               styleClass: "alignCenter",
@@ -448,6 +458,42 @@ sap.ui.define(
         //   equipBOMItem.DesiredQuan = "";
         // }
       },
+      onPartEnter: async function(oEvent){
+        var bindingPath = oEvent.getSource().oPropagatedProperties.oBindingContexts.localModel.sPath;
+        this.partItemIndex = bindingPath.split("/")[2];
+        var partValue = oEvent.getParameter("value");
+        var filter = "Part eq '" + partValue + "'";
+        var data = await CallUtil.callGetData(
+          this.serviceUrl + "/ZUSPPMEG01_PART_F4Set?&$filter=" + filter + "&$format=json"  
+        );
+        data = data.d.results;
+        var partVal = data[0].Part;
+        var partDesc = data[0].Description;
+
+        var addItemsData = this.localModel.getData().AddPartsItems;
+
+        addItemsData[this.partItemIndex].Part = partVal;
+        addItemsData[this.partItemIndex].PartDesc = partDesc;
+        this.localModel.refresh();
+      },
+      onDesChange: function(oEvent){  
+        var oInput = oEvent.getSource();
+        var desValue = oEvent.getParameter("value");
+        var regEx = /^-?\d*\.?\d*$/;
+        if (!regEx.test(desValue)) {
+          // If the input doesn't match, remove the last entered character
+          var desNewValue = desValue.slice(0, -1);
+          oInput.setValue(desNewValue);
+        }
+      },
+      onOpChange: function(oEvent){
+        var oInput = oEvent.getSource();
+        var opValue = oEvent.getParameter("value");
+        if(opValue.length>4){
+          var oNewValue = opValue.slice(0,4);
+        }
+        oInput.setValue(oNewValue);
+      }
     });
   }
 );

@@ -458,6 +458,72 @@ sap.ui.define(
         //   equipBOMItem.DesiredQuan = "";
         // }
       },
+      onPartEnter: async function(oEvent){
+        var bindingPath = oEvent.getSource().oPropagatedProperties.oBindingContexts.localModel.sPath;
+        this.partItemIndex = bindingPath.split("/")[2];
+        var partValue = oEvent.getParameter("value");
+        var filter = "Part eq '" + partValue + "'";
+        var data = await CallUtil.callGetData(
+          this.serviceUrl + "/ZUSPPMEG01_PART_F4Set?&$filter=" + filter + "&$format=json"  
+        );
+        data = data.d.results;
+        var partVal = data[0].Part;
+        var partDesc = data[0].Description;
+        var plant = this.localModel.getData().workOrderHeader.Plant;
+        var orderOps = this.localModel.getData().orderOperations;
+        var addItemsData = this.localModel.getData().AddPartsItems;
+
+        var storageLoc = await CallUtil.callGetData(
+          this.serviceUrl +
+            "/ZUSPPMEG01_MATERIAL_STORAGE_LOCATIONSet?$filter=Part eq '" +
+            partVal +
+            "' and Plant eq '" +
+            plant +
+            "'&$format=json"
+        );
+
+
+        addItemsData[this.partItemIndex].Part = partVal;
+        addItemsData[this.partItemIndex].PartDesc = partDesc;
+
+        if (orderOps && orderOps.length == 1) {
+          addItemsData[this.partItemIndex].Operation =
+            orderOps[0].OperationNum;
+          addItemsData[this.partItemIndex].OperationDesc =
+            orderOps[0].OperationDesc;
+        }
+
+        if (storageLoc && storageLoc.d && storageLoc.d.results) {
+          addItemsData[this.partItemIndex].StorageLocation =
+            storageLoc.d.results;
+          if (storageLoc.d.results.length > 1) {
+            addItemsData[this.partItemIndex].isEnabled = true;
+            addItemsData[this.partItemIndex].isSelected = false;
+          } else {
+            addItemsData[this.partItemIndex].isEnabled = false;
+            addItemsData[this.partItemIndex].isSelected = true;
+          }
+        }
+        this.localModel.refresh();
+      },
+      onDesChange: function(oEvent){  
+        var oInput = oEvent.getSource();
+        var desValue = oEvent.getParameter("value");
+        var regEx = /^-?\d*\.?\d*$/;
+        if (!regEx.test(desValue)) {
+          // If the input doesn't match, remove the last entered character
+          var desNewValue = desValue.slice(0, -1);
+          oInput.setValue(desNewValue);
+        }
+      },
+      onOpChange: function(oEvent){
+        var oInput = oEvent.getSource();
+        var opValue = oEvent.getParameter("value");
+        if(opValue.length>4){
+          var oNewValue = opValue.slice(0,4);
+        }
+        oInput.setValue(oNewValue);
+      }
     });
   }
 );

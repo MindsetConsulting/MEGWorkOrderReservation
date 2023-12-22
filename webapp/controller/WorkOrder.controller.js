@@ -476,7 +476,7 @@ sap.ui.define(
         var oFilter = new Filter(this.VHID, FilterOperator.Contains, sValue);
         var oBinding = oEvent.getParameter("itemsBinding");
         oBinding.filter([oFilter]);
-      },
+      }
     });
   }
 );
