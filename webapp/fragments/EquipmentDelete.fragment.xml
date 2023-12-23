@@ -1,0 +1,10 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog title="Warning">
+        <Label textAlign="Center" class="sapUiSmallMargin" text ="DO YOU WANT TO DELETED THE ITEM?"/>
+        <buttons>
+            <Button text="No" press="closeDeleteDialog" type="Default" />
+            <Button text="Yes" press="onDeleteField" type="Default" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

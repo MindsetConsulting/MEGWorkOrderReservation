@@ -121,6 +121,11 @@ sap.ui.define(
 
         let i = 0;
         for (i = 0; i < data.length; i++) {
+          if (data[i].DesiredQuan == "") {
+            data[i].isDeleted = false;
+          } else {
+            data[i].isDeleted = true;
+          }
           if (orderOps.length == 1) {
             data[i].Operation = orderOps[0].OperationNum;
             data[i].OperationDesc = orderOps[0].OperationDesc;
@@ -303,6 +308,8 @@ sap.ui.define(
             addItemsData[this.valueHelpIndex].isEnabled = true;
             addItemsData[this.valueHelpIndex].isSelected = false;
           } else {
+            addItemsData[this.partItemIndex].StorageLocation.StorageLocation =
+              storageLoc.d.results[0].StorageLocation;
             addItemsData[this.valueHelpIndex].isEnabled = false;
             addItemsData[this.valueHelpIndex].isSelected = true;
           }
@@ -338,6 +345,62 @@ sap.ui.define(
         oBinding.filter([oFilter]);
       },
 
+      openDelete: function (oEvent) {
+        if (!this._oDialogDel) {
+          this._oDialogDel = sap.ui.xmlfragment(
+            "meg.workorder.fragments.EquipmentDelete",
+            this
+          );
+          this.getView().addDependent(this._oDialogDel);
+          this.delID = "PartDelete";
+          this._oDialogDel.open();
+        }
+        this.deletePart =
+          oEvent.getSource().oPropagatedProperties.oBindingContexts.localModel.sPath;
+        this._oDialogDel.open();
+      },
+
+      onDeleteField: async function () {
+        var index = this.deletePart.split("/")[2];
+        var data = this.localModel.getData();
+        var equipData = this.localModel.getData().equipBOMItems[index];
+        var url = this.serviceUrl + "/ZUSPPMEG01_WORK_ORDER_HEADERSet";
+
+        equipData = {
+          Part: equipData.Part,
+          PartDesc: equipData.PartDesc,
+          BOMQuan: equipData.BOMQuan,
+          DesiredQuan: equipData.DesiredQuan,
+          Operation: equipData.Operation,
+          StorageLocation: equipData.StorageLocation.StorageLocation,
+          DeleteFlag: true,
+        };
+
+        var payload = {
+          WorkOrder: data.workOrderHeader.WorkOrder,
+          Plant: data.workOrderHeader.Plant,
+          OrderType: data.workOrderHeader.OrderType,
+          Description: data.workOrderHeader.Description,
+          PlannerGroup: data.workOrderHeader.PlannerGroup,
+          WorkCenter: data.workOrderHeader.WorkCenter,
+          FunctLocation: data.workOrderHeader.FunctLocation,
+          Equipment: data.workOrderHeader.Equipment,
+          /** EquipBOMItemNav Data  */
+          EquipBOMItemNav: [equipData],
+          LogNav: [{}],
+        };
+
+        await CallUtil.callPostData(url, payload);
+
+        // partConData.splice(index, 1);
+        this.localModel.refresh();
+        this._oDialogDel.close();
+      },
+
+      closeDeleteDialog: function () {
+        this._oDialogDel.close();
+      },
+
       passWOReservation: async function (oEvent) {
         var oEquiBOMTable = this.byId("equiBOMID");
         var aSelectedPaths = oEquiBOMTable.getSelectedContextPaths();
@@ -362,7 +425,6 @@ sap.ui.define(
               BOMQuan: equiData.BOMQuan,
               DesiredQuan: equiData.DesiredQuan,
               Operation: equiData.Operation,
-              Select: equiData.Select,
               StorageLocation: equiData.StorageLocation.StorageLocation,
             };
             data.selectedEquiBOM.push(equiData);
@@ -442,8 +504,8 @@ sap.ui.define(
         };
 
         var response = await CallUtil.callPostData(url, payload);
-        console.log(response);
-        this.localModel.refresh();
+        // console.log(response);
+        // this.localModel.refresh();
       },
       onBomItemSel: function (oEvent) {
         var isSelected = oEvent.getParameter("selected");
@@ -458,13 +520,18 @@ sap.ui.define(
         //   equipBOMItem.DesiredQuan = "";
         // }
       },
-      onPartEnter: async function(oEvent){
-        var bindingPath = oEvent.getSource().oPropagatedProperties.oBindingContexts.localModel.sPath;
+      onPartEnter: async function (oEvent) {
+        var bindingPath =
+          oEvent.getSource().oPropagatedProperties.oBindingContexts.localModel
+            .sPath;
         this.partItemIndex = bindingPath.split("/")[2];
         var partValue = oEvent.getParameter("value");
         var filter = "Part eq '" + partValue + "'";
         var data = await CallUtil.callGetData(
-          this.serviceUrl + "/ZUSPPMEG01_PART_F4Set?&$filter=" + filter + "&$format=json"  
+          this.serviceUrl +
+            "/ZUSPPMEG01_PART_F4Set?$filter=" +
+            filter +
+            "&$format=json"
         );
         data = data.d.results;
         var partVal = data[0].Part;
@@ -482,13 +549,11 @@ sap.ui.define(
             "'&$format=json"
         );
 
-
         addItemsData[this.partItemIndex].Part = partVal;
         addItemsData[this.partItemIndex].PartDesc = partDesc;
 
         if (orderOps && orderOps.length == 1) {
-          addItemsData[this.partItemIndex].Operation =
-            orderOps[0].OperationNum;
+          addItemsData[this.partItemIndex].Operation = orderOps[0].OperationNum;
           addItemsData[this.partItemIndex].OperationDesc =
             orderOps[0].OperationDesc;
         }
@@ -497,16 +562,20 @@ sap.ui.define(
           addItemsData[this.partItemIndex].StorageLocation =
             storageLoc.d.results;
           if (storageLoc.d.results.length > 1) {
+            // addItemsData[this.partItemIndex].StorageLocation.StorageLocation =
+            //   storageLoc.d.results[0].StorageLocation;
             addItemsData[this.partItemIndex].isEnabled = true;
             addItemsData[this.partItemIndex].isSelected = false;
           } else {
+            addItemsData[this.partItemIndex].StorageLocation.StorageLocation =
+              storageLoc.d.results[0].StorageLocation;
             addItemsData[this.partItemIndex].isEnabled = false;
             addItemsData[this.partItemIndex].isSelected = true;
           }
         }
         this.localModel.refresh();
       },
-      onDesChange: function(oEvent){  
+      onDesChange: function (oEvent) {
         var oInput = oEvent.getSource();
         var desValue = oEvent.getParameter("value");
         var regEx = /^-?\d*\.?\d*$/;
@@ -516,14 +585,14 @@ sap.ui.define(
           oInput.setValue(desNewValue);
         }
       },
-      onOpChange: function(oEvent){
+      onOpChange: function (oEvent) {
         var oInput = oEvent.getSource();
         var opValue = oEvent.getParameter("value");
-        if(opValue.length>4){
-          var oNewValue = opValue.slice(0,4);
+        if (opValue.length > 4) {
+          opValue = opValue.slice(0, 4);
         }
         oInput.setValue(oNewValue);
-      }
+      },
     });
   }
 );
