@@ -21,7 +21,6 @@ sap.ui.define(
     MessageBox
   ) {
     "use strict";
-
     return Controller.extend("meg.workorder.controller.ObjectPage", {
       onInit: async function () {
         this.localModel = this.getOwnerComponent().getModel("localModel");
@@ -107,7 +106,6 @@ sap.ui.define(
             }
           }
         }
-
         this.localModel.setProperty("/AddPartsItems", data);
         oTableAdd.setShowOverlay(false);
       },
@@ -262,15 +260,73 @@ sap.ui.define(
         this.localModel.refresh();
       },
       onTableRowDelete: function (oEvent) {
-        var bindingPath =
-          oEvent.getSource().oPropagatedProperties.oBindingContexts.localModel
-            .sPath;
-        var index = bindingPath.split("/")[2];
-        var addItemsData = this.localModel.getData().AddPartsItems;
-        addItemsData.splice(index, 1);
-        this.localModel.refresh();
+          if (!this._oDialogAddDel) {
+            this._oDialogAddDel = sap.ui.xmlfragment(
+              "meg.workorder.fragments.AdditionalPartDelete",
+              this
+            );
+            this.getView().addDependent(this._oDialogAddDel);
+            this.delID = "AddPartDelete";
+            this._oDialogAddDel.open();
+          }
+          this.addDeletePart =
+            oEvent.getSource().oPropagatedProperties.oBindingContexts.localModel.sPath;
+          this._oDialogAddDel.open();
       },
+      onAddPartDelete: async function(){
+        var index = this.addDeletePart.split("/")[2];
+        var data = this.localModel.getData();
+        var addPartData = this.localModel.getData().AddPartsItems[index];
+        var url = this.serviceUrl + "/ZUSPPMEG01_WORK_ORDER_HEADERSet";
+        if(addPartData.DeleteFlag == undefined){
+          var addItemsData = this.localModel.getData().AddPartsItems;
+          addItemsData.splice(index, 1);
+          this._oDialogAddDel.close();
+          this.localModel.refresh();
+        }
+        else{
+        addPartData = {
+          Part: addPartData.Part,
+          PartDesc: addPartData.PartDesc,
+          OperationDesc: addPartData.OperationDesc,
+          DesiredQuan: addPartData.DesiredQuan,
+          Operation: addPartData.Operation,
+          StorageLocation: addPartData.StorageLocation.StorageLocation,
+          DeleteFlag: true,
+        };
 
+        var payload = {
+          WorkOrder: data.workOrderHeader.WorkOrder,
+          Plant: data.workOrderHeader.Plant,
+          OrderType: data.workOrderHeader.OrderType,
+          Description: data.workOrderHeader.Description,
+          PlannerGroup: data.workOrderHeader.PlannerGroup,
+          WorkCenter: data.workOrderHeader.WorkCenter,
+          FunctLocation: data.workOrderHeader.FunctLocation,
+          Equipment: data.workOrderHeader.Equipment,
+          /** AddPartItemNav Data  */
+          AddPartItemNav: [addPartData],
+          LogNav: [{}],
+        };
+
+        await CallUtil.callPostData(url, payload);
+
+        // partConData.splice(index, 1);
+        this._oDialogAddDel.close();
+        setTimeout(async () => {
+          var filter = "?$filter=WorkOrder eq '" + this.WorkOrderId + "'";
+          var expand = "&$expand=OrdOperationNav,AddPartItemNav";
+          var data = await CallUtil.callGetData(
+            url + filter + expand + "&$format=json"
+          );
+          data = data.d.results[0];
+          this.getAddPartsData(data.AddPartItemNav.results);
+        }, 5000);
+        }
+      },
+      closeAddPartDelete: function(){
+        this._oDialogAddDel.close();
+      },
       handlePartConfirm: async function (oEvent) {
         var part = oEvent.getParameter("selectedItem").getTitle();
         var partDesc = oEvent.getParameter("selectedItem").getDescription();
@@ -308,7 +364,7 @@ sap.ui.define(
             addItemsData[this.valueHelpIndex].isEnabled = true;
             addItemsData[this.valueHelpIndex].isSelected = false;
           } else {
-            addItemsData[this.partItemIndex].StorageLocation.StorageLocation =
+            addItemsData[this.valueHelpIndex].StorageLocation.StorageLocation =
               storageLoc.d.results[0].StorageLocation;
             addItemsData[this.valueHelpIndex].isEnabled = false;
             addItemsData[this.valueHelpIndex].isSelected = true;
@@ -393,10 +449,23 @@ sap.ui.define(
         await CallUtil.callPostData(url, payload);
 
         // partConData.splice(index, 1);
-        this.localModel.refresh();
         this._oDialogDel.close();
-      },
 
+        setTimeout(async () => {
+          var filter = "?$filter=WorkOrder eq '" + this.WorkOrderId + "'";
+          var expand = "&$expand=OrdOperationNav,EquipBOMItemNav";
+          var data = await CallUtil.callGetData(
+            url + filter + expand + "&$format=json"
+          );
+          var orderOps;
+          data = data.d.results[0];
+          if (data && data.OrdOperationNav) {
+            orderOps = data.OrdOperationNav.results;
+          }
+          this.getEquipBOMData(data.EquipBOMItemNav.results,orderOps);
+        }, 5000);
+        
+      },
       closeDeleteDialog: function () {
         this._oDialogDel.close();
       },
@@ -482,6 +551,15 @@ sap.ui.define(
             {
               styleClass: "alignCenter",
             };
+            setTimeout(async () => {
+              var filter = "?$filter=WorkOrder eq '" + this.WorkOrderId + "'";
+              var expand = "&$expand=OrdOperationNav,AddPartItemNav";
+              var data = await CallUtil.callGetData(
+                url + filter + expand + "&$format=json"
+              );
+              data = data.d.results[0];
+              this.getAddPartsData(data.AddPartItemNav.results);
+              }, 5000);
           return;
         }
 
@@ -503,9 +581,18 @@ sap.ui.define(
           LogNav: [{}],
         };
 
-        var response = await CallUtil.callPostData(url, payload);
+        await CallUtil.callPostData(url, payload);
         // console.log(response);
         // this.localModel.refresh();
+        setTimeout(async () => {
+        var filter = "?$filter=WorkOrder eq '" + this.WorkOrderId + "'";
+        var expand = "&$expand=OrdOperationNav,AddPartItemNav";
+        var data = await CallUtil.callGetData(
+          url + filter + expand + "&$format=json"
+        );
+        data = data.d.results[0];
+        this.getAddPartsData(data.AddPartItemNav.results);
+        }, 5000);
       },
       onBomItemSel: function (oEvent) {
         var isSelected = oEvent.getParameter("selected");

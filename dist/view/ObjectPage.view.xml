@@ -100,6 +100,9 @@
                                                 <Column minScreenWidth="Tablet" visible="true">
                                                     <Label text="Storage Location"/>
                                                 </Column>
+                                                <Column width="1rem">
+                                                    <Label text=""/>
+                                                </Column>
                                                 <!-- <Column minScreenWidth="Tablet" visible="true">
                                                     <Label text="Storage Location"/>
                                                 </Column> -->
@@ -118,6 +121,7 @@
                                                         <Select selectedKey="{localModel>StorageLocation/StorageLocation}" enabled="{localModel>isEnabled}" width="100%" forceSelection="{localModel>isSelected}" items="{path: 'localModel>StorageLocation'}">
                                                             <core:Item key="{localModel>StorageLocation}" text="{localModel>StorageLocation}" />
                                                         </Select>
+                                                        <Button icon="sap-icon://delete" press="openDelete" enabled="{localModel>isDeleted}" />
                                                     </cells>
                                                 </ColumnListItem>
                                             </items>

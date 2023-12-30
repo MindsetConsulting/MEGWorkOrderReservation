@@ -95,6 +95,7 @@ sap.ui.define(["sap/m/MessageBox"], function (MessageBox) {
               //   MessageBox.success("Confirmation Saved!");
               // }
               console.log(oData, oResponse, xhr);
+              this.localModel.refresh();
             },
             error: function (e) {
               // will be called in case of any errors:
