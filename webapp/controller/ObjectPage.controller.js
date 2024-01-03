@@ -260,71 +260,70 @@ sap.ui.define(
         this.localModel.refresh();
       },
       onTableRowDelete: function (oEvent) {
-          if (!this._oDialogAddDel) {
-            this._oDialogAddDel = sap.ui.xmlfragment(
-              "meg.workorder.fragments.AdditionalPartDelete",
-              this
-            );
-            this.getView().addDependent(this._oDialogAddDel);
-            this.delID = "AddPartDelete";
-            this._oDialogAddDel.open();
-          }
-          this.addDeletePart =
-            oEvent.getSource().oPropagatedProperties.oBindingContexts.localModel.sPath;
+        if (!this._oDialogAddDel) {
+          this._oDialogAddDel = sap.ui.xmlfragment(
+            "meg.workorder.fragments.AdditionalPartDelete",
+            this
+          );
+          this.getView().addDependent(this._oDialogAddDel);
+          this.delID = "AddPartDelete";
           this._oDialogAddDel.open();
+        }
+        this.addDeletePart =
+          oEvent.getSource().oPropagatedProperties.oBindingContexts.localModel.sPath;
+        this._oDialogAddDel.open();
       },
-      onAddPartDelete: async function(){
+      onAddPartDelete: async function () {
         var index = this.addDeletePart.split("/")[2];
         var data = this.localModel.getData();
         var addPartData = this.localModel.getData().AddPartsItems[index];
         var url = this.serviceUrl + "/ZUSPPMEG01_WORK_ORDER_HEADERSet";
-        if(addPartData.DeleteFlag == undefined){
+        if (addPartData.DeleteFlag == undefined) {
           var addItemsData = this.localModel.getData().AddPartsItems;
           addItemsData.splice(index, 1);
           this._oDialogAddDel.close();
           this.localModel.refresh();
-        }
-        else{
-        addPartData = {
-          Part: addPartData.Part,
-          PartDesc: addPartData.PartDesc,
-          OperationDesc: addPartData.OperationDesc,
-          DesiredQuan: addPartData.DesiredQuan,
-          Operation: addPartData.Operation,
-          StorageLocation: addPartData.StorageLocation.StorageLocation,
-          DeleteFlag: true,
-        };
+        } else {
+          addPartData = {
+            Part: addPartData.Part,
+            PartDesc: addPartData.PartDesc,
+            OperationDesc: addPartData.OperationDesc,
+            DesiredQuan: addPartData.DesiredQuan,
+            Operation: addPartData.Operation,
+            StorageLocation: addPartData.StorageLocation.StorageLocation,
+            DeleteFlag: true,
+          };
 
-        var payload = {
-          WorkOrder: data.workOrderHeader.WorkOrder,
-          Plant: data.workOrderHeader.Plant,
-          OrderType: data.workOrderHeader.OrderType,
-          Description: data.workOrderHeader.Description,
-          PlannerGroup: data.workOrderHeader.PlannerGroup,
-          WorkCenter: data.workOrderHeader.WorkCenter,
-          FunctLocation: data.workOrderHeader.FunctLocation,
-          Equipment: data.workOrderHeader.Equipment,
-          /** AddPartItemNav Data  */
-          AddPartItemNav: [addPartData],
-          LogNav: [{}],
-        };
+          var payload = {
+            WorkOrder: data.workOrderHeader.WorkOrder,
+            Plant: data.workOrderHeader.Plant,
+            OrderType: data.workOrderHeader.OrderType,
+            Description: data.workOrderHeader.Description,
+            PlannerGroup: data.workOrderHeader.PlannerGroup,
+            WorkCenter: data.workOrderHeader.WorkCenter,
+            FunctLocation: data.workOrderHeader.FunctLocation,
+            Equipment: data.workOrderHeader.Equipment,
+            /** AddPartItemNav Data  */
+            AddPartItemNav: [addPartData],
+            LogNav: [{}],
+          };
 
-        await CallUtil.callPostData(url, payload);
+          await CallUtil.callPostData(url, payload);
 
-        // partConData.splice(index, 1);
-        this._oDialogAddDel.close();
-        setTimeout(async () => {
-          var filter = "?$filter=WorkOrder eq '" + this.WorkOrderId + "'";
-          var expand = "&$expand=OrdOperationNav,AddPartItemNav";
-          var data = await CallUtil.callGetData(
-            url + filter + expand + "&$format=json"
-          );
-          data = data.d.results[0];
-          this.getAddPartsData(data.AddPartItemNav.results);
-        }, 5000);
+          // partConData.splice(index, 1);
+          this._oDialogAddDel.close();
+          setTimeout(async () => {
+            var filter = "?$filter=WorkOrder eq '" + this.WorkOrderId + "'";
+            var expand = "&$expand=OrdOperationNav,AddPartItemNav";
+            var data = await CallUtil.callGetData(
+              url + filter + expand + "&$format=json"
+            );
+            data = data.d.results[0];
+            this.getAddPartsData(data.AddPartItemNav.results);
+          }, 5000);
         }
       },
-      closeAddPartDelete: function(){
+      closeAddPartDelete: function () {
         this._oDialogAddDel.close();
       },
       handlePartConfirm: async function (oEvent) {
@@ -397,8 +396,13 @@ sap.ui.define(
       onValueHelpSearch: function (oEvent) {
         var sValue = oEvent.getParameter("value");
         var oFilter = new Filter("Part", FilterOperator.Contains, sValue);
+        var oFilter1 = new Filter(
+          "Description",
+          FilterOperator.Contains,
+          sValue
+        );
         var oBinding = oEvent.getParameter("itemsBinding");
-        oBinding.filter([oFilter]);
+        oBinding.filter(new Filter([oFilter, oFilter1], false));
       },
 
       openDelete: function (oEvent) {
@@ -462,9 +466,8 @@ sap.ui.define(
           if (data && data.OrdOperationNav) {
             orderOps = data.OrdOperationNav.results;
           }
-          this.getEquipBOMData(data.EquipBOMItemNav.results,orderOps);
+          this.getEquipBOMData(data.EquipBOMItemNav.results, orderOps);
         }, 5000);
-        
       },
       closeDeleteDialog: function () {
         this._oDialogDel.close();
@@ -551,15 +554,15 @@ sap.ui.define(
             {
               styleClass: "alignCenter",
             };
-            setTimeout(async () => {
-              var filter = "?$filter=WorkOrder eq '" + this.WorkOrderId + "'";
-              var expand = "&$expand=OrdOperationNav,AddPartItemNav";
-              var data = await CallUtil.callGetData(
-                url + filter + expand + "&$format=json"
-              );
-              data = data.d.results[0];
-              this.getAddPartsData(data.AddPartItemNav.results);
-              }, 5000);
+          setTimeout(async () => {
+            var filter = "?$filter=WorkOrder eq '" + this.WorkOrderId + "'";
+            var expand = "&$expand=OrdOperationNav,AddPartItemNav";
+            var data = await CallUtil.callGetData(
+              url + filter + expand + "&$format=json"
+            );
+            data = data.d.results[0];
+            this.getAddPartsData(data.AddPartItemNav.results);
+          }, 5000);
           return;
         }
 
@@ -585,13 +588,13 @@ sap.ui.define(
         // console.log(response);
         // this.localModel.refresh();
         setTimeout(async () => {
-        var filter = "?$filter=WorkOrder eq '" + this.WorkOrderId + "'";
-        var expand = "&$expand=OrdOperationNav,AddPartItemNav";
-        var data = await CallUtil.callGetData(
-          url + filter + expand + "&$format=json"
-        );
-        data = data.d.results[0];
-        this.getAddPartsData(data.AddPartItemNav.results);
+          var filter = "?$filter=WorkOrder eq '" + this.WorkOrderId + "'";
+          var expand = "&$expand=OrdOperationNav,AddPartItemNav";
+          var data = await CallUtil.callGetData(
+            url + filter + expand + "&$format=json"
+          );
+          data = data.d.results[0];
+          this.getAddPartsData(data.AddPartItemNav.results);
         }, 5000);
       },
       onBomItemSel: function (oEvent) {
